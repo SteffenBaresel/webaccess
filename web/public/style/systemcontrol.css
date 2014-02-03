@@ -1,0 +1,282 @@
+/* 
+    Document   : systemcontrol.css
+    Created on : 31.01.2014, 14:55:02
+    Author     : sbaresel
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+@font-face {
+    font-family: SansProLight;
+    src: url(SourceSansPro-Regular.ttf) format("truetype");
+}
+
+body {
+    background-color: #ffffff;
+    font-family: SansProLight;
+    cursor: default;
+}
+
+/* Page Structure Start */
+
+section#menu, section#content, section#bottom, section#content-index {
+    position: absolute;
+    left: 0;
+    right: 0;
+}
+
+section#menu {
+    top: 0;
+    height: 120px;
+    padding: 10px;
+    background-image: url(../images/header.png);
+}
+
+section#content {
+    top: 140px;
+    bottom: 73px;
+    background-color: #423939;
+    padding: 10px;
+}
+
+section#content-index {
+    top: 140px;
+    /*border-bottom: 1px solid #423939;*/
+    bottom: 73px;
+    background-image: url(../images/bg.png);
+    padding: 10px;
+}
+
+section#bottom {
+    bottom: 0px;
+    height: 53px;
+    padding: 10px;
+    background-image: url(../images/bg.png);
+}
+
+section#big-taov {
+    border: 1px solid #423939;
+    height: 200px;
+    top: 120px;
+    margin: 5px;
+    background-color: #fff;
+}
+
+section#user-menu {
+    position: absolute;
+    right: 0;
+    top: 0;
+    left: 0;
+    background-color: #423939;
+    height: 32px;
+}
+
+/* Page Structure End */
+/* Section Menu Start */
+
+div#bg-menu {
+    background-color: #fff;
+    position: absolute;
+    top: 32px;
+    left: 0;
+    width: 540px;
+    height: 100px;
+}
+
+div#bg-user-menu {
+    background-color: #423939;
+    position: absolute;
+    top: 32px;
+    left: 540px;
+    right: 0;
+    height: 100px;
+}
+
+div#logo-title, div#logo-img, div#logo-subtitle {
+    position: absolute;
+}
+
+div#logo-img {
+    left: 25px;
+    top: 47px;
+}
+
+div#logo-title {
+    left: 200px;
+    top: 57px;
+    font-size: 36px;
+    letter-spacing: -2px;
+}
+
+div#logo-title font:last-child {
+    margin-left: 8px; 
+}
+
+div#logo-subtitle {
+    left: 202px;
+    top: 102px;
+    font-size: 12px; 
+    color: #423939;
+}
+
+.logo-red {
+    color: #E5442D;
+}
+
+.logo-blue {
+    color: #004179;
+}
+
+div#menu-locator {
+    position: absolute;
+    right: 13px;
+    top: 105px;
+    height: 25px;
+    width: 300px;
+    text-align: right;
+    font-size: 16px;
+    color: #fff;
+}
+
+/* Section Menu End */
+/* Login Page Start */
+
+div#login-div {
+    position: absolute;
+    top: 50px;
+    right: 50px;
+    border: 1px solid #423939;
+    background-image: url(../images/bg.png);
+    padding: 15px; 
+}
+
+div#login-desc {
+    position: absolute;
+    font-size: 13px;
+    top: 250px;
+    width: 1150px;
+    height: 450px;
+    color: #fff;    
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+div#login-desc span {
+    float: left;
+}
+
+.login-left, .login-center, .login-right {
+    width: 350px;
+    padding: 15px;
+}
+
+.login-small {
+    font-size: 12px; 
+}
+
+div#login-footer {
+    float: right;
+    margin-top: 15px;
+    margin-right: 5px;
+}
+
+div#login-error, div#login-success {
+    font-size: 12px;
+    position: absolute;
+    width: 200px;
+    right: 400px;
+    top: 74px;
+    border: 1px solid #423939;
+}
+
+/* Login Page End */
+/* Jquery Extension Start */
+
+.ui-input-corner-all, .ui-input-corner-all-error {
+    padding-left: 10px; 
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.ui-input-corner-all {
+    border: 1px solid #423939;
+}
+
+.ui-input-corner-all-error {
+    border: 1px solid #E5442D;
+}
+
+.ui-input-hofo {
+    background-color: #fff;
+}
+
+.ui-input-hofo:focus, .ui-input-hofo:hover {
+    -webkit-box-shadow: 0px 0px 2px 0px #423939;
+    -moz-box-shadow: 0px 0px 2px 0px #423939;
+    box-shadow: 0px 0px 2px 0px #423939;
+}
+
+.ui-opacity {   
+    opacity: 0.75;       /* modern browser */  
+    -moz-opacity: 0.75;  /* older Mozilla browser */  
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=75)"; /* IE8 in Standard Compliant Mode */  
+    filter:alpha(opacity=75); /* IE5.x -7.0 */  
+}
+
+.ui-opacity-med {   
+    opacity: 0.4;
+    -moz-opacity: 0.4;
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
+    filter:alpha(opacity=40);
+}
+
+/* Jquery Extension End */
+/* Link tiles Start */
+
+span#ui-tile {
+    
+}
+
+span.ui-tile-150px, span.ui-tile-300px {
+    float: left;
+    margin: 5px;
+    padding: 5px;
+    height: 150px;
+    border: 1px solid #423939;
+    background-color: #fff;
+}
+
+span.ui-tile-150px:hover, span.ui-tile-300px:hover {
+    cursor: pointer;
+}
+
+span.ui-tile-150px {
+    width: 150px;
+}
+
+span.ui-tile-300px {
+    width: 300px;
+}
+
+/* Link tiles End */
+/* Slim Taov Start */
+
+.critical {
+    background-color: #E5442D;
+}
+
+.warning {
+    background-color: orange;
+}
+
+.ok {
+    background-color: green;
+}
+
+.unknown {
+    background-color: purple;
+}
+
+/* Slim Taov End */

@@ -371,7 +371,7 @@ public class Functions {
         Connection cn = ds.getConnection(); 
         Statement st = cn.createStatement(); 
         ResultSet rs  = st.executeQuery("SELECT * FROM info_system where KEY like encode('MAIN_VERSION','base64')");
-        while ( rs.next() ) { 
+        if ( rs.next() ) {
            line = "1";
         }
         
@@ -531,16 +531,16 @@ public class Functions {
         /*
          * Definition Tables
          */
-        st.execute("CREATE TABLE class_hosttypes ( HTYPID SERIAL UNIQUE, HTYPSN varchar(20), HTYPLN varchar(1000), HTYPICON varchar(10) )");
+        st.execute("CREATE TABLE class_hosttypes ( HTYPID SERIAL UNIQUE, HTYPSN varchar(20), HTYPLN varchar(1000), HTYPICON varchar(25) )");
         st.execute("CREATE TABLE monitoring_info_instance ( INSTID BIGSERIAL UNIQUE, INSTNA varchar(1000), IDENTIFIER varchar(10), DSC varchar(10000), LAST_ACTIVE BIGSERIAL, STARTUP BIGSERIAL, PID SMALLINT )");
         st.execute("CREATE TABLE monitoring_info_host ( HSTID BIGSERIAL UNIQUE, HSTSN varchar(250), HSTLN varchar(1000), IPADDR varchar(100), HTYPID integer, DSC varchar(10000), CHECK_PERIOD varchar(50), INSTID BIGSERIAL, UPTIME decimal, AGENT_VERSION varchar(50), OS varchar(25), CREATED BIGSERIAL )");
         st.execute("CREATE TABLE monitoring_info_service ( SRVID BIGSERIAL UNIQUE, HSTID BIGSERIAL, SRVNA varchar(1000), DSC varchar(10000), INSTID BIGSERIAL, CHECK_PERIOD varchar(50), CREATED BIGSERIAL )");
-        st.execute("CREATE TABLE monitoring_oracle_database_info ( DBID BIGSERIAL UNIQUE, HSTID BIGSERIAL, SID varchar(10), TYPE varchar(10), DSC varchar(10000), CHECK_PERIOD varchar(50), CREATED BIGSERIAL )");
+        st.execute("CREATE TABLE monitoring_oracle_database_info ( DBID BIGSERIAL UNIQUE, HSTID BIGSERIAL, SID varchar(10), TYPE varchar(10), DSC varchar(10000), CHECK_PERIOD varchar(50), SRVID BIGSERIAL, CREATED BIGSERIAL )");
         st.execute("CREATE TABLE monitoring_oracle_database_status ( DBSID BIGSERIAL UNIQUE, DBID BIGSERIAL, STATUS varchar(15), BLOCKED varchar(15), LOGINS varchar(15), STARTMODE varchar(15), DATAFILES smallint, CONTROLFILES smallint, REDOLOGFILES smallint, INV_INDIZES smallint, INV_PART smallint, INV_REG_COMP smallint, INV_OBJECTS smallint, SESSION varchar(10), PROCESS varchar(10), BLOCKKORRUPTION smallint, RMANPROBLEMS smallint, CLUSERS smallint, LSESSIONS smallint, WAALERTS smallint, CRALERTS smallint, UNALERTS smallint, REDOLOGSSWITCH decimal, PRTBPS decimal, OCC decimal, DBG decimal, PRTIOR decimal, DBC decimal, PWTBPS decimal, PWTIOR decimal, CPU_ORA varchar(20), WAIT varchar(20), COMMIT varchar(20), CPU_ORA_WAIT varchar(20), CPU_TOTAL varchar(20), READIO varchar(20), CPU_OS varchar(20), CREATED BIGSERIAL )");
         st.execute("CREATE TABLE monitoring_oracle_database_status_history ( DBSHID BIGSERIAL UNIQUE, DBID BIGSERIAL, STATUS varchar(15), BLOCKED varchar(15), LOGINS varchar(15), STARTMODE varchar(15), DATAFILES smallint, CONTROLFILES smallint, REDOLOGFILES smallint, INV_INDIZES smallint, INV_PART smallint, INV_REG_COMP smallint, INV_OBJECTS smallint, SESSION varchar(10), PROCESS varchar(10), BLOCKKORRUPTION smallint, RMANPROBLEMS smallint, CLUSERS smallint, LSESSIONS smallint, WAALERTS smallint, CRALERTS smallint, UNALERTS smallint, REDOLOGSSWITCH decimal, PRTBPS decimal, OCC decimal, DBG decimal, PRTIOR decimal, DBC decimal, PWTBPS decimal, PWTIOR decimal, CPU_ORA varchar(20), WAIT varchar(20), COMMIT varchar(20), CPU_ORA_WAIT varchar(20), CPU_TOTAL varchar(20), READIO varchar(20), CPU_OS varchar(20), CREATED BIGSERIAL )");
         st.execute("CREATE TABLE monitoring_oracle_database_tablespace ( DBTSID BIGSERIAL UNIQUE, DBID BIGSERIAL, TSNA varchar(25), TSSTATE varchar(25), TSUSAGE varchar(25), TSSIZE varchar(25), TSMAXSIZE varchar(25), TSFRAG varchar(25), CREATED BIGSERIAL)");
         st.execute("CREATE TABLE monitoring_oracle_database_fra ( FRAID BIGSERIAL UNIQUE, DBID BIGSERIAL, PATH varchar(150), SIZE varchar(25), USAGE varchar(25), REC varchar(25), FILES varchar(25), CREATED BIGSERIAL)");
-        st.execute("CREATE TABLE monitoring_oracle_middleware_info ( MWID BIGSERIAL UNIQUE, HSTID BIGSERIAL, TYPE varchar(25), PORT varchar(15), DSC varchar(10000), CHECK_PERIOD varchar(50), CREATED BIGSERIAL )");
+        st.execute("CREATE TABLE monitoring_oracle_middleware_info ( MWID BIGSERIAL UNIQUE, HSTID BIGSERIAL, TYPE varchar(25), PORT varchar(15), DSC varchar(10000), CHECK_PERIOD varchar(50), SRVID bigserial, CREATED BIGSERIAL )");
         st.execute("CREATE TABLE monitoring_oracle_middleware_status ( MWSID BIGSERIAL UNIQUE, MWID BIGSERIAL, TYPE varchar(25), MODE varchar(25), NAME varchar(50), STATUS varchar(50), CREATED BIGSERIAL )");
         st.execute("CREATE TABLE monitoring_oracle_middleware_status_history ( MWSHID BIGSERIAL UNIQUE, MWID BIGSERIAL, TYPE varchar(25), MODE varchar(25), NAME varchar(50), STATUS varchar(50), CREATED BIGSERIAL )");
         st.execute("CREATE TABLE monitoring_host_contract_mapping ( HSTID BIGSERIAL, CCID BIGSERIAL )");
@@ -550,6 +550,7 @@ public class Functions {
         st.execute("CREATE TABLE monitoring_status ( SID BIGSERIAL UNIQUE, SRVID BIGSERIAL, APPID BiGSERIAL, OUTPUT varchar(100000), LONG_OUTPUT varchar(100000), CURRENT_STATE smallint, LAST_STATE smallint, LAST_CHECK BIGSERIAL, NEXT_CHECK BIGSERIAL, LAST_TIME_OK BIGSERIAL, LAST_TIME_WA BIGSERIAL, LAST_TIME_CR BIGSERIAL, LAST_TIME_UN BIGSERIAL, PERCENT_STATE_CHANGE smallint, CREATED BIGSERIAL )");
         st.execute("CREATE TABLE monitoring_status_history ( SHID BIGSERIAL UNIQUE, SRVID BIGSERIAL, APPID BiGSERIAL, OUTPUT varchar(100000), LONG_OUTPUT varchar(100000), CURRENT_STATE smallint, LAST_STATE smallint, CREATED BIGSERIAL )");
         st.execute("CREATE TABLE monitoring_task ( TID BIGSERIAL UNIQUE, TYPE smallint, TARGET smallint, ERROR smallint, DONE BOOLEAN, INSTID BIGSERIAL )");
+        st.execute("CREATE TABLE monitoring_state_change ( SCID BIGSERIAL, HSTID BIGSERIAL, SRVID BIGSERIAL, STATE SERIAL, LAST_STATE SERIAL, OUTPUT varchar(100000), NEW_PROBLEM SERIAL, MAIL SERIAL, CREATED BIGSERIAL )");
         
         /*
          * Close Connection
@@ -570,34 +571,34 @@ public class Functions {
          * Default info
          */
         
-        st.execute("INSERT INTO class_hosttypes (HTYPSN,HTYPLN,HTYPICON) VALUES ('HOST','Einfacher, nicht klassifizierter Host','ho')");
-        st.execute("INSERT INTO class_hosttypes (HTYPSN,HTYPLN,HTYPICON) VALUES ('KDBS','kVASy(R) Datenbank-Server','db')");
-        st.execute("INSERT INTO class_hosttypes (HTYPSN,HTYPLN,HTYPICON) VALUES ('KFRS','kVASy(R) Forms/Reports WebLogic Server','fr')");
-        st.execute("INSERT INTO class_hosttypes (HTYPSN,HTYPLN,HTYPICON) VALUES ('KSBS','kVASy(R) SOA/BAM Server','sb')");
-        st.execute("INSERT INTO class_hosttypes (HTYPSN,HTYPLN,HTYPICON) VALUES ('KIAS','kVASy(R) Application Server','fr')");
+        st.execute("INSERT INTO class_hosttypes (HTYPSN,HTYPLN,HTYPICON) VALUES ('HOST','Einfacher, nicht klassifizierter Host','server')");
+        st.execute("INSERT INTO class_hosttypes (HTYPSN,HTYPLN,HTYPICON) VALUES ('KDBS','kVASy(R) Datenbank-Server','database')");
+        st.execute("INSERT INTO class_hosttypes (HTYPSN,HTYPLN,HTYPICON) VALUES ('KFRS','kVASy(R) Forms/Reports WebLogic Server','layers')");
+        st.execute("INSERT INTO class_hosttypes (HTYPSN,HTYPLN,HTYPICON) VALUES ('KSBS','kVASy(R) SOA/BAM Server','soabam')");
+        st.execute("INSERT INTO class_hosttypes (HTYPSN,HTYPLN,HTYPICON) VALUES ('KIAS','kVASy(R) Application Server','layers')");
         st.execute("INSERT INTO class_hosttypes (HTYPSN,HTYPLN,HTYPICON) VALUES ('KBIS','kVASy(R) Business Intelligence Server','bi')");
-        st.execute("INSERT INTO class_hosttypes (HTYPSN,HTYPLN,HTYPICON) VALUES ('KDHS','kVASy(R) Data Ware House Datenbank Server','db')");
-        st.execute("INSERT INTO class_hosttypes (HTYPSN,HTYPLN,HTYPICON) VALUES ('KEYS','kVASy(R) Easy Archiv Server','ea')");
-        st.execute("INSERT INTO class_hosttypes (HTYPSN,HTYPLN,HTYPICON) VALUES ('KWSV','kVASy(R) WebService','ws')");
-        st.execute("INSERT INTO class_hosttypes (HTYPSN,HTYPLN,HTYPICON) VALUES ('KKPS','kVASy(R) Kundenportal','cp')");
-        st.execute("INSERT INTO class_hosttypes (HTYPSN,HTYPLN,HTYPICON) VALUES ('ORDS','Oracle Datenbank Server','db')");
-        st.execute("INSERT INTO class_hosttypes (HTYPSN,HTYPLN,HTYPICON) VALUES ('MYDS','MySql Datenbank Server','db')");
-        st.execute("INSERT INTO class_hosttypes (HTYPSN,HTYPLN,HTYPICON) VALUES ('MSDS','MSSql Datenbank Server','db')");
-        st.execute("INSERT INTO class_hosttypes (HTYPSN,HTYPLN,HTYPICON) VALUES ('DB2S','DB2 Datenbank Server','db')");
-        st.execute("INSERT INTO class_hosttypes (HTYPSN,HTYPLN,HTYPICON) VALUES ('PGDS','PostgreSQL Datenbank Server','db')");
-        st.execute("INSERT INTO class_hosttypes (HTYPSN,HTYPLN,HTYPICON) VALUES ('BAKS','Backupserver','bk')");
-        st.execute("INSERT INTO class_hosttypes (HTYPSN,HTYPLN,HTYPICON) VALUES ('PRGV','Progov - Mail Signature und Verschlüsselung','pg')");
-        st.execute("INSERT INTO class_hosttypes (HTYPSN,HTYPLN,HTYPICON) VALUES ('HTTP','Webserver','ht')");
-        st.execute("INSERT INTO class_hosttypes (HTYPSN,HTYPLN,HTYPICON) VALUES ('DRSE','Druckserver','ds')");
-        st.execute("INSERT INTO class_hosttypes (HTYPSN,HTYPLN,HTYPICON) VALUES ('LOAD','Loadbalancer','ht')");
-        st.execute("INSERT INTO class_hosttypes (HTYPSN,HTYPLN,HTYPICON) VALUES ('DNSS','DNS Server','ho')");
-        st.execute("INSERT INTO class_hosttypes (HTYPSN,HTYPLN,HTYPICON) VALUES ('LDAP','LDAP Server','ho')");
-        st.execute("INSERT INTO class_hosttypes (HTYPSN,HTYPLN,HTYPICON) VALUES ('FSRV','Fileserver','ho')");
-        st.execute("INSERT INTO class_hosttypes (HTYPSN,HTYPLN,HTYPICON) VALUES ('ADSE','AD Server','ho')");
-        st.execute("INSERT INTO class_hosttypes (HTYPSN,HTYPLN,HTYPICON) VALUES ('MAIL','Mail Server','pg')");
-        st.execute("INSERT INTO class_hosttypes (HTYPSN,HTYPLN,HTYPICON) VALUES ('WBSE','WebService','ws')");
-        st.execute("INSERT INTO class_hosttypes (HTYPSN,HTYPLN,HTYPICON) VALUES ('PRSE','Proxy Server','ho')");
-        st.execute("INSERT INTO class_hosttypes (HTYPSN,HTYPLN,HTYPICON) VALUES ('FIWA','Firewall','ho')");
+        st.execute("INSERT INTO class_hosttypes (HTYPSN,HTYPLN,HTYPICON) VALUES ('KDHS','kVASy(R) Data Ware House Datenbank Server','database')");
+        st.execute("INSERT INTO class_hosttypes (HTYPSN,HTYPLN,HTYPICON) VALUES ('KEYS','kVASy(R) Easy Archiv Server','archiv')");
+        st.execute("INSERT INTO class_hosttypes (HTYPSN,HTYPLN,HTYPICON) VALUES ('KWSV','kVASy(R) WebService','webservice')");
+        st.execute("INSERT INTO class_hosttypes (HTYPSN,HTYPLN,HTYPICON) VALUES ('KKPS','kVASy(R) Kundenportal','internet')");
+        st.execute("INSERT INTO class_hosttypes (HTYPSN,HTYPLN,HTYPICON) VALUES ('ORDS','Oracle Datenbank Server','database')");
+        st.execute("INSERT INTO class_hosttypes (HTYPSN,HTYPLN,HTYPICON) VALUES ('MYDS','MySql Datenbank Server','database')");
+        st.execute("INSERT INTO class_hosttypes (HTYPSN,HTYPLN,HTYPICON) VALUES ('MSDS','MSSql Datenbank Server','database')");
+        st.execute("INSERT INTO class_hosttypes (HTYPSN,HTYPLN,HTYPICON) VALUES ('DB2S','DB2 Datenbank Server','database')");
+        st.execute("INSERT INTO class_hosttypes (HTYPSN,HTYPLN,HTYPICON) VALUES ('PGDS','PostgreSQL Datenbank Server','database')");
+        st.execute("INSERT INTO class_hosttypes (HTYPSN,HTYPLN,HTYPICON) VALUES ('BAKS','Backupserver','backup')");
+        st.execute("INSERT INTO class_hosttypes (HTYPSN,HTYPLN,HTYPICON) VALUES ('PRGV','Progov - Mail Signature und Verschlüsselung','mail')");
+        st.execute("INSERT INTO class_hosttypes (HTYPSN,HTYPLN,HTYPICON) VALUES ('HTTP','Webserver','internet')");
+        st.execute("INSERT INTO class_hosttypes (HTYPSN,HTYPLN,HTYPICON) VALUES ('DRSE','Druckserver','magazine')");
+        st.execute("INSERT INTO class_hosttypes (HTYPSN,HTYPLN,HTYPICON) VALUES ('LOAD','Loadbalancer','loadbalancer')");
+        st.execute("INSERT INTO class_hosttypes (HTYPSN,HTYPLN,HTYPICON) VALUES ('DNSS','DNS Server','server')");
+        st.execute("INSERT INTO class_hosttypes (HTYPSN,HTYPLN,HTYPICON) VALUES ('LDAP','LDAP Server','server')");
+        st.execute("INSERT INTO class_hosttypes (HTYPSN,HTYPLN,HTYPICON) VALUES ('FSRV','Fileserver','server')");
+        st.execute("INSERT INTO class_hosttypes (HTYPSN,HTYPLN,HTYPICON) VALUES ('ADSE','AD Server','server')");
+        st.execute("INSERT INTO class_hosttypes (HTYPSN,HTYPLN,HTYPICON) VALUES ('MAIL','Mail Server','mail')");
+        st.execute("INSERT INTO class_hosttypes (HTYPSN,HTYPLN,HTYPICON) VALUES ('WBSE','WebService','webservice')");
+        st.execute("INSERT INTO class_hosttypes (HTYPSN,HTYPLN,HTYPICON) VALUES ('PRSE','Proxy Server','collapse')");
+        st.execute("INSERT INTO class_hosttypes (HTYPSN,HTYPLN,HTYPICON) VALUES ('FIWA','Firewall','collapse')");
         
         /*
          * Close Connection
@@ -636,6 +637,7 @@ public class Functions {
         st.execute("DROP TABLE monitoring_status CASCADE");
         st.execute("DROP TABLE monitoring_status_history CASCADE");
         st.execute("DROP TABLE monitoring_task CASCADE");
+        st.execute("DROP TABLE monitoring_state_change CASCADE");
         
         /*
          * Close Connection

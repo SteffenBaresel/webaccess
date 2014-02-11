@@ -4,7 +4,7 @@
  */
 package de.siv.systemcontrol;
 
-import de.siv.modules.Functions;
+import de.siv.modules.Executions;
 import de.siv.web.Html;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -29,7 +29,7 @@ public class Logout extends HttpServlet {
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //try {
+        try {
             String Uid = request.getRemoteUser();
             HttpSession session = request.getSession();
             PrintWriter out = response.getWriter(); 
@@ -50,6 +50,8 @@ public class Logout extends HttpServlet {
                 + "    $('input.login-button').button();\n"
                 + "    $('input.login-input').addClass('ui-input-corner-all');\n"
                 + "    $('input').addClass('ui-input-hofo');\n"
+                + "    $.cookie('liveticker-length',0);\n"
+                + "    $.cookie('liveticker-count',0);\n"
                 + "});\n"
                 + "</script>\n"
                 + "");
@@ -84,15 +86,15 @@ public class Logout extends HttpServlet {
                 + "");
             out.println(Html.printSectionBottom(null));
             out.println(Html.closeBodyCloseHtml(null));
-            //Functions.UpdateUserIsLoggedOut(Uid);
+            Executions.UpdateUserIsLoggedOut(Uid);
             session.invalidate();
-        /*} catch (FileNotFoundException ex) {
+        } catch (FileNotFoundException ex) {
             Logger.getLogger(Logout.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NamingException ex) {
             Logger.getLogger(Logout.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(Logout.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+        }
     }
     
     @Override

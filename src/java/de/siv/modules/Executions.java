@@ -22,7 +22,7 @@ import javax.sql.DataSource;
  *
  * @author sbaresel
  */
-public class Functions {
+public class Executions {
     static Properties props = null;
     
     static public Boolean UserExist(String Uid) throws FileNotFoundException, IOException, NamingException, SQLException {

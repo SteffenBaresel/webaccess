@@ -4,7 +4,7 @@
  */
 package de.siv.systemcontrol;
 
-import de.siv.modules.Functions;
+import de.siv.modules.Executions;
 import de.siv.web.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -30,9 +30,9 @@ public class ManagedServices extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response, String Uid)
             throws ServletException, IOException {
         try {
-            if (Functions.UserExist(Uid)) {
-                Functions.UpdateLastLogin(Uid);
-                Functions.UpdateUserIsLoggedIn(Uid);
+            if (Executions.UserExist(Uid)) {
+                Executions.UpdateLastLogin(Uid);
+                Executions.UpdateUserIsLoggedIn(Uid);
                 String b64uid = Base64Coder.encodeString(Uid);
                 HttpSession session = request.getSession();
                 PrintWriter out = response.getWriter();
@@ -43,122 +43,61 @@ public class ManagedServices extends HttpServlet {
                 out.println(Html.openHtmlAndHead(null));
                 out.println(Html.includeMeta(null));
                 out.println("    <title>Managed Services - kVASy&reg; System Control</title>");
-                out.println(Html.includeJs("ManagedService"));
-                out.println(Html.includeCss("ManagedService"));
-                out.println("             <script>\n" +
-        "                $(function() {\n" +
-        "                    jQuery.support.cors = true;\n" +
-        "                    Top('" + Uid + "');" +
-        "                    GetUserConfig();\n" +
-        "                    StyleManagedServices();\n" +
-        "                    MenuSidebar();\n" +
-        "                    GetServiceEntry('0','75','1');\n" +
-        "                    KlickFunctionMenuSidebar();\n" +
-        "                    SummaryView('" + Uid + "');\n" +
-        "                    Liveticker('" + Uid + "');\n" +
-        "                    SlimTaov('" + Uid + "');\n" +
-        "                    ShowAllComments('" + Uid + "');\n" +
-        "                    ModShowCritical('" + Uid + "');\n" +
-        "                });\n" +
-        "            </script>\n");
-                out.println(Html.printTopMenu("mod",Uid));
+                out.println(Html.includeJs("ManagedServices"));
+                out.println(Html.includeCss("ManagedServices"));
+                out.println(""
+                        + "<script>\n"
+                        + "$(function() {\n"
+                        + "    jQuery.support.cors = true;\n"
+                        + "    GetUserConfig();\n"
+                        + "    $('div#menu-locator').html('<div class=\"ui-user-menu\"><span style=\"float: right\" >Managed Services</span><span style=\"float: right; margin-top: 2px;\" class=\"ui-icon ui-icon-triangle-1-e\"></span><span style=\"float: right; cursor: pointer;\" onclick=\"OpenWindow(\\'/webaccess/\\',\\'_self\\');\">Home</span></div>');\n"
+                        + "    $('input').addClass('ui-input-hofo');\n"
+                        + "    $('span#ui-tile').addClass('ui-input-hofo');\n"
+                        + "    SummaryView();\n"
+                        + "    SidebarBottom();\n"
+                        + "    StyleManagedServices();\n"
+                        + "    MenuSidebar();\n"
+                        + "    GetServiceEntry('0','75','1');\n"
+                        + "");
+                        
+                if (Executions.UserMailEmpty(Uid)) {
+                            out.println("    alert('Eine Mailadresse für Nutzer \"" + Uid + "\" ist noch nicht hinterlegt. Sie werden automatisch weitergeleitet.');\n"
+                                    + "    UserProfile('" + Base64Coder.encodeString(Uid) + "');");
+                }
                 
-                out.println("" +
-                        "                    <div id=\"StatusSummary\">\n" +
-                        "                        <div id=\"HostStatusSummaryHead\"><span style=\"float: left;\">Hosts</span><span style=\"float: left; margin-top: -1px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></div>\n" +
-                        "                        <div id=\"HostStatusSummary\"><div id=\"HostStatusSummaryContent\"></div></div>\n" +
-                        "                        <div id=\"ServiceStatusSummaryHead\"><span style=\"float: left;\">Services</span><span style=\"float: left; margin-top: -1px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></div>\n" +
-                        "                        <div id=\"ServiceStatusSummary\"><div id=\"ServiceStatusSummaryContent\"></div></div>\n" +
-                        "                    </div>" +
-                        "");
+                out.println("});\n"
+                        + "</script>\n"
+                        + "");
+                out.println(Html.closeHeadOpenBody(null));
+                out.println(Html.printSectionMenu(Uid,"ManagedService"));
+        
+                if(Executions.UserIsPermitted(Uid,"managed_services")) {
                 
-                if(Functions.UserIsPermitted(Uid,"managed_services")) {
-                    
-                    out.println("<div id='MenuSidebarSmall'></div><div id='MenuSidebar'><div id='MenuSidebarContent'>\n");
-                    
-                
-                    out.println("        <div id='MenuSidebarManagedServiceMenus'><div id='MS_CustActions'>\n");
-                
-                    out.println("<div class='UserDesc'>Servicearbeiten</div>\n");
-                
-                    out.println("<div id='MS_srv'>");
-                
-                    if(Functions.UserIsPermitted(Uid,"managed_services_csw")) {
-                        out.println("<a href='#' class='icon' onclick=\"CreateServiceEntry()\" title='Servicearbeiten eintragen'><img src='layout/images/white/add.png' alt='Konfiguraion' width='50' height='50'></a>");
-                    }
-                
-                    out.println("</div>");
-                    
-                    out.println("<div class='UserDesc'>Kundeninfo</div>");
-                
-                    out.println("<div id='MS_cc'>");
-                
-                    if(Functions.UserIsPermitted(Uid,"managed_services_nka")) {
-                        out.println("<a href='#' class='icon' onclick=\"CreateCustomer();\" title='Neuen Kunden anlegen'><img src='layout/images/white/add.png' alt='Konfiguraion' width='50' height='50'></a>");
-                    }
-                    
-                    if(Functions.UserIsPermitted(Uid,"managed_services_kb")) {
-                        out.println("<a href='#' class='icon' onclick=\"EditCustomer();\" title='Kunden bearbeiten'><img src='layout/images/white/edit.png' alt='Konfiguraion' width='50' height='50'></a>");
-                    } 
-                    
-                    if(Functions.UserIsPermitted(Uid,"managed_services_kl")) {
-                        out.println("<a href='#' class='icon' onclick=\"DeleteCustomer();\" title='Kunden l&ouml;schen'><img src='layout/images/white/delete.png' alt='Konfiguraion' width='50' height='50'></a>");
-                    } 
-                    
-                    out.println("</div>");
-                    
-                    out.println("<div class='UserDesc'>Vertragstypen</div>");
-                
-                    out.println("<div id='MS_vt'>");
-                
-                    if(Functions.UserIsPermitted(Uid,"managed_services_vae")) {
-                        out.println("<a href='#' class='icon' onclick=\"CreateContractType();\" title='Neuer Vertragstyp'><img src='layout/images/white/add.png' alt='Konfiguraion' width='50' height='50'></a>");
-                    }
-                    
-                    if(Functions.UserIsPermitted(Uid,"managed_services_vab")) {
-                        out.println("<a href='#' class='icon' onclick=\"EditContractType();\" title='Vertragstyp bearbeiten'><img src='layout/images/white/edit.png' alt='Konfiguraion' width='50' height='50'></a>");
-                    } 
-                    
-                    if(Functions.UserIsPermitted(Uid,"managed_services_val")) {
-                        out.println("<a href='#' class='icon' onclick=\"DeleteContractType();\" title='Vertragstyp l&ouml;schen'><img src='layout/images/white/delete.png' alt='Konfiguraion' width='50' height='50'></a>");
-                    } 
-                
-                    out.println("</div>");
-                    
-                    out.println("        </div><div id='MSDialog'></div><div id='MSDialogSuccess'></div>");
-                    
-                    out.println("</div></div></div>");
-                    
                     out.println("        <div id='ManagedServiceMenus'>");
                     
-                    if(Functions.UserIsPermitted(Uid,"managed_services_wili")) {
+                    if(Executions.UserIsPermitted(Uid,"managed_services_wili")) {
                         out.println("<script type='text/javascript'>$(function() { WhoIsLoggedIn(); });</script>");
-                        out.println("<div id='WhosLoggedInH'><span id='WLI_Head'>Wer ist noch angemeldet?</span></div>");
+                        out.println("<div id='WhosLoggedInH'><span style=\"float: left;\" id='WLI_Head'>Wer ist noch angemeldet</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></div>");
                         out.println("<div id='WhosLoggedIn'><span id='WLI_Cont'></span></div>");
                     }
                     
                     out.println("        </div>");
                     
-                    if(Functions.UserIsPermitted(Uid,"managed_services_csr")) {
+                    if(Executions.UserIsPermitted(Uid,"managed_services_csr")) {
                         out.println("<div id='ManagedServiceActionsPage'></div><div id='ManagedServiceActions'></div>");
                     }
                     
-                    if(Functions.UserIsPermitted(Uid,"managed_services_ki")) {
+                    if(Executions.UserIsPermitted(Uid,"managed_services_ki")) {
                         out.println("<script type='text/javascript'>$(function() { CustomerInfo(); });</script>");
-                        out.println("<div id='ManagedServiceInfosH'><span id='MSI_Head'>Kundeninformationen</span></div>");
+                        out.println("<div id='ManagedServiceInfosH'><span style=\"float: left;\" id='MSI_Head'>Kundeninformationen</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></div>");
                         out.println("<div id='ManagedServiceInfos'><div id='MSI_Cont'></div></div><div id='MSIDialog'></div>");
                     }
                  
                 }
-            
-                if(Functions.UserIsPermitted(Uid,"sidebar")) {
-                    out.println(Html.printSidebar(null));
-                }
-                    
-                if(Functions.UserIsPermitted(Uid,"bottombar")) {
-                    out.println(Html.printBottombar(null));
-                }
-            
+                
+                out.println(Html.printSectionBottom(null));
+                out.println(Html.printSidebar(null));
+                out.println(Html.printBottombar(null));
                 out.println(Html.closeBodyCloseHtml(null));
             }
         } catch (FileNotFoundException ex) {

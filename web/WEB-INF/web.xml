@@ -217,4 +217,50 @@
         <servlet-name>Logout</servlet-name>
         <url-pattern>/logout</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>UserBasicsScript</servlet-name>
+        <servlet-class>de.siv.script.UserBasics</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserBasicsScript</servlet-name>
+        <url-pattern>/script/UserBasics.js</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>TacticalOverview</servlet-name>
+        <servlet-class>de.siv.script.TacticalOverview</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TacticalOverview</servlet-name>
+        <url-pattern>/script/TacticalOverview.js</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>UserProfile</servlet-name>
+        <servlet-class>de.siv.script.UserProfile</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserProfile</servlet-name>
+        <url-pattern>/script/UserProfile.js</url-pattern>
+    </servlet-mapping>
+    
+    <!--
+        Modules
+    -->
+    
+    <servlet>
+        <servlet-name>ManagedServices</servlet-name>
+        <servlet-class>de.siv.systemcontrol.ManagedServices</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ManagedServices</servlet-name>
+        <url-pattern>/ManagedServices</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>ManagedServiceBasics</servlet-name>
+        <servlet-class>de.siv.script.ManagedServiceBasics</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ManagedServiceBasics</servlet-name>
+        <url-pattern>/script/ManagedServiceBasics.js</url-pattern>
+    </servlet-mapping>
+    
 </web-app>

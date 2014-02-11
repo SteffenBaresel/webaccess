@@ -13,7 +13,7 @@
         <meta name="author" content="Steffen Baresel">
 	<meta name="description" content="WebInstaller">
 	<title>WebAdmin</title>
-        <script type="text/javascript" src="../public/script/jquery-1.10.2.js"></script>
+        <script type="text/javascript" src="../public/script/jquery-1.8.2.min.js"></script>
         <script type="text/javascript" src="../public/script/jquery-ui-1.10.4.custom.min.js"></script>
         <script type="text/javascript" src="script/WebInstaller.js"></script>
         <link rel='stylesheet' href='../public/style/jquery-ui-1.10.4.custom.css' />

@@ -4,6 +4,14 @@
  */
 package de.siv.web;
 
+import de.siv.modules.Executions;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.NamingException;
+
 /**
  *
  * @author sbaresel
@@ -36,8 +44,30 @@ public class Html {
     }
     
     static public String includeJs(String mod) {
-        String replace = "    <script type='text/javascript' src='public/script/jquery-1.10.2.js'></script>\n";
+        String replace = "    <script type='text/javascript' src='public/script/jquery-1.8.2.min.js'></script>\n";
         replace+="    <script type='text/javascript' src='public/script/jquery-ui-1.10.4.custom.min.js'></script>\n";
+        replace+="    <script type='text/javascript' src='public/script/jquery.shortcuts.min.js'></script>\n";
+        replace+="    <script type='text/javascript' src='public/script/base64.js'></script>\n";
+        replace+="    <script type='text/javascript' src='public/script/jquery.cookie.js'></script>\n";
+        
+        if(mod.equals("Index")) {
+            replace+="    <script type='text/javascript' src='public/script/basics.js'></script>\n";
+            replace+="    <script type='text/javascript' src='script/UserBasics.js'></script>\n";
+            replace+="    <script type='text/javascript' src='script/UserProfile.js'></script>\n";
+            replace+="    <script type='text/javascript' src='public/script/jquery-te-1.4.0.min.js'></script>\n";
+            replace+="    <script type='text/javascript' src='script/TacticalOverview.js'></script>\n";
+            replace+="    <script type='text/javascript' src='public/script/charting.js'></script>\n";
+            replace+="    <script type='text/javascript' src='public/script/charts.js'></script>\n";
+        } else if (mod.equals("ManagedServices")) {
+            replace+="    <script type='text/javascript' src='public/script/basics.js'></script>\n";
+            replace+="    <script type='text/javascript' src='script/ManagedServiceBasics.js'></script>\n";
+            replace+="    <script type='text/javascript' src='script/UserProfile.js'></script>\n";
+            replace+="    <script type='text/javascript' src='public/script/jquery-te-1.4.0.min.js'></script>\n";
+            replace+="    <script type='text/javascript' src='script/TacticalOverview.js'></script>\n";
+            replace+="    <script type='text/javascript' src='public/script/charting.js'></script>\n";
+            replace+="    <script type='text/javascript' src='public/script/charts.js'></script>\n";
+            replace+="    <script type='text/javascript' src='public/script/jquery.simplePagination.js'></script>\n";
+        }
         
         return replace;
     }
@@ -45,11 +75,12 @@ public class Html {
     static public String includeCss(String mod) {
         String replace = "    <link rel='stylesheet' href='public/style/jquery-ui-1.10.4.custom.css' />\n";
         replace+="    <link rel='stylesheet' href='public/style/systemcontrol.css' />\n";
+        replace+="    <link rel='stylesheet' href='public/style/jquery-te-1.4.0.css' />\n";
               
         return replace;
     }
     
-    static public String printSectionMenu(String uid,String mod) {
+    static public String printSectionMenu(String uid,String mod) throws FileNotFoundException, IOException, NamingException, SQLException {
         String replace = ""
                 + "<section id='menu'><div id='bg-menu' class='ui-opacity'></div><div id='bg-user-menu' class='ui-opacity-med'></div>"
                 + "    <div id='logo-title'>"
@@ -65,9 +96,73 @@ public class Html {
                 + "    </div>"
                 + "</section>";
         
-            if(mod.equals("Index")) {
-                replace += "<section id='user-menu'></section>";
+            if(mod.equals("Index") || mod.equals("ManagedService")) {
+                
+                replace += "<section id='user-menu'><div id='UserMenu' class='ui-user-menu'><span class='login_username' style='float: left'></span>";
+                
+                if(Executions.UserIsPermitted(uid,"profile")) {
+                    replace += "<span title='Edit' style='float: left; margin-top: 1px; cursor: pointer;' class='ui-icon ui-icon-wrench' onclick=\"UserProfile('" + Base64Coder.encodeString(uid) + "');\"></span>";
+                }
+                
+                replace += "<a href='logout'><span title='Logout' style='float: left; margin-top: 1px;' class='ui-icon ui-icon-power'></span></a></div></section><section id='user-picture'><img id='UserProfileConfig' src='public/images/DefaultProfile.png' /></section>";
+                
+                
+                if(mod.equals("ManagedService")) {
+                    if(Executions.UserIsPermitted(uid,"managed_services")) {
+                    
+                        replace += "<div id='MenuSidebarSmall'></div><div id='MenuSidebar'><div id='MenuSidebarContent'>\n";
+                        replace += "        <div id='MenuSidebarManagedServiceMenus'><div id='MS_CustActions'>\n";
+                        replace += "<div class='UserDesc'><span style=\"float: left;\">Arbeiten</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></div><br>\n";
+                        replace += "<div id='MS_srv'>";
+                
+                        if(Executions.UserIsPermitted(uid,"managed_services_csw")) {
+                            replace += "<span class='icon ui-input-hofo' onclick=\"CreateServiceEntry()\" title='Servicearbeiten eintragen'><img src='public/images/add.png' alt='Add' width='50' height='50'></span>";
+                        }
+                
+                        replace += "</div>";
+                        replace += "<div class='UserDesc'><span style=\"float: left;\">Kundeninfo</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></div><br>";
+                        replace += "<div id='MS_cc'>";
+                
+                        if(Executions.UserIsPermitted(uid,"managed_services_nka")) {
+                            replace += "<span class='icon ui-input-hofo' onclick=\"CreateCustomer();\" title='Neuen Kunden anlegen'><img src='public/images/add.png' alt='Add' width='50' height='50'></span>";
+                        }
+                    
+                        if(Executions.UserIsPermitted(uid,"managed_services_kb")) {
+                            replace += "<span class='icon ui-input-hofo' onclick=\"EditCustomer();\" title='Kunden bearbeiten'><img src='public/images/edit.png' alt='Edit' width='50' height='50'></span>";
+                        } 
+                    
+                        if(Executions.UserIsPermitted(uid,"managed_services_kl")) {
+                            replace += "<span class='icon ui-input-hofo' onclick=\"DeleteCustomer();\" title='Kunden l&ouml;schen'><img src='public/images/delete.png' alt='Delete' width='50' height='50'></span>";
+                        } 
+                    
+                        replace += "</div>";
+                        replace += "<div class='UserDesc'><span style=\"float: left;\">Vertragstypen</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></div><br>";
+                        replace += "<div id='MS_vt'>";
+                
+                        if(Executions.UserIsPermitted(uid,"managed_services_vae")) {
+                            replace += "<span class='icon ui-input-hofo' onclick=\"CreateContractType();\" title='Neuer Vertragstyp'><img src='public/images/add.png' alt='Add' width='50' height='50'></span>";
+                        }
+                    
+                        if(Executions.UserIsPermitted(uid,"managed_services_vab")) {
+                            replace += "<span class='icon ui-input-hofo' onclick=\"EditContractType();\" title='Vertragstyp bearbeiten'><img src='public/images/edit.png' alt='Edit' width='50' height='50'></span>";
+                        } 
+                    
+                        if(Executions.UserIsPermitted(uid,"managed_services_val")) {
+                            replace += "<span class='icon ui-input-hofo' onclick=\"DeleteContractType();\" title='Vertragstyp l&ouml;schen'><img src='public/images/delete.png' alt='Delete' width='50' height='50'></span>";
+                        }
+                
+                        replace += "</div>";
+                        replace += "        </div><div id='MSDialog'></div><div id='MSDialogSuccess'></div>";
+                        replace += "</div></div></div>";
+                    }
+                }
+                
                 replace += "<section id='content-index'>";
+                    
+                if(Executions.UserIsPermitted(uid,"liveticker")) {
+                    replace += "<section id='big-taov'></section>";
+                }
+                    
             } else {
                 replace += "<section id='content'>";
             }
@@ -80,6 +175,7 @@ public class Html {
     static public String printSectionBottom(String uid) {
         String replace = ""
                 + "</section>"
+                + "<div id='Dialog'></div><div id='LiveDialog'></div>"
                 + "<section id='bottom'>"
                 + "</section>"
                 + "";
@@ -134,19 +230,19 @@ public class Html {
         replace+="                <table id='TPie' cellpadding='0' cellspacing='0' border='0'>\n";
         replace+="                    <tr>\n";
         replace+="                        <td>\n";
-        replace+="                            <div id='HeaderHostPie'>Host Status &Uuml;bersicht</div>\n";
+        replace+="                            <div id='HeaderHostPie'><span style=\"float: left;\">Host Status &Uuml;bersicht</span><span style=\"float: left; margin-top: -1px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></div>\n";
         replace+="                            <div id='HostPie'></div>\n";
         replace+="                        </td>\n";
         replace+="                        <td>\n";
         replace+="                            <div id='HostPer'></div>\n";
         replace+="                        </td>\n";
-        replace+="                        <td>\n";
+        /*replace+="                        <td>\n";
         replace+="                            <div id='HeadComments'>Letzte Kommentare</div>\n";
         replace+="                            <div id='Comments'></div>\n";
         replace+="                            <div id='FooterComments'></div>\n";
-        replace+="                        </td>\n";
+        replace+="                        </td>\n";*/
         replace+="                        <td>\n";
-        replace+="                            <div id='HeaderServicePie'>Service Status &Uuml;bersicht (ONLINE Hosts)</div>\n";
+        replace+="                            <div id='HeaderServicePie'><span style=\"float: left;\">Service Status &Uuml;bersicht</span><span style=\"float: left; margin-top: -1px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></div>\n";
         replace+="                            <div id='ServicePie'></div>\n";
         replace+="                        </td>\n";
         replace+="                        <td>\n";
@@ -155,9 +251,9 @@ public class Html {
         replace+="                    </tr>\n";
         replace+="                </table>\n";
         replace+="                <br>\n";
-        replace+="                <div id='HeadDivShowCritical'>Aktuelle Probleme</div>\n";
+        /*replace+="                <div id='HeadDivShowCritical'>Aktuelle Probleme</div>\n";
         replace+="                <div id='DivShowCritical'></div>\n";
-        replace+="                <div id='FooterDivShowCritical'></div>\n";
+        replace+="                <div id='FooterDivShowCritical'></div>\n";*/
         replace+="            </div>\n";
         replace+="        </div>\n";
         return replace;

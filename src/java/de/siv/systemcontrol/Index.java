@@ -48,7 +48,7 @@ public class Index extends HttpServlet {
                         + "    $('input').addClass('ui-input-hofo');\n"
                         + "    $('span#ui-tile').addClass('ui-input-hofo');\n"
                         + "    SummaryView();\n"
-                        + "    SidebarBottom();\n"
+                        + "    //SidebarBottom();\n"
                         + "");
                         
                 if (Executions.UserMailEmpty(Uid)) {
@@ -71,28 +71,17 @@ public class Index extends HttpServlet {
                 
                 }
                 
-                if(Executions.UserIsPermitted(Uid,"host")) {
+                if(Executions.UserIsPermitted(Uid,"monitoring")) {
                 
                     out.println(""
-                            + "    <span id='ui-tile' class='ui-tile-300px' title='Hosts' onclick=\"\">\n"
-                            + "        <img class='ui-tile-cimg' src='public/images/server-128.png' alt='Hosts' width='96' height='96'>\n"
-                            + "        <span class='ui-tile-header'>Hosts</span><br></br>\n"
-                            + "        <span class='ui-tile-content'>Eine &Uuml;bersicht &uuml;ber alle eingerichteten Server.</span>\n"
+                            + "    <span id='ui-tile' class='ui-tile-300px' title='Monitoring' onclick=\"OpenWindow('Monitoring','_self');\">\n"
+                            + "        <img class='ui-tile-cimg' src='public/images/server-128.png' alt='Monitoring' width='96' height='96'>\n"
+                            + "        <span class='ui-tile-header'>Monitoring</span><br></br>\n"
+                            + "        <span class='ui-tile-content'>Eine &Uuml;bersicht &uuml;ber alle eingerichteten Host und Services.</span>\n"
                             + "    </span>\n");
                 
                 }                        
                        
-                if(Executions.UserIsPermitted(Uid,"service")) {
-                
-                    out.println(""
-                            + "    <span id='ui-tile' class='ui-tile-300px' title='Services' onclick=\"\">\n"
-                            + "        <img class='ui-tile-cimg' src='public/images/list-128.png' alt='Services' width='96' height='96'>\n"
-                            + "        <span class='ui-tile-header'>Services</span><br></br>\n"
-                            + "        <span class='ui-tile-content'>Eine &Uuml;bersicht &uuml;ber alle eingerichteten Services.</span>\n"
-                            + "    </span>\n");
-                
-                }
-                        
                 if(Executions.UserIsPermitted(Uid,"managed_services")) {
                 
                     out.println(""

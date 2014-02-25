@@ -5,9 +5,14 @@
 package de.siv.systemcontrol;
 
 import de.siv.web.Html;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -44,7 +49,15 @@ public class LoginError extends HttpServlet {
                 + "</script>\n"
                 + "");
         out.println(Html.closeHeadOpenBody(null));
-        out.println(Html.printSectionMenu(null,"Login"));
+        try {
+            out.println(Html.printSectionMenu(null,"Login"));
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(LoginError.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NamingException ex) {
+            Logger.getLogger(LoginError.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginError.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         if ("2".equals(e)) {
             out.println(Html.printErrorBox("Der Anmeldeversuch schlug fehl! Ihr Zugang wurde gesperrt oder noch nicht aktiviert. Wenden Sie sich bitte an Ihren Portal Administrator."));

@@ -8,8 +8,6 @@ import de.siv.modules.Executions;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.naming.NamingException;
 
 /**
@@ -49,6 +47,7 @@ public class Html {
         replace+="    <script type='text/javascript' src='public/script/jquery.shortcuts.min.js'></script>\n";
         replace+="    <script type='text/javascript' src='public/script/base64.js'></script>\n";
         replace+="    <script type='text/javascript' src='public/script/jquery.cookie.js'></script>\n";
+        replace+="    <script type='text/javascript' src='public/script/timepicker.js'></script>\n";
         
         if(mod.equals("Index")) {
             replace+="    <script type='text/javascript' src='public/script/basics.js'></script>\n";
@@ -61,6 +60,15 @@ public class Html {
         } else if (mod.equals("ManagedServices")) {
             replace+="    <script type='text/javascript' src='public/script/basics.js'></script>\n";
             replace+="    <script type='text/javascript' src='script/ManagedServiceBasics.js'></script>\n";
+            replace+="    <script type='text/javascript' src='script/UserProfile.js'></script>\n";
+            replace+="    <script type='text/javascript' src='public/script/jquery-te-1.4.0.min.js'></script>\n";
+            replace+="    <script type='text/javascript' src='script/TacticalOverview.js'></script>\n";
+            replace+="    <script type='text/javascript' src='public/script/charting.js'></script>\n";
+            replace+="    <script type='text/javascript' src='public/script/charts.js'></script>\n";
+            replace+="    <script type='text/javascript' src='public/script/jquery.simplePagination.js'></script>\n";
+        } else if (mod.equals("Monitoring")) {
+            replace+="    <script type='text/javascript' src='public/script/basics.js'></script>\n";
+            replace+="    <script type='text/javascript' src='script/MonitoringBasics.js'></script>\n";
             replace+="    <script type='text/javascript' src='script/UserProfile.js'></script>\n";
             replace+="    <script type='text/javascript' src='public/script/jquery-te-1.4.0.min.js'></script>\n";
             replace+="    <script type='text/javascript' src='script/TacticalOverview.js'></script>\n";
@@ -96,7 +104,7 @@ public class Html {
                 + "    </div>"
                 + "</section>";
         
-            if(mod.equals("Index") || mod.equals("ManagedService")) {
+            if(mod.equals("Index") || mod.equals("ManagedService") || mod.equals("Monitoring")) {
                 
                 replace += "<section id='user-menu'><div id='UserMenu' class='ui-user-menu'><span class='login_username' style='float: left'></span>";
                 
@@ -120,38 +128,41 @@ public class Html {
                         }
                 
                         replace += "</div>";
-                        replace += "<div class='UserDesc'><span style=\"float: left;\">Kundeninfo</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></div><br>";
-                        replace += "<div id='MS_cc'>";
-                
+                        
                         if(Executions.UserIsPermitted(uid,"managed_services_nka")) {
+                            replace += "<div class='UserDesc'><span style=\"float: left;\">Kundeninfo</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></div><br>";
+                            replace += "<div id='MS_cc'>";
                             replace += "<span class='icon ui-input-hofo' onclick=\"CreateCustomer();\" title='Neuen Kunden anlegen'><img src='public/images/add.png' alt='Add' width='50' height='50'></span>";
+                    
+                            if(Executions.UserIsPermitted(uid,"managed_services_kb")) {
+                                replace += "<span class='icon ui-input-hofo' onclick=\"EditCustomer();\" title='Kunden bearbeiten'><img src='public/images/edit.png' alt='Edit' width='50' height='50'></span>";
+                            } 
+                    
+                            if(Executions.UserIsPermitted(uid,"managed_services_kl")) {
+                                replace += "<span class='icon ui-input-hofo' onclick=\"DeleteCustomer();\" title='Kunden l&ouml;schen'><img src='public/images/delete.png' alt='Delete' width='50' height='50'></span>";
+                            } 
+                    
+                            replace += "</div>";
                         }
-                    
-                        if(Executions.UserIsPermitted(uid,"managed_services_kb")) {
-                            replace += "<span class='icon ui-input-hofo' onclick=\"EditCustomer();\" title='Kunden bearbeiten'><img src='public/images/edit.png' alt='Edit' width='50' height='50'></span>";
-                        } 
-                    
-                        if(Executions.UserIsPermitted(uid,"managed_services_kl")) {
-                            replace += "<span class='icon ui-input-hofo' onclick=\"DeleteCustomer();\" title='Kunden l&ouml;schen'><img src='public/images/delete.png' alt='Delete' width='50' height='50'></span>";
-                        } 
-                    
-                        replace += "</div>";
-                        replace += "<div class='UserDesc'><span style=\"float: left;\">Vertragstypen</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></div><br>";
-                        replace += "<div id='MS_vt'>";
-                
+                        
                         if(Executions.UserIsPermitted(uid,"managed_services_vae")) {
+                        
+                            replace += "<div class='UserDesc'><span style=\"float: left;\">Vertragstypen</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></div><br>";
+                            replace += "<div id='MS_vt'>";
                             replace += "<span class='icon ui-input-hofo' onclick=\"CreateContractType();\" title='Neuer Vertragstyp'><img src='public/images/add.png' alt='Add' width='50' height='50'></span>";
-                        }
+                        
+                            if(Executions.UserIsPermitted(uid,"managed_services_vab")) {
+                                replace += "<span class='icon ui-input-hofo' onclick=\"EditContractType();\" title='Vertragstyp bearbeiten'><img src='public/images/edit.png' alt='Edit' width='50' height='50'></span>";
+                            } 
                     
-                        if(Executions.UserIsPermitted(uid,"managed_services_vab")) {
-                            replace += "<span class='icon ui-input-hofo' onclick=\"EditContractType();\" title='Vertragstyp bearbeiten'><img src='public/images/edit.png' alt='Edit' width='50' height='50'></span>";
-                        } 
-                    
-                        if(Executions.UserIsPermitted(uid,"managed_services_val")) {
-                            replace += "<span class='icon ui-input-hofo' onclick=\"DeleteContractType();\" title='Vertragstyp l&ouml;schen'><img src='public/images/delete.png' alt='Delete' width='50' height='50'></span>";
-                        }
+                            if(Executions.UserIsPermitted(uid,"managed_services_val")) {
+                                replace += "<span class='icon ui-input-hofo' onclick=\"DeleteContractType();\" title='Vertragstyp l&ouml;schen'><img src='public/images/delete.png' alt='Delete' width='50' height='50'></span>";
+                            }
                 
-                        replace += "</div>";
+                            replace += "</div>";
+                            
+                        }
+                            
                         replace += "        </div><div id='MSDialog'></div><div id='MSDialogSuccess'></div>";
                         replace += "</div></div></div>";
                     }
@@ -161,6 +172,7 @@ public class Html {
                     
                 if(Executions.UserIsPermitted(uid,"liveticker")) {
                     replace += "<section id='big-taov'></section>";
+                    replace += "<div id='DialogSuccess'></div>";
                 }
                     
             } else {

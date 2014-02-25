@@ -115,8 +115,7 @@ public class Functions {
         st.execute("INSERT INTO profiles_privilege (PRNM,PRDC) values (encode('liveticker','base64'),encode('Zugriff auf den Liveticker','base64'))");
         st.execute("INSERT INTO profiles_privilege (PRNM,PRDC) values (encode('sidebarsearch','base64'),encode('Zugriff auf das Sidebar Suche Modul','base64'))");
         st.execute("INSERT INTO profiles_privilege (PRNM,PRDC) values (encode('sidebarfunctions','base64'),encode('Zugriff auf die Sidebar Funktionen','base64'))");
-        st.execute("INSERT INTO profiles_privilege (PRNM,PRDC) values (encode('host','base64'),encode('Anzeige des Hosts Moduls','base64'))");
-        st.execute("INSERT INTO profiles_privilege (PRNM,PRDC) values (encode('service','base64'),encode('Anzeige des Service Moduls','base64'))");
+        st.execute("INSERT INTO profiles_privilege (PRNM,PRDC) values (encode('monitoring','base64'),encode('Detailed Monitoring','base64'))");
         st.execute("INSERT INTO profiles_privilege (PRNM,PRDC) values (encode('database','base64'),encode('Anzeige des Database Moduls','base64'))");
         st.execute("INSERT INTO profiles_privilege (PRNM,PRDC) values (encode('middleware','base64'),encode('Anzeige des Middleware Moduls','base64'))");
         st.execute("INSERT INTO profiles_privilege (PRNM,PRDC) values (encode('addlink','base64'),encode('Weiterer Link im Dashboard','base64'))");
@@ -186,15 +185,17 @@ public class Functions {
         st.execute("INSERT INTO profiles_role_priv_mapping (RLID,PRID) values ('1','31')");
         st.execute("INSERT INTO profiles_role_priv_mapping (RLID,PRID) values ('1','32')");
         st.execute("INSERT INTO profiles_role_priv_mapping (RLID,PRID) values ('1','33')");
-        st.execute("INSERT INTO profiles_role_priv_mapping (RLID,PRID) values ('1','34')");
         
+        st.execute("INSERT INTO profiles_role_priv_mapping (RLID,PRID) values ('2','1')");
         st.execute("INSERT INTO profiles_role_priv_mapping (RLID,PRID) values ('2','2')");
         st.execute("INSERT INTO profiles_role_priv_mapping (RLID,PRID) values ('2','3')");
         st.execute("INSERT INTO profiles_role_priv_mapping (RLID,PRID) values ('2','4')");
+        st.execute("INSERT INTO profiles_role_priv_mapping (RLID,PRID) values ('2','5')");
         st.execute("INSERT INTO profiles_role_priv_mapping (RLID,PRID) values ('2','6')");
         st.execute("INSERT INTO profiles_role_priv_mapping (RLID,PRID) values ('2','7')");
         st.execute("INSERT INTO profiles_role_priv_mapping (RLID,PRID) values ('2','8')");
         st.execute("INSERT INTO profiles_role_priv_mapping (RLID,PRID) values ('2','9')");
+        st.execute("INSERT INTO profiles_role_priv_mapping (RLID,PRID) values ('2','10')");
         st.execute("INSERT INTO profiles_role_priv_mapping (RLID,PRID) values ('2','11')");
         st.execute("INSERT INTO profiles_role_priv_mapping (RLID,PRID) values ('2','12')");
         st.execute("INSERT INTO profiles_role_priv_mapping (RLID,PRID) values ('2','13')");
@@ -202,22 +203,11 @@ public class Functions {
         st.execute("INSERT INTO profiles_role_priv_mapping (RLID,PRID) values ('2','15')");
         st.execute("INSERT INTO profiles_role_priv_mapping (RLID,PRID) values ('2','16')");
         st.execute("INSERT INTO profiles_role_priv_mapping (RLID,PRID) values ('2','17')");
-        st.execute("INSERT INTO profiles_role_priv_mapping (RLID,PRID) values ('2','18')");
+        st.execute("INSERT INTO profiles_role_priv_mapping (RLID,PRID) values ('2','22')");
         st.execute("INSERT INTO profiles_role_priv_mapping (RLID,PRID) values ('2','23')");
-        st.execute("INSERT INTO profiles_role_priv_mapping (RLID,PRID) values ('1','24')");
-        st.execute("INSERT INTO profiles_role_priv_mapping (RLID,PRID) values ('1','25')");
-        st.execute("INSERT INTO profiles_role_priv_mapping (RLID,PRID) values ('1','26')");
-        st.execute("INSERT INTO profiles_role_priv_mapping (RLID,PRID) values ('1','27')");
-        st.execute("INSERT INTO profiles_role_priv_mapping (RLID,PRID) values ('1','28')");
-        st.execute("INSERT INTO profiles_role_priv_mapping (RLID,PRID) values ('1','29')");
-        st.execute("INSERT INTO profiles_role_priv_mapping (RLID,PRID) values ('1','30')");
-        st.execute("INSERT INTO profiles_role_priv_mapping (RLID,PRID) values ('1','31')");
-        st.execute("INSERT INTO profiles_role_priv_mapping (RLID,PRID) values ('1','32')");
-        st.execute("INSERT INTO profiles_role_priv_mapping (RLID,PRID) values ('1','33')");
-        st.execute("INSERT INTO profiles_role_priv_mapping (RLID,PRID) values ('1','24')");
-        st.execute("INSERT INTO profiles_role_priv_mapping (RLID,PRID) values ('1','31')");
-        st.execute("INSERT INTO profiles_role_priv_mapping (RLID,PRID) values ('1','32')");
-        st.execute("INSERT INTO profiles_role_priv_mapping (RLID,PRID) values ('1','33')");
+        st.execute("INSERT INTO profiles_role_priv_mapping (RLID,PRID) values ('2','30')");
+        st.execute("INSERT INTO profiles_role_priv_mapping (RLID,PRID) values ('2','31')");
+        st.execute("INSERT INTO profiles_role_priv_mapping (RLID,PRID) values ('2','32')");
         /*
          * Contract types
          */
@@ -547,8 +537,8 @@ public class Functions {
         st.execute("CREATE TABLE monitoring_host_role_mapping ( HSTID BIGSERIAL, CCID BIGSERIAL )");
         st.execute("CREATE TABLE monitoring_performance ( PID BIGSERIAL UNIQUE, HSTID BIGSERIAL, SRVID BIGSERIAL, APPID BiGSERIAL, CLASS varchar(100), KEY varchar(100), NAME varchar(100), DSC varchar(100), USAGE varchar(100), AVAIL varchar(100), ALLOC varchar(100), CREATED BIGSERIAL)");
         st.execute("CREATE TABLE monitoring_availability ( AID BIGSERIAL UNIQUE, SRVID BIGSERIAL, APPID BiGSERIAL, TIMEOK decimal, TIMEWA decimal, TIMECR decimal, TIMEUN decimal, CREATED BIGSERIAL )");
-        st.execute("CREATE TABLE monitoring_status ( SID BIGSERIAL UNIQUE, SRVID BIGSERIAL, APPID BiGSERIAL, OUTPUT varchar(100000), LONG_OUTPUT varchar(100000), CURRENT_STATE smallint, LAST_STATE smallint, LAST_CHECK BIGSERIAL, NEXT_CHECK BIGSERIAL, LAST_TIME_OK BIGSERIAL, LAST_TIME_WA BIGSERIAL, LAST_TIME_CR BIGSERIAL, LAST_TIME_UN BIGSERIAL, PERCENT_STATE_CHANGE smallint, CREATED BIGSERIAL )");
-        st.execute("CREATE TABLE monitoring_status_history ( SHID BIGSERIAL UNIQUE, SRVID BIGSERIAL, APPID BiGSERIAL, OUTPUT varchar(100000), LONG_OUTPUT varchar(100000), CURRENT_STATE smallint, LAST_STATE smallint, CREATED BIGSERIAL )");
+        st.execute("CREATE TABLE monitoring_status ( SID BIGSERIAL UNIQUE, SRVID BIGSERIAL, APPID BiGSERIAL, OUTPUT varchar(100000), LONG_OUTPUT varchar(100000), CURRENT_STATE smallint, LAST_STATE smallint, LAST_CHECK BIGSERIAL, NEXT_CHECK BIGSERIAL, LAST_TIME_OK BIGSERIAL, LAST_TIME_WA BIGSERIAL, LAST_TIME_CR BIGSERIAL, LAST_TIME_UN BIGSERIAL, PERCENT_STATE_CHANGE smallint, PERF_DATA varchar(10000), CREATED BIGSERIAL )");
+        st.execute("CREATE TABLE monitoring_status_history ( SHID BIGSERIAL UNIQUE, SRVID BIGSERIAL, APPID BiGSERIAL, OUTPUT varchar(100000), LONG_OUTPUT varchar(100000), CURRENT_STATE smallint, LAST_STATE smallint, PERF_DATA varchar(10000), CREATED BIGSERIAL )");
         st.execute("CREATE TABLE monitoring_task ( TID BIGSERIAL UNIQUE, TYPE smallint, TARGET smallint, ERROR smallint, DONE BOOLEAN, INSTID BIGSERIAL )");
         st.execute("CREATE TABLE monitoring_state_change ( SCID BIGSERIAL, HSTID BIGSERIAL, SRVID BIGSERIAL, STATE SERIAL, LAST_STATE SERIAL, OUTPUT varchar(100000), NEW_PROBLEM SERIAL, MAIL SERIAL, CREATED BIGSERIAL )");
         

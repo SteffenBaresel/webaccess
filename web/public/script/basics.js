@@ -117,6 +117,46 @@ function DialogSuccess(id,message) {
     }).parent().find('.ui-dialog-titlebar-close').hide();
 }
 
+function EscapeChar(s) {
+    return s.replace(/\"/g,'\\\"');
+}
+
+/**
+* Date Time Picker
+**/
+
+$.datepicker.regional['de'] = {
+    closeText: 'Schlie&szlig;en',
+    prevText: 'Zur&uuml;ck',
+    nextText: 'Weiter',
+    currentText: 'Jetzt',
+    monthNames: ['Januar','Februar','M&auml;rz','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'],
+    monthNamesShort: ['Jan','Feb','M&auml;r','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez'],
+    dayNames: ['Sonntag','Montag','Diensag','Mittwoch','Donnerstag','Freitag','Samstag'],
+    dayNamesShort: ['So','Mo','Di','Mi','Do','Fr','Sa'],
+    dayNamesMin: ['So','Mo','Di','Mi','Do','Fr','Sa'],
+    weekHeader: 'Wo',
+    dateFormat: 'yy-mm-dd',
+    firstDay: 1,
+    isRTL: false,
+    showMonthAfterYear: false,
+    yearSuffix: ''
+};
+$.datepicker.setDefaults($.datepicker.regional['de']);
+
+$.timepicker.regional['de'] = {
+    timeOnlyTitle: 'Uhrzeit ausw&auml;hlen',
+    timeText: 'Zeit',
+    hourText: 'Stunde',
+    minuteText: 'Minute',
+    secondText: 'Sekunde',
+    currentText: 'Jetzt',
+    timeFormat: 'HH:mm:ss',
+    closeText: 'Ausw&auml;hlen',
+    ampm: false
+};
+$.timepicker.setDefaults($.timepicker.regional['de']);
+
 /* Date Functions */
 
 function sleep(milliseconds) {

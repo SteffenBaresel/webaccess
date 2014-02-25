@@ -5,7 +5,6 @@
 package de.siv.script;
 
 import de.siv.modules.*;
-import de.siv.web.Html;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -38,7 +37,12 @@ public class UserBasics extends HttpServlet {
 "    document.getElementById(id).value = \"\";\n" +
 "}\n");
 
-
+        Integer MO=0; if(Executions.UserIsPermitted(Uid,"monitoring")) { MO=1; }
+        Integer CF=0; if(Executions.UserIsPermitted(Uid,"config")) { CF=1; }
+        Integer CW=0; if(Executions.UserIsPermitted(Uid,"config_web")) { CW=1; }
+        Integer CFGM=0; if(Executions.UserIsPermitted(Uid,"config_mail")) { CFGM=1; }
+        Integer CFGUM=0; if(Executions.UserIsPermitted(Uid,"config_usermanagement")) { CFGUM=1; }
+        
         if(Executions.UserIsPermitted(Uid,"addlink")) {
             out.println("\n" +
 "function AddLink() {\n" +
@@ -100,7 +104,7 @@ public class UserBasics extends HttpServlet {
         
             // Configuration
         
-        if(Executions.UserIsPermitted(Uid,"config")) {
+        if(CF == 1) {
         
             out.println("" +
 "function Configuration(uid) {\n" +
@@ -110,23 +114,29 @@ public class UserBasics extends HttpServlet {
 "        <div id=\"ConfigurationTabs\">" +
 "            <ul>\\n\\");
             
-            if(Executions.UserIsPermitted(Uid,"config_web")) {
+            if(CW == 1) {
                 out.println("                <li><a href=\"#ConfigurationTabs1\">Web-Konfiguration</a></li>\\n\\");
             }
             
-            if(Executions.UserIsPermitted(Uid,"config_usermanagement")) {
+            if(CFGM == 1) {
+                out.println("                <li><a href=\"#ConfigurationTabs6\">Mail-Format</a></li>\\n\\");
+            }
+            
+            if(CFGUM == 1) {
                 out.println("                <li><a href=\"#ConfigurationTabs2\">Nutzerverwaltung</a></li>\\n\\");
                 out.println("                <li><a href=\"#ConfigurationTabs3\">Rechteverwaltung</a></li>\\n\\");
                 out.println("                <li><a href=\"#ConfigurationTabs4\">Berechtigungen</a></li>\\n\\");
+                out.println("                <li><a href=\"#ConfigurationTabs5\">Role-Mapping</a></li>\\n\\");
             }
             
-            if(Executions.UserIsPermitted(Uid,"config_mail")) {
-                out.println("                <li><a href=\"#ConfigurationTabs5\">Mail-Format</a></li>\\n\\");
+            if(MO == 1) {
+                //out.println("                <li><a href=\"#ConfigurationTabs7\">Monitoring</a></li>\\n\\");
+                out.println("                <li><a href=\"#ConfigurationTabs8\">Monitoring2Profile</a></li>\\n\\");
             }
         
             out.println("            </ul>\\n\\");
             
-            if(Executions.UserIsPermitted(Uid,"config_web")) {
+            if(CW == 1) {
             
             out.println("            <div id=\"ConfigurationTabs1\">" +
 "                <div id=\"ConfigurationSection\">" +
@@ -156,7 +166,7 @@ public class UserBasics extends HttpServlet {
             
             }
             
-            if(Executions.UserIsPermitted(Uid,"config_usermanagement")) {
+            if(CFGUM == 1) {
             
             out.println("            <div id=\"ConfigurationTabs2\">" +
 "                <div id=\"ConfigurationSection\">" +
@@ -190,20 +200,31 @@ public class UserBasics extends HttpServlet {
 "                    <div id=\"UserMgmntUsGrList\"><span id=\"UserMgmntUsGrList1\"><table></table></span><span id=\"UserMgmntUsGrList2\"><table></table></span></div>" +
 "                </div>" +
 "                <div id=\"ConfigurationSection\">" +
-"                    <div id=\"ConfigurationSectionTitle\">Gruppe zu Rolle</div>" +
-"                    <div id=\"UserMgmntGrRoList\"><span id=\"UserMgmntGrRoList1\"><table></table></span><span id=\"UserMgmntGrRoList2\"><table></table></span></div>" +
-"                </div>" +
-"                <div id=\"ConfigurationSection\">" +
 "                    <div id=\"ConfigurationSectionTitle\">Rolle zu Privileg</div>" +
 "                    <div id=\"UserMgmntRoPrList\"><span id=\"UserMgmntRoPrList1\"><table></table></span><span id=\"UserMgmntRoPrList2\"><table></table></span></div>" +
 "                </div>" +
 "            </div>\\n\\");
-            
-            }
-            
-            if(Executions.UserIsPermitted(Uid,"config_mail")) {
 
             out.println("            <div id=\"ConfigurationTabs5\">" +
+"                <div id=\"ConfigurationSection\">" +
+"                    <div id=\"ConfigurationSectionTitle\">Gruppe zu Rolle</div>" +
+"                    <div id=\"UserMgmntGrRoList\"><span id=\"UserMgmntGrRoList1\"><table></table></span><span id=\"UserMgmntGrRoList2\"><table></table></span></div>" +
+"                </div>" +
+"                <div id=\"ConfigurationSection\">" +
+"                    <div id=\"ConfigurationSectionTitle\">Kunde zu Rolle</div>" +
+"                    <div id=\"UserMgmntCuRoList\"><span id=\"UserMgmntCuRoList1\"><table></table></span><span id=\"UserMgmntCuRoList2\"><table></table></span></div>" +
+"                </div>" +
+"                <div id=\"ConfigurationSection\">" +
+"                    <div id=\"ConfigurationSectionTitle\">Vertrag zu Rolle</div>" +
+"                    <div id=\"UserMgmntCoRoList\"><span id=\"UserMgmntCoRoList1\"><table></table></span><span id=\"UserMgmntCoRoList2\"><table></table></span></div>" +
+"                </div>" +
+"            </div>\\n\\");
+                        
+            }
+            
+            if(CFGM == 1) {
+
+            out.println("            <div id=\"ConfigurationTabs6\">" +
 "                <div id=\"ConfigurationSection\">" +
 "                    <div id=\"ConfigurationSectionTitle\">Mail-Header</div>" +
 "                    <div id=\"MailH\"><div id=\"MailHContent\"></div><button onclick=\"AddMailConfig(\\'MailH\\',\\'HEADER\\');\">Festlegen</button></div>" +
@@ -214,6 +235,25 @@ public class UserBasics extends HttpServlet {
 "                </div>" +
 "            </div>\\n\\");
                 
+            }
+            
+            if(MO == 1) {
+            
+            out.println("            <div id=\"ConfigurationTabs8\">" +
+"                <div id=\"ConfigurationSection\">" +
+"                    <div id=\"ConfigurationSectionTitle\">Host zu Rolle</div>" +
+"                    <div id=\"UserMgmntHoRoList\"><span id=\"UserMgmntHoRoList1\"><table></table></span><span id=\"UserMgmntHoRoList2\"><table></table></span></div>" +
+"                </div>" +
+"                <div id=\"ConfigurationSection\">" +
+"                    <div id=\"ConfigurationSectionTitle\">Host zu Kunde</div>" +
+"                    <div id=\"UserMgmntHoCuList\"><span id=\"UserMgmntHoCuList1\"><table></table></span><span id=\"UserMgmntHoCuList2\"><table></table></span></div>" +
+"                </div>" +
+"                <div id=\"ConfigurationSection\">" +
+"                    <div id=\"ConfigurationSectionTitle\">Host zu Vertrag</div>" +
+"                    <div id=\"UserMgmntHoCoList\"><span id=\"UserMgmntHoCoList1\"><table></table></span><span id=\"UserMgmntHoCoList2\"><table></table></span></div>" +
+"                </div>" +
+"            </div>\\n\\");
+            
             }
             
             out.println("       </div>" +
@@ -266,17 +306,30 @@ public class UserBasics extends HttpServlet {
 "            });\n");*/
 "\n");
                     
-            if(Executions.UserIsPermitted(Uid,"config_usermanagement")) {
+            if(CFGUM == 1) {
 
                 out.println("" +
 "            FillUserManagement();\n" +
 "            FillUserManagementUsGr();\n" +
 "            FillUserManagementRoPri();\n" +
-"            FillUserManagementGrRo();\n");
+"            FillUserManagementGrRo();\n" +
+"            FillUserManagementCuRo();\n" +
+"            FillUserManagementCoRo();\n");
         
             }
+
+            if(MO == 1) {
+
+                out.println("" +
+"            FillUserManagementHoCu();\n" +
+"            FillUserManagementHoCo();\n" +
+"            FillUserManagementHoRo();\n" +
+                "");
+        
+            }
+
             
-            if(Executions.UserIsPermitted(Uid,"config_web")) {
+            if(CW == 1) {
                 
                 out.println("" +
 "             for (var key in Mailing) {\n" +
@@ -301,7 +354,7 @@ public class UserBasics extends HttpServlet {
             
             }
 
-            if(Executions.UserIsPermitted(Uid,"config_mail")) {
+            if(CFGM == 1) {
 
                 out.println("" +
 "            GetMailConfig();\n");
@@ -320,7 +373,7 @@ public class UserBasics extends HttpServlet {
 "}");
             
             
-            if(Executions.UserIsPermitted(Uid,"config_web")) {
+            if(CW == 1) {
                 
                 out.println("\n" +
 "function AddMailingConfig(id,key) {\n" +
@@ -361,7 +414,7 @@ public class UserBasics extends HttpServlet {
                 
             }
             
-            if(Executions.UserIsPermitted(Uid,"config_usermanagement")) {
+            if(CFGUM == 1) {
             
             out.println("\n" +
 "function FillUserManagement() {\n" +
@@ -412,7 +465,7 @@ public class UserBasics extends HttpServlet {
 "                    if(c == 0) {\n" +
 "                        $('#UserMgmntRoPrList2 table tr#thd').append('<th>' + $.base64.decode( this.ROLE_DC ) + '</th>');\n" +
 "                    }" +
-"                    $('#UserMgmntRoPrList2 table tr#rtr' + PRID ).append('<td><img id=\"PrID' + PRID + '_RlID' + this.ROLE_ID + '\" onclick=\"UpdateRolePriv(\\'' + this.ROLE_ID + '\\',\\'' + PRID + '\\');\" src=\"public/images/cross-circle.png\" title=\"Privileg erteilen\"/></td>');\n" +
+"                    $('#UserMgmntRoPrList2 table tr#rtr' + PRID ).append('<td><img id=\"PrID' + PRID + '_RlID' + this.ROLE_ID + '\" onclick=\"UpdateRolePriv(\\'' + this.ROLE_ID + '\\',\\'' + PRID + '\\');\" src=\"public/images/cross-circle.png\" title=\"' + $.base64.decode( this.ROLE_DC ) + ' dieses Privileg erteilen\"/></td>');\n" +
 "                });\n" +
 "                c++;" +
 "            });\n" +
@@ -420,7 +473,7 @@ public class UserBasics extends HttpServlet {
 "                var ROLEID = this.ROLE_ID;\n" +                    
 "                for(var i=0;i<this.ROLE_PRIV.length;i++) {\n" +
 "                    $('#PrID' + this.ROLE_PRIV[i] + '_RlID' + ROLEID).attr('src','public/images/accept.png');\n" +                    
-"                    $('#PrID' + this.ROLE_PRIV[i] + '_RlID' + ROLEID).attr('title','Privileg entziehen');\n" + 
+"                    $('#PrID' + this.ROLE_PRIV[i] + '_RlID' + ROLEID).attr('title',$.base64.decode( this.ROLE_DC ) + ' dieses Privileg entziehen');\n" + 
 "                };\n" +
 "            });\n" +
 "        },\n" +
@@ -448,7 +501,7 @@ public class UserBasics extends HttpServlet {
 "                    if(c == 0) {\n" +
 "                        $('#UserMgmntGrRoList2 table tr#tghd').append('<th>' + $.base64.decode( this.GROUP_DC ) + '</th>');\n" +
 "                    }" +
-"                    $('#UserMgmntGrRoList2 table tr#rgtr' + ROID ).append('<td><img id=\"RoID' + ROID + '_GrID' + this.GROUP_ID + '\" onclick=\"UpdateGroupRole(\\'' + this.GROUP_ID + '\\',\\'' + ROID + '\\');\" src=\"public/images/cross-circle.png\" title=\"Rolle zuweisen\"/></td>');\n" +
+"                    $('#UserMgmntGrRoList2 table tr#rgtr' + ROID ).append('<td><img id=\"RoID' + ROID + '_GrID' + this.GROUP_ID + '\" onclick=\"UpdateGroupRole(\\'' + this.GROUP_ID + '\\',\\'' + ROID + '\\');\" src=\"public/images/cross-circle.png\" title=\"' + $.base64.decode( this.GROUP_DC ) + ' dieser Rolle zuweisen\"/></td>');\n" +
 "                });\n" +
 "                c++;" +
 "            });\n" +
@@ -456,7 +509,79 @@ public class UserBasics extends HttpServlet {
 "                var GROUPID = this.GROUP_ID;\n" +                    
 "                for(var i=0;i<this.GROUP_ROLE.length;i++) {\n" +
 "                    $('#RoID' + this.GROUP_ROLE[i] + '_GrID' + GROUPID).attr('src','public/images/accept.png');\n" +                    
-"                    $('#RoID' + this.GROUP_ROLE[i] + '_GrID' + GROUPID).attr('title','Rolle entziehen');\n" + 
+"                    $('#RoID' + this.GROUP_ROLE[i] + '_GrID' + GROUPID).attr('title',$.base64.decode( this.GROUP_DC ) + ' dieser Rolle entziehen');\n" + 
+"                };\n" +
+"            });\n" +
+"        },\n" +
+"        dataType: 'json',\n" +
+"        cache: false\n" +
+"    });\n" +
+"}\n"); 
+
+                out.println("\n" +
+"function FillUserManagementCuRo() {\n" +
+"    $.ajax({\n" +
+"        url: '/gateway/exec/GetCustomerRole',\n" +
+"        crossDomain: true,\n" +
+"        success: function(json) {\n" +
+"            var c=0;" +
+"            $('#UserMgmntCuRoList1 table').html('<tr id=\"tgcuro\"><th>Rolle:</th></tr>');\n" +
+"            $('#UserMgmntCuRoList2 table').html('<tr id=\"tgcuro\"></tr>');\n" +
+"            $.each(json.ROLE, function() {\n" +
+"                var ROID = this.ROID;\n" +
+"                $('#UserMgmntCuRoList1 table').append('<tr id=\"pgcuro' + ROID + '\"><td>' + $.base64.decode( this.RODC ) + '<br>(' + $.base64.decode( this.RONM ) + ')</td></tr>');\n" +
+"                $('#UserMgmntCuRoList2 table').append('<tr id=\"rgcuro' + ROID + '\"></tr>');\n" +
+"                $('#pgcuro' + ROID).hover( function() { $( this ).css('background-color','#dedede'); $('#rgcuro' + ROID).css('background-color','#dedede'); }, function() { $( this ).css('background-color','#fff'); $('#rgcuro' + ROID).css('background-color','#fff'); } );\n" +
+"                $('#rgcuro' + ROID).hover( function() { $( this ).css('background-color','#dedede'); $('#pgcuro' + ROID).css('background-color','#dedede'); }, function() { $( this ).css('background-color','#fff'); $('#pgcuro' + ROID).css('background-color','#fff'); } );\n" +
+"                $.each(json.CUSTOMER, function() {\n" +
+"                    if(c == 0) {\n" +
+"                        $('#UserMgmntCuRoList2 table tr#tgcuro').append('<th title=\"' + $.base64.decode( this.CUNM ) + '\">' + $.base64.decode( this.CUNR ) + '</th>');\n" +
+"                    }" +
+"                    $('#UserMgmntCuRoList2 table tr#rgcuro' + ROID ).append('<td><img id=\"RoID' + ROID + '_CuID' + this.CUID + '\" onclick=\"UpdateCustomerRole(\\'' + this.CUID + '\\',\\'' + ROID + '\\');\" src=\"public/images/cross-circle.png\" title=\"' + $.base64.decode( this.CUNM ) + ' dieser Rolle zuweisen\"/></td>');\n" +
+"                });\n" +
+"                c++;" +
+"            });\n" +
+"            $.each(json.CUSTOMER, function() {\n" +
+"                var CUID = this.CUID;\n" +                    
+"                for(var i=0;i<this.ROLES.length;i++) {\n" +
+"                    $('#RoID' + this.ROLES[i] + '_CuID' + CUID).attr('src','public/images/accept.png');\n" +                    
+"                    $('#RoID' + this.ROLES[i] + '_CuID' + CUID).attr('title',$.base64.decode( this.CUNM ) + ' dieser Rolle entziehen');\n" + 
+"                };\n" +
+"            });\n" +
+"        },\n" +
+"        dataType: 'json',\n" +
+"        cache: false\n" +
+"    });\n" +
+"}\n"); 
+
+                out.println("\n" +
+"function FillUserManagementCoRo() {\n" +
+"    $.ajax({\n" +
+"        url: '/gateway/exec/GetContractRole',\n" +
+"        crossDomain: true,\n" +
+"        success: function(json) {\n" +
+"            var c=0;" +
+"            $('#UserMgmntCoRoList1 table').html('<tr id=\"tgcoro\"><th>Rolle:</th></tr>');\n" +
+"            $('#UserMgmntCoRoList2 table').html('<tr id=\"tgcoro\"></tr>');\n" +
+"            $.each(json.ROLE, function() {\n" +
+"                var ROID = this.ROID;\n" +
+"                $('#UserMgmntCoRoList1 table').append('<tr id=\"pgcoro' + ROID + '\"><td>' + $.base64.decode( this.RODC ) + '<br>(' + $.base64.decode( this.RONM ) + ')</td></tr>');\n" +
+"                $('#UserMgmntCoRoList2 table').append('<tr id=\"rgcoro' + ROID + '\"></tr>');\n" +
+"                $('#pgcoro' + ROID).hover( function() { $( this ).css('background-color','#dedede'); $('#rgcoro' + ROID).css('background-color','#dedede'); }, function() { $( this ).css('background-color','#fff'); $('#rgcoro' + ROID).css('background-color','#fff'); } );\n" +
+"                $('#rgcoro' + ROID).hover( function() { $( this ).css('background-color','#dedede'); $('#pgcoro' + ROID).css('background-color','#dedede'); }, function() { $( this ).css('background-color','#fff'); $('#pgcoro' + ROID).css('background-color','#fff'); } );\n" +
+"                $.each(json.CONTRACT, function() {\n" +
+"                    if(c == 0) {\n" +
+"                        $('#UserMgmntCoRoList2 table tr#tgcoro').append('<th title=\"' + $.base64.decode( this.CCNM ) + ' von ' + $.base64.decode( this.CUNM ) + '\">' + $.base64.decode( this.CCNR ) + '</th>');\n" +
+"                    }" +
+"                    $('#UserMgmntCoRoList2 table tr#rgcoro' + ROID ).append('<td><img id=\"RoID' + ROID + '_CcID' + this.CCID + '\" onclick=\"UpdateContractRole(\\'' + this.CCID + '\\',\\'' + ROID + '\\');\" src=\"public/images/cross-circle.png\" title=\"' + $.base64.decode( this.CCNM ) + ' von ' + $.base64.decode( this.CUNM ) + ' dieser Rolle zuweisen\"/></td>');\n" +
+"                });\n" +
+"                c++;" +
+"            });\n" +
+"            $.each(json.CONTRACT, function() {\n" +
+"                var CCID = this.CCID;\n" +                    
+"                for(var i=0;i<this.ROLES.length;i++) {\n" +
+"                    $('#RoID' + this.ROLES[i] + '_CcID' + CCID).attr('src','public/images/accept.png');\n" +                    
+"                    $('#RoID' + this.ROLES[i] + '_CcID' + CCID).attr('title',$.base64.decode( this.CCNM ) + ' von ' + $.base64.decode( this.CUNM ) + ' dieser Rolle entziehen');\n" + 
 "                };\n" +
 "            });\n" +
 "        },\n" +
@@ -484,7 +609,7 @@ public class UserBasics extends HttpServlet {
 "                    if(c == 0) {\n" +
 "                        $('#UserMgmntUsGrList2 table tr#tuhd').append('<th>' + $.base64.decode( this.USER_DC ) + '</th>');\n" +
 "                    }" +
-"                    $('#UserMgmntUsGrList2 table tr#rutr' + GRID ).append('<td><img id=\"GrID' + GRID + '_UsID' + this.USER_ID + '\" onclick=\"UpdateUserGroup(\\'' + this.USER_ID + '\\',\\'' + GRID + '\\');\" src=\"public/images/cross-circle.png\" title=\"Gruppe zuweisen\"/></td>');\n" +
+"                    $('#UserMgmntUsGrList2 table tr#rutr' + GRID ).append('<td><img id=\"GrID' + GRID + '_UsID' + this.USER_ID + '\" onclick=\"UpdateUserGroup(\\'' + this.USER_ID + '\\',\\'' + GRID + '\\');\" src=\"public/images/cross-circle.png\" title=\"' + $.base64.decode( this.USER_DC ) + ' dieser Gruppe zuweisen\"/></td>');\n" +
 "                });\n" +
 "                c++;" +
 "            });\n" +
@@ -492,7 +617,7 @@ public class UserBasics extends HttpServlet {
 "                var USERID = this.USER_ID;\n" +                    
 "                for(var i=0;i<this.USER_GROUP.length;i++) {\n" +
 "                    $('#GrID' + this.USER_GROUP[i] + '_UsID' + USERID).attr('src','public/images/accept.png');\n" +                    
-"                    $('#GrID' + this.USER_GROUP[i] + '_UsID' + USERID).attr('title','Gruppe entziehen');\n" + 
+"                    $('#GrID' + this.USER_GROUP[i] + '_UsID' + USERID).attr('title',$.base64.decode( this.USER_DC ) + ' diser Gruppe entziehen');\n" + 
 "                };\n" +
 "            });\n" +
 "        },\n" +
@@ -588,6 +713,34 @@ public class UserBasics extends HttpServlet {
 "}\n");
             
             out.println("\n" +
+"function UpdateCustomerRole(cuid,rlid) {\n" +
+"    $.ajax({\n" +
+"        url: '/gateway/exec/UpdateCustomerRole?cuid=' + cuid + '&rlid=' + rlid,\n" +
+"        crossDomain: true,\n" +
+"        success: function() {\n" +
+"            DialogSuccess('#Dialog','Der Kunde wurde erfolgreich angepasst.');\n" +
+"            FillUserManagementCuRo();\n" +
+"        },\n" +
+"        dataType: 'json',\n" +
+"        cache: false\n" +
+"    });\n" +
+"}\n");
+            
+            out.println("\n" +
+"function UpdateContractRole(ccid,rlid) {\n" +
+"    $.ajax({\n" +
+"        url: '/gateway/exec/UpdateContractRole?ccid=' + ccid + '&rlid=' + rlid,\n" +
+"        crossDomain: true,\n" +
+"        success: function() {\n" +
+"            DialogSuccess('#Dialog','Der Vertrag wurde erfolgreich angepasst.');\n" +
+"            FillUserManagementCoRo();\n" +
+"        },\n" +
+"        dataType: 'json',\n" +
+"        cache: false\n" +
+"    });\n" +
+"}\n");
+            
+            out.println("\n" +
 "function UpdateUserGroup(uuid,grid) {\n" +
 "    $.ajax({\n" +
 "        url: '/gateway/exec/UpdateUserGroup?uuid=' + uuid + '&grid=' + grid,\n" +
@@ -604,7 +757,7 @@ public class UserBasics extends HttpServlet {
             }
             
             
-            if(Executions.UserIsPermitted(Uid,"config_mail")) {
+            if(CFGM == 1) {
 
             out.println("\n" +
 "function GetMailConfig() {\n" +
@@ -640,6 +793,161 @@ public class UserBasics extends HttpServlet {
 "}\n" +
             "\n");
             
+            }
+
+            
+            if(MO == 1) {
+            
+            out.println("\n" +
+"function FillUserManagementHoCu() {\n" +
+"    $.ajax({\n" +
+"        url: '/gateway/monitoring/GetHostCustomer',\n" +
+"        crossDomain: true,\n" +
+"        success: function(json) {\n" +
+"            var c=0;" +
+"            $('#UserMgmntHoCuList1 table').html('<tr id=\"tuhocu\"><th>Kunde:</th></tr>');\n" +
+"            $('#UserMgmntHoCuList2 table').html('<tr id=\"tuhocu\"></tr>');\n" +
+"            $.each(json.CUSTOMER, function() {\n" +
+"                var CUID = this.CUID;\n" +
+"                $('#UserMgmntHoCuList1 table').append('<tr id=\"puhocu' + CUID + '\" title=\"' + $.base64.decode( this.CUNM ) + '\"><td>' + $.base64.decode( this.CUNR ) + '</td></tr>');\n" +
+"                $('#UserMgmntHoCuList2 table').append('<tr id=\"ruhocu' + CUID + '\"></tr>');\n" +
+"                $('#puhocu' + CUID).hover( function() { $( this ).css('background-color','#dedede'); $('#ruhocu' + CUID).css('background-color','#dedede'); }, function() { $( this ).css('background-color','#fff'); $('#ruhocu' + CUID).css('background-color','#fff'); } );\n" +
+"                $('#ruhocu' + CUID).hover( function() { $( this ).css('background-color','#dedede'); $('#puhocu' + CUID).css('background-color','#dedede'); }, function() { $( this ).css('background-color','#fff'); $('#puhocu' + CUID).css('background-color','#fff'); } );\n" +
+"                $.each(json.HOST, function() {\n" +
+"                    if(c == 0) {\n" +
+"                        $('#UserMgmntHoCuList2 table tr#tuhocu').append('<th>' + $.base64.decode( this.HOST_NM ) + '</th>');\n" +
+"                    }" +
+"                    $('#UserMgmntHoCuList2 table tr#ruhocu' + CUID ).append('<td><img id=\"CuID' + CUID + '_HtID' + this.HOST_ID + '\" onclick=\"UpdateHostCustomer(\\'' + this.HOST_ID + '\\',\\'' + CUID + '\\');\" src=\"public/images/cross-circle.png\" title=\"' + $.base64.decode( this.HOST_NM ) + ' diesem Kunden zuweisen\"/></td>');\n" +
+"                });\n" +
+"                c++;" +
+"            });\n" +
+"            $.each(json.HOST, function() {\n" +
+"                var HOSTID = this.HOST_ID;\n" +                    
+"                for(var i=0;i<this.HOST_GROUP.length;i++) {\n" +
+"                    $('#CuID' + this.HOST_GROUP[i] + '_HtID' + HOSTID).attr('src','public/images/accept.png');\n" +                    
+"                    $('#CuID' + this.HOST_GROUP[i] + '_HtID' + HOSTID).attr('title',$.base64.decode( this.HOST_NM ) + ' diesem Kunden entziehen');\n" + 
+"                };\n" +
+"            });\n" +
+"        },\n" +
+"        dataType: 'json',\n" +
+"        cache: false\n" +
+"    });\n" +
+"}\n"); 
+
+            out.println("\n" +
+"function FillUserManagementHoCo() {\n" +
+"    $.ajax({\n" +
+"        url: '/gateway/monitoring/GetHostContract',\n" +
+"        crossDomain: true,\n" +
+"        success: function(json) {\n" +
+"            var c=0;" +
+"            $('#UserMgmntHoCoList1 table').html('<tr id=\"tuhoco\"><th>Vertrag:</th></tr>');\n" +
+"            $('#UserMgmntHoCoList2 table').html('<tr id=\"tuhoco\"></tr>');\n" +
+"            $.each(json.CONTRACT, function() {\n" +
+"                var CCID = this.CCID;\n" +
+"                $('#UserMgmntHoCoList1 table').append('<tr id=\"puhoco' + CCID + '\"><td title=\"' + $.base64.decode( this.CCNM ) + ' von ' + $.base64.decode( this.CUNM ) + '\">' + $.base64.decode( this.CCNR ) + '</td></tr>');\n" +
+"                $('#UserMgmntHoCoList2 table').append('<tr id=\"ruhoco' + CCID + '\"></tr>');\n" +
+"                $('#puhoco' + CCID).hover( function() { $( this ).css('background-color','#dedede'); $('#ruhoco' + CCID).css('background-color','#dedede'); }, function() { $( this ).css('background-color','#fff'); $('#ruhoco' + CCID).css('background-color','#fff'); } );\n" +
+"                $('#ruhoco' + CCID).hover( function() { $( this ).css('background-color','#dedede'); $('#puhoco' + CCID).css('background-color','#dedede'); }, function() { $( this ).css('background-color','#fff'); $('#puhoco' + CCID).css('background-color','#fff'); } );\n" +
+"                $.each(json.HOST, function() {\n" +
+"                    if(c == 0) {\n" +
+"                        $('#UserMgmntHoCoList2 table tr#tuhoco').append('<th>' + $.base64.decode( this.HOST_NM ) + '</th>');\n" +
+"                    }" +
+"                    $('#UserMgmntHoCoList2 table tr#ruhoco' + CCID ).append('<td><img id=\"CcID' + CCID + '_HtID' + this.HOST_ID + '\" onclick=\"UpdateHostContract(\\'' + this.HOST_ID + '\\',\\'' + CCID + '\\');\" src=\"public/images/cross-circle.png\" title=\"' + $.base64.decode( this.HOST_NM ) + ' diesem Vertrag zuweisen\"/></td>');\n" +
+"                });\n" +
+"                c++;" +
+"            });\n" +
+"            $.each(json.HOST, function() {\n" +
+"                var HOSTID = this.HOST_ID;\n" +                    
+"                for(var i=0;i<this.CONTRACTS.length;i++) {\n" +
+"                    $('#CcID' + this.CONTRACTS[i] + '_HtID' + HOSTID).attr('src','public/images/accept.png');\n" +                    
+"                    $('#CcID' + this.CONTRACTS[i] + '_HtID' + HOSTID).attr('title',$.base64.decode( this.HOST_NM ) + ' diesem Vertrag entziehen');\n" + 
+"                };\n" +
+"            });\n" +
+"        },\n" +
+"        dataType: 'json',\n" +
+"        cache: false\n" +
+"    });\n" +
+"}\n"); 
+
+            out.println("\n" +
+"function FillUserManagementHoRo() {\n" +
+"    $.ajax({\n" +
+"        url: '/gateway/monitoring/GetHostRole',\n" +
+"        crossDomain: true,\n" +
+"        success: function(json) {\n" +
+"            var c=0;" +
+"            $('#UserMgmntHoRoList1 table').html('<tr id=\"tuhoro\"><th>Rolle:</th></tr>');\n" +
+"            $('#UserMgmntHoRoList2 table').html('<tr id=\"tuhoro\"></tr>');\n" +
+"            $.each(json.ROLE, function() {\n" +
+"                var ROID = this.ROID;\n" +
+"                $('#UserMgmntHoRoList1 table').append('<tr id=\"puhoro' + ROID + '\"><td>' + $.base64.decode( this.RODC ) + '<br>(' + $.base64.decode( this.RONM ) + ')</td></tr>');\n" +
+"                $('#UserMgmntHoRoList2 table').append('<tr id=\"ruhoro' + ROID + '\"></tr>');\n" +
+"                $('#puhoro' + ROID).hover( function() { $( this ).css('background-color','#dedede'); $('#ruhoro' + ROID).css('background-color','#dedede'); }, function() { $( this ).css('background-color','#fff'); $('#ruhoro' + ROID).css('background-color','#fff'); } );\n" +
+"                $('#ruhoro' + ROID).hover( function() { $( this ).css('background-color','#dedede'); $('#puhoro' + ROID).css('background-color','#dedede'); }, function() { $( this ).css('background-color','#fff'); $('#puhoro' + ROID).css('background-color','#fff'); } );\n" +
+"                $.each(json.HOST, function() {\n" +
+"                    if(c == 0) {\n" +
+"                        $('#UserMgmntHoRoList2 table tr#tuhoro').append('<th>' + $.base64.decode( this.HOST_NM ) + '</th>');\n" +
+"                    }" +
+"                    $('#UserMgmntHoRoList2 table tr#ruhoro' + ROID ).append('<td><img id=\"RoID' + ROID + '_HtID' + this.HOST_ID + '\" onclick=\"UpdateHostRole(\\'' + this.HOST_ID + '\\',\\'' + ROID + '\\');\" src=\"public/images/cross-circle.png\" title=\"' + $.base64.decode( this.HOST_NM ) + ' dieser Rolle zuweisen\"/></td>');\n" +
+"                });\n" +
+"                c++;" +
+"            });\n" +
+"            $.each(json.HOST, function() {\n" +
+"                var HOSTID = this.HOST_ID;\n" +                    
+"                for(var i=0;i<this.ROLE.length;i++) {\n" +
+"                    $('#RoID' + this.ROLE[i] + '_HtID' + HOSTID).attr('src','public/images/accept.png');\n" +                    
+"                    $('#RoID' + this.ROLE[i] + '_HtID' + HOSTID).attr('title','' + $.base64.decode( this.HOST_NM ) + ' dieser Rolle entziehen');\n" + 
+"                };\n" +
+"            });\n" +
+"        },\n" +
+"        dataType: 'json',\n" +
+"        cache: false\n" +
+"    });\n" +
+"}\n");
+            
+            out.println("\n" +
+"function UpdateHostRole(hstid,rlid) {\n" +
+"    $.ajax({\n" +
+"        url: '/gateway/monitoring/UpdateHostRole?hstid=' + hstid + '&rlid=' + rlid,\n" +
+"        crossDomain: true,\n" +
+"        success: function() {\n" +
+"            DialogSuccess('#Dialog','Der Host wurde erfolgreich angepasst.');\n" +
+"            FillUserManagementHoRo();\n" +
+"        },\n" +
+"        dataType: 'json',\n" +
+"        cache: false\n" +
+"    });\n" +
+"}\n");
+            
+            out.println("\n" +
+"function UpdateHostCustomer(hstid,cuid) {\n" +
+"    $.ajax({\n" +
+"        url: '/gateway/monitoring/UpdateHostCustomer?hstid=' + hstid + '&cuid=' + cuid,\n" +
+"        crossDomain: true,\n" +
+"        success: function() {\n" +
+"            DialogSuccess('#Dialog','Der Host wurde erfolgreich angepasst.');\n" +
+"            FillUserManagementHoCu();\n" +
+"        },\n" +
+"        dataType: 'json',\n" +
+"        cache: false\n" +
+"    });\n" +
+"}\n");
+            
+            out.println("\n" +
+"function UpdateHostContract(hstid,ccid) {\n" +
+"    $.ajax({\n" +
+"        url: '/gateway/monitoring/UpdateHostContract?hstid=' + hstid + '&ccid=' + ccid,\n" +
+"        crossDomain: true,\n" +
+"        success: function() {\n" +
+"            DialogSuccess('#Dialog','Der Host wurde erfolgreich angepasst.');\n" +
+"            FillUserManagementHoCo();\n" +
+"        },\n" +
+"        dataType: 'json',\n" +
+"        cache: false\n" +
+"    });\n" +
+"}\n");
+
             }
             
         }

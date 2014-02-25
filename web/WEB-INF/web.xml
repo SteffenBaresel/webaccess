@@ -68,89 +68,6 @@
             <form-error-page>/loginError</form-error-page>
         </form-login-config>
     </login-config>
-    <!--
-            Servlets & Mapping WebAdmin
-    -->
-    <servlet>
-        <servlet-name>PrepareRepository</servlet-name>
-        <servlet-class>de.siv.webinstaller.PrepareRepository</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>PrepareRepository</servlet-name>
-        <url-pattern>/exec/PrepareRepository</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>UnprepareRepository</servlet-name>
-        <servlet-class>de.siv.webinstaller.UnprepareRepository</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>UnprepareRepository</servlet-name>
-        <url-pattern>/exec/UnprepareRepository</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>FillDefault</servlet-name>
-        <servlet-class>de.siv.webinstaller.FillDefault</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>FillDefault</servlet-name>
-        <url-pattern>/exec/FillDefault</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>IsAlreadyInstalled</servlet-name>
-        <servlet-class>de.siv.webinstaller.IsAlreadyInstalled</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>IsAlreadyInstalled</servlet-name>
-        <url-pattern>/exec/IsAlreadyInstalled</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>AdminUser</servlet-name>
-        <servlet-class>de.siv.webinstaller.AdminUser</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AdminUser</servlet-name>
-        <url-pattern>/exec/AdminUser</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>ConfigureMailApi</servlet-name>
-        <servlet-class>de.siv.webinstaller.ConfigureMailApi</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>ConfigureMailApi</servlet-name>
-        <url-pattern>/exec/ConfigureMailApi</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>MailApiIsAlreadyConfigured</servlet-name>
-        <servlet-class>de.siv.webinstaller.MailApiIsAlreadyConfigured</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>MailApiIsAlreadyConfigured</servlet-name>
-        <url-pattern>/exec/MailApiIsAlreadyConfigured</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>AdminUserIsAlreadyConfigured</servlet-name>
-        <servlet-class>de.siv.webinstaller.AdminUserIsAlreadyConfigured</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AdminUserIsAlreadyConfigured</servlet-name>
-        <url-pattern>/exec/AdminUserIsAlreadyConfigured</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>ConfigureSysInfo</servlet-name>
-        <servlet-class>de.siv.webinstaller.ConfigureSysInfo</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>ConfigureSysInfo</servlet-name>
-        <url-pattern>/exec/ConfigureSysInfo</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>SysInfoIsAlreadyConfigured</servlet-name>
-        <servlet-class>de.siv.webinstaller.SysInfoIsAlreadyConfigured</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>SysInfoIsAlreadyConfigured</servlet-name>
-        <url-pattern>/exec/SysInfoIsAlreadyConfigured</url-pattern>
-    </servlet-mapping>
     
     <!--
         Monitoring
@@ -261,6 +178,22 @@
     <servlet-mapping>
         <servlet-name>ManagedServiceBasics</servlet-name>
         <url-pattern>/script/ManagedServiceBasics.js</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>Monitoring</servlet-name>
+        <servlet-class>de.siv.systemcontrol.Monitoring</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Monitoring</servlet-name>
+        <url-pattern>/Monitoring</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>MonitoringBasics</servlet-name>
+        <servlet-class>de.siv.script.MonitoringBasics</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MonitoringBasics</servlet-name>
+        <url-pattern>/script/MonitoringBasics.js</url-pattern>
     </servlet-mapping>
     
 </web-app>

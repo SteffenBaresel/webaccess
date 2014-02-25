@@ -258,7 +258,7 @@ public class ManagedServiceBasics extends HttpServlet {
                 "</div>');\n" +
                 "" +
                 "    $('#ccommc').jqte();\n" +
-                "    $('#CreateCustomer').bind('copy paste', function (e) { e.preventDefault(); });" +
+                "    $('#caddress').bind('copy paste', function (e) { e.preventDefault(); });\n" +
                 "" +
                 "    $('#CreateCustomer').dialog({\n" +
                 "        autoOpen: true,\n" +
@@ -399,7 +399,7 @@ public class ManagedServiceBasics extends HttpServlet {
                 "</div>');\n" +
                 "" +
                 "    $('#ccommEc').jqte();\n" +
-                "    $('#CreateCustomer').bind('copy paste', function (e) { e.preventDefault(); });" +
+                "    $('#caddressE').bind('copy paste', function (e) { e.preventDefault(); });\n" +
                 "" +
                 "    $('#CreateCustomer').dialog({\n" +
                 "        autoOpen: true,\n" +
@@ -558,7 +558,6 @@ public class ManagedServiceBasics extends HttpServlet {
                 "</div>');\n" +
                 "" +
                 "    $('#mactionsc').jqte();\n" +
-                "    $('#CreateContractType').bind('copy paste', function (e) { e.preventDefault(); });" +
                 "" +
                 "    $('#CreateContractType').dialog({\n" +
                 "        autoOpen: true,\n" +
@@ -638,7 +637,6 @@ public class ManagedServiceBasics extends HttpServlet {
                 "</div>');\n" +
                 "" +
                 "    $('#mactionsEc').jqte();\n" +
-                "    $('#CreateContractType').bind('copy paste', function (e) { e.preventDefault(); });" +
                 "" +
                 "    $('#CreateContractType').dialog({\n" +
                 "        autoOpen: true,\n" +
@@ -773,9 +771,12 @@ public class ManagedServiceBasics extends HttpServlet {
                 "        url: '/gateway/exec/WhoIsLoggedIn',\n" +
                 "        crossDomain: true,\n" +
                 "        success: function(json) {\n" +
+                "            var i = 0;" +
                 "            $('#WLI_Cont').html('');\n" +
                 "            $.each(json.USER, function() {\n" +
-                "                $('#WLI_Cont').append('<div id=\"LoggedInUser\" class=\"ui-input-hofo\"><img style=\"float: left; width: 50px; height: 50px; \" src=\"/gateway/exec/UserPicture?user=' + $.base64.decode( this.USNM ) + '\" /><span id=\"LIU_Head\">' + $.base64.decode( this.USDC ) + '</span><span class=\"ui-icon ui-icon-mail-closed\" onclick=\"SendMailTo(\\\'' + $.base64.decode( this.UMAI ) + '\\\');\" title=\"Mail senden\"></span><span style=\"float: left;\">' + $.base64.decode( this.UMAI ) + '</span></div>');\n" +
+                "                $('#WLI_Cont').append('<div id=\"LoggedInUser\" class=\"ui-input-hofo\"><img style=\"float: left; width: 50px; height: 50px; \" id=\"imgLU' + i + '\" src=\"public/images/DefaultProfile.png\" /><span id=\"LIU_Head\">' + $.base64.decode( this.USDC ) + '</span><span class=\"ui-icon ui-icon-mail-closed\" onclick=\"SendMailTo(\\\'' + $.base64.decode( this.UMAI ) + '\\\');\" title=\"Mail senden\"></span><span style=\"float: left;\">' + $.base64.decode( this.UMAI ) + '</span></div>');\n" +
+                "                if(this.PCTRL != '0') { $('img#imgLU' + i).attr('src','/gateway/exec/UserPicture?user=' + $.base64.decode( this.USNM ) + ''); }\n" +
+                "                i++;" +
                 "            });\n" +
                 "        },\n" +
                 "        dataType: 'json',\n" +
@@ -795,7 +796,7 @@ public class ManagedServiceBasics extends HttpServlet {
                 "        url: '/gateway/exec/GetCustomerContractNumbers?cuid=' + $.base64.encode( $('#' + id).val() ),\n" +
                 "        crossDomain: true,\n" +
                 "        success: function(json) {\n" +
-                "            $('#CreateServiceEntryAs').html('<select id=\"CreateServiceEntryAselect\" onchange=\"ChangeSubject(\\\'' + id + '\\\',\\\'CreateServiceEntryAselect\\\');\"><option selected value=\"0000\">Bitte w&auml;hlen</option></select>');\n" +
+                "            $('#CreateServiceEntryAselect').html('<option value=\"0000\" selected>Bitte w&auml;hlen</option>');\n" +
                 "            $.each(json.CONTRACT, function() {\n" +
                 "                $('#CreateServiceEntryAselect').append('<option value=\"' + $.base64.decode( this.CCID ) + '\">' + $.base64.decode( this.COTRLN ) + ' (' + $.base64.decode( this.CCNR ) + ')</option>');\n" +
                 "            });\n" +
@@ -867,7 +868,7 @@ public class ManagedServiceBasics extends HttpServlet {
                 "<div id=\"CreateServiceEntryRight\">" +
                 "<div id=\"CreateServiceEntryU\"><div id=\"CSEDsc\"><span style=\"float: left\">Arbeiten wurden ausgef&uuml;hrt durch</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></div><input class=\"ui-input-hofo\" type=text value=\"' + FullName + '\" disabled/><input id=\"InFrom\" type=hidden value=\"' + UserMail + '\" /></div>" +
                 "<div id=\"CreateServiceEntryC\"><div id=\"CSEDsc\"><span style=\"float: left\">Arbeiten wurden ausgef&uuml;hrt f&uuml;r</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></div><div id=\"CreateServiceEntryCs\"><select class=\"ui-input-hofo\" id=\"CreateServiceEntryCselect\" onchange=\"GetSingleCustomerInfo(\\\'CreateServiceEntryCselect\\\');\"><option selected value=\"0000\">Kunde w&auml;hlen</option></select></div></div>" +
-                "<div id=\"CreateServiceEntryA\"><div id=\"CSEDsc\"><span style=\"float: left\">Auftragsnummer</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></div><br><div class=\"ui-input-hofo\" id=\"CreateServiceEntryAs\"></div></div>" +
+                "<div id=\"CreateServiceEntryA\"><div id=\"CSEDsc\"><span style=\"float: left\">Auftragsnummer</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></div><select class=\"ui-input-hofo\" id=\"CreateServiceEntryAselect\" onchange=\"ChangeSubject(\\\'CreateServiceEntryCselect\\\',\\\'CreateServiceEntryAselect\\\');\"><option selected value=\"0000\">-</option></select></div>" +
                 "<div id=\"CreateServiceEntryT\"><div id=\"CSEDsc\"><span style=\"float: left\">Typ des Eintrags</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></div><div id=\"CreateServiceEntryTs\"><select class=\"ui-input-hofo\" id=\"CreateServiceEntryTselect\"><option selected value=\"0000\">Bitte w&auml;hlen</option></select></div></div>" +
                 "<div id=\"CreateServiceEntryS\"><div id=\"CSEDsc\"><span style=\"float: left\">Zeitstempel</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></div><input class=\"ui-input-hofo\" id=\"CreateServiceEntryTime\" type=text value=\"' + now.format(\"yyyy-mm-dd HH:MM:ss\") + '\" /></div>" +
                 "<div id=\"CreateServiceEntryD\"><div id=\"CSEDsc\"><span style=\"float: left\">Dauer (min)</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></div><input class=\"ui-input-hofo\" id=\"CreateServiceEntryDelay\" type=text value=\"15\" /></div>" +
@@ -896,7 +897,6 @@ public class ManagedServiceBasics extends HttpServlet {
                 "    $('#CreateServiceEntryLeftMHc').jqte();\n" +
                 "    $('#CreateServiceEntryLeftMCc').jqte();\n" +
                 "    $('#CreateServiceEntryLeftMFc').jqte();\n" +
-                "    $('#CreateServiceEntry').bind('copy paste', function (e) { e.preventDefault(); });" +
                 "" +
                 "    $('#CreateServiceEntry').dialog({\n" +
                 "        autoOpen: true,\n" +
@@ -1015,10 +1015,12 @@ public class ManagedServiceBasics extends HttpServlet {
                 "        url: '/gateway/exec/GetServiceEntry?uuid=' + $.base64.encode( UUID ) + '&offset=' + $.base64.encode( offset ) + '&limit=' + $.base64.encode( limit ),\n" +
                 "        crossDomain: true,\n" +
                 "        success: function(json) {\n" +
+                "            var i = 0;\n" +
                 "            $('#ManagedServiceActionsPage').html('<div id=\"ManagedServiceActionsPageSelected\"></div>')\n" +
                 "            var count = $.base64.decode( json.COUNT );\n" +
                 "            PagingServiceEntry(count,limit,pnumber);\n" +
                 "            $('#ManagedServiceActions').html('<div id=\"ManagedServiceActionsC\"></div>');\n" +
+                "            if(json.ROWS.length == 0) { $('#ManagedServiceActionsC').html('<span class=\"NoEntry\">Keine Eintr&auml;ge vorhanden.</span>'); }\n" +
                 "            $.each(json.ROWS, function() {\n" +
                 "                var now = new Date($.base64.decode( this.TS ) * 1000);\n" +
                 "                var esk = $.base64.decode( this.ESK );\n" +
@@ -1031,13 +1033,16 @@ public class ManagedServiceBasics extends HttpServlet {
                 "                    eskt = '<span id=\"EskDscE\">Dieser Eintrag wurde in der Stufe 3 eskaliert.</span>';\n" +
                 "                } else {\n" +
                 "                    eskt = '<span id=\"EskDscD\">Dieser Eintrag wurde nicht eskaliert.</span>';\n" +
-                "                }" +
-                "                $('#ManagedServiceActionsC').append('<div id=\"ManagedServiceActionsE\"><table><tr><td><img src=\"/gateway/exec/UserPicture?user=' + $.base64.decode( this.UID ) + '\" /></td><td><div id=\"ManagedServiceActionsH\">' + $.base64.decode( this.NAME ) + ' f&uuml;r ' + $.base64.decode( this.CUNM ) + '</div>" +
+                "                }\n" +
+                "                $('#ManagedServiceActionsC').append('<div id=\"ManagedServiceActionsE\"><table><tr><td><img id=\"img' + i + '\" src=\"public/images/DefaultProfile.png\" /></td><td><div id=\"ManagedServiceActionsH\">' + $.base64.decode( this.NAME ) + ' f&uuml;r ' + $.base64.decode( this.CUNM ) + '</div>" +
                 "<div id=\"ManagedServiceActionsD\"><span id=\"EskDscD\">am ' + now.format(\"yyyy-mm-dd HH:MM:ss\") + ' | </span>' + eskt + '</div>" +
                 "<div id=\"ManagedServiceActionsT\">' + $.base64.decode( this.TEXT ) + '</div>" +
                 "<div id=\"ManagedServiceActionsF\"><span id=\"EskDscD\">Auftragsnummer: ' + $.base64.decode( this.AN ) + ' | Vertragstyp: ' + $.base64.decode( this.CONM ) + '</span></div>" +
                 "</td></tr></table></div>');\n" +
+                "                if(this.PCTRL != '0') { $('img#img' + i).attr('src','/gateway/exec/UserPicture?user=' + $.base64.decode( this.UID ) + ''); }\n" +
+                "                i++;\n" +
                 "            });\n" +
+                "            setTimeout('GetServiceEntry(\\\'0\\\',\\\'75\\\',\\\'1\\\');',300000);\n" +
                 "        },\n" +
                 "        dataType: 'json',\n" +
                 "        cache: false\n" +
@@ -1133,6 +1138,7 @@ public class ManagedServiceBasics extends HttpServlet {
                     "        url: '/gateway/exec/GetCustomer',\n" +
                     "        crossDomain: true,\n" +
                     "        success: function(json) {\n" +
+                    "            $('#MSI_Cont').html('');\n" +
                     "            $.each(json.CUSTOMER, function() {\n" +
                     "                $('#MSI_Cont').append('<div class=\"ui-input-hofo\" id=\"CustomerInfoEntry\" onclick=\"ShowCustomer(\\\'' + $.base64.decode( this.CUID ) + '\\\');\"><span id=\"CustomerInfoEntryHeader\">' + $.base64.decode( this.CUNM ) + '</span><br><span id=\"CustomerInfoEntryContent\">Kundennummer: ' + $.base64.decode( this.CUNR ) + '</span></div>');\n" +
                     "            });\n" +

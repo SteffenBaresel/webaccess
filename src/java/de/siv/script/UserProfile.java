@@ -121,6 +121,13 @@ public class UserProfile extends HttpServlet {
                     + "}\n"
                     + "");
             
+            out.println("\n"
+                    + "function UploadPicture() {\n"
+                    + "    window.open('/gateway/exec/FormPicture','UploadProfilBild','menubar=0,location=0,top=0,left=0,toolbar=0,personalbar=0,width=843,height=393,resizable=yes');\n"
+                    + "    $('#UserProfileDialog').dialog('close');\n"
+                    + "    $('#UserProfileDialog').remove();\n"
+                    + "}\n");
+            
         }
         
     }

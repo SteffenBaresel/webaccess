@@ -6,16 +6,9 @@
         Purpose of the stylesheet follows.
 */
 
-@font-face {
-    font-family: SansProLight;
-    src: url(SourceSansPro-Regular.ttf) format("truetype");
-}
-
-body {
-    background-color: #ffffff;
-    font-family: SansProLight;
-    cursor: default;
-}
+@font-face { font-family: SansProLight; src: url(SourceSansPro-Regular.ttf) format("truetype"); }
+body { background-color: #ffffff; font-family: SansProLight, Arial; cursor: default; min-width: 1180px; min-height: 800px; }
+span.NoEntry { font-size: 12px; color: 000; margin-left: 4px; }
 
 /* Page Structure Start */
 
@@ -23,6 +16,7 @@ section#menu, section#content, section#bottom, section#content-index {
     position: absolute;
     left: 0;
     right: 0;
+    min-width: 1180px;
 }
 
 section#menu {
@@ -57,6 +51,7 @@ section#big-taov {
     height: 200px;
     top: 120px;
     margin: 5px;
+    min-width: 1180px;
 }
 
 section#user-menu {
@@ -66,6 +61,7 @@ section#user-menu {
     left: 0;
     background-color: #423939;
     height: 32px;
+    min-width: 1200px;
 }
 
 section#user-picture {
@@ -325,18 +321,32 @@ span#ui-tile span.ui-tile-content {
 
 .critical {
     background-color: #E5442D;
+    border: 1px solid #E5442D;
+    color: #fff;
 }
 
 .warning {
     background-color: orange;
+    border: 1px solid orange;
+    color: #fff;
 }
 
 .ok {
     background-color: #088A08;
+    border: 1px solid #088A08;
+    color: #fff;
 }
 
 .unknown {
     background-color: #C800C8;
+    border: 1px solid #C800C8;
+    color: #fff;
+}
+
+.ack {
+    background-color: #fff;
+    border: 1px solid #423939;
+    color: #000;
 }
 
 /* Slim Taov End */
@@ -388,7 +398,9 @@ div#UserMenu span {
 
 #UserMgmntUserList,#UserMgmntGroupList,#UserMgmntPrivList,#UserMgmntRoleList { margin-top: -297px; margin-left: 300px; width: 792px; height: 295px; border: 1px solid #423939; overflow-y: scroll; background-color: #423939; }
 #UserMgmntUserMenu,#UserMgmntGroupMenu,#UserMgmntPrivMenu,#UserMgmntRoleMenu { width: 285px; height: 295px; }
-#UserMgmntUsGrList,#UserMgmntGrRoList,#UserMgmntRoPrList { width: 1092px; height: 175px; border: 1px solid #423939; overflow-y: scroll; }
+#UserMgmntGrRoList, #UserMgmntHoCuList, #UserMgmntCuRoList, #UserMgmntCoRoList, #UserMgmntHoCoList, #UserMgmntHoRoList { width: 1102px; height: 175px; border: 1px solid #423939; overflow-y: scroll; }
+#UserMgmntUsGrList { width: 1102px; height: 235px; border: 1px solid #423939; overflow-y: scroll; }
+#UserMgmntRoPrList { width: 1102px; height: 375px; border: 1px solid #423939; overflow-y: scroll; }
 #UserMgmntUserMenu table,#UserMgmntGroupMenu table,#UserMgmntRoleMenu table,#UserMgmntPrivMenu table { width: 285px; table-layout: fixed; border-spacing: 0; border-collapse: collapse; font-size: 12px; font-weight: bold; cursor: default; }
 #UserMgmntUserMenu table td,#UserMgmntGroupMenu table td,#UserMgmntRoleMenu table td,#UserMgmntPrivMenu table td { padding: 2px; }
 #UserMgmntUserMenu table input,#UserMgmntGroupMenu table input,#UserMgmntRoleMenu table input,#UserMgmntPrivMenu table input { width: 270px; border: 1px solid #423939; background-color: #fff; color: #000; padding: 5px; font-size: 16px; cursor: text; }
@@ -409,6 +421,7 @@ div#UserMenu span {
 #UserMgmntUserList table th:first-child + th, #UserMgmntUserList table th:first-child + th + th, #UserMgmntUserList table th:first-child + th + th + th { color: #fff; }
 #UserMgmntGroupList table th:first-child + th,#UserMgmntRoleList table th:first-child + th,#UserMgmntPrivList table th:first-child + th { width: 350px; border-bottom: 1px solid #423939; color: #fff; }
 #UserMgmntGroupList table td:first-child + td,#UserMgmntRoleList table td:first-child + td,#UserMgmntPrivList table td:first-child + td { width: 350px; border-bottom: 1px solid #423939; }
+
 #UserMgmntRoPrList1 { float: left; width: 374px; border-right: 1px solid #423939; font-size: 12px; font-weight: bold; }
 #UserMgmntRoPrList1 table { table-layout: fixed; border-spacing: 0; border-collapse: collapse; width: 100%; cursor: default; }
 #UserMgmntRoPrList2 table { table-layout: fixed; border-spacing: 0; border-collapse: collapse; cursor: default; }
@@ -418,17 +431,20 @@ div#UserMenu span {
 #UserMgmntRoPrList1 table tr:first-child,#UserMgmntRoPrList2 table tr:first-child { height: 20px; font-size: 12px; }
 #UserMgmntRoPrList1 table th { padding: 5px; color: #fff; border-bottom: 1px solid #423939; background-color: #423939; }
 #UserMgmntRoPrList2 table th { min-width: 125px; padding: 5px; color: #fff; border-bottom: 1px solid #423939; border-right: 1px solid #423939; background-color: #423939; }
-#UserMgmntRoPrList2 { float: right; width: 700px; font-size: 14px; font-weight: bold; overflow-x: auto; }
-#UserMgmntGrRoList1 { float: left; width: 194px; border-right: 1px solid #423939; font-size: 12px; font-weight: bold; }
-#UserMgmntGrRoList1 table { table-layout: fixed; border-spacing: 0; border-collapse: collapse; width: 100%; cursor: default; }
-#UserMgmntGrRoList2 table { table-layout: fixed; border-spacing: 0; border-collapse: collapse; cursor: default; }
-#UserMgmntGrRoList1 table td { padding-left: 5px; border-bottom: 1px solid #423939; }
-#UserMgmntGrRoList2 table td { text-align: center; border-bottom: 1px solid #423939; border-right: 1px solid #423939; }
-#UserMgmntGrRoList1 table tr,#UserMgmntGrRoList2 table tr { height: 42px; background-color: #fff; }
-#UserMgmntGrRoList1 table tr:first-child,#UserMgmntGrRoList2 table tr:first-child { height: 20px; font-size: 12px; }
-#UserMgmntGrRoList1 table th { padding: 5px; color: #fff; border-bottom: 1px solid #423939; background-color: #423939; }
-#UserMgmntGrRoList2 table th { min-width: 125px; padding: 5px; color: #fff; border-bottom: 1px solid #423939; border-right: 1px solid #423939; background-color: #423939; }
-#UserMgmntGrRoList2 { float: right; width: 880px; font-size: 14px; font-weight: bold; overflow-x: auto; }
+#UserMgmntRoPrList2 { float: right; width: 710px; font-size: 14px; font-weight: bold; overflow-x: auto; }
+
+#UserMgmntGrRoList1, #UserMgmntCuRoList1, #UserMgmntCoRoList1, #UserMgmntHoRoList1 { float: left; width: 194px; border-right: 1px solid #423939; font-size: 12px; font-weight: bold; }
+#UserMgmntGrRoList1 table, #UserMgmntCuRoList1 table, #UserMgmntCoRoList1 table, #UserMgmntHoRoList1 table { table-layout: fixed; border-spacing: 0; border-collapse: collapse; width: 100%; cursor: default; }
+#UserMgmntGrRoList2 table, #UserMgmntCuRoList2 table, #UserMgmntCoRoList2 table, #UserMgmntHoRoList2 table { table-layout: fixed; border-spacing: 0; border-collapse: collapse; cursor: default; }
+#UserMgmntGrRoList1 table td, #UserMgmntCuRoList1 table td, #UserMgmntCoRoList1 table td, #UserMgmntHoRoList1 table td { padding-left: 5px; border-bottom: 1px solid #423939; }
+#UserMgmntGrRoList2 table td, #UserMgmntCuRoList2 table td, #UserMgmntCoRoList2 table td, #UserMgmntHoRoList2 table td { text-align: center; border-bottom: 1px solid #423939; border-right: 1px solid #423939; }
+#UserMgmntGrRoList1 table tr,#UserMgmntGrRoList2 table tr, #UserMgmntCuRoList1 table tr,#UserMgmntCuRoList2 table tr, #UserMgmntCoRoList1 table tr,#UserMgmntCoRoList2 table tr, #UserMgmntHoRoList1 table tr,#UserMgmntHoRoList2 table tr { height: 42px; background-color: #fff; }
+#UserMgmntGrRoList1 table tr:first-child,#UserMgmntGrRoList2 table tr:first-child, #UserMgmntCuRoList1 table tr:first-child,#UserMgmntCuRoList2 table tr:first-child, #UserMgmntCoRoList1 table tr:first-child,#UserMgmntCoRoList2 table tr:first-child, #UserMgmntHoRoList1 table tr:first-child,#UserMgmntHoRoList2 table tr:first-child { height: 20px; font-size: 12px; }
+#UserMgmntGrRoList1 table th, #UserMgmntCuRoList1 table th, #UserMgmntCoRoList1 table th, #UserMgmntHoRoList1 table th { padding: 5px; color: #fff; border-bottom: 1px solid #423939; background-color: #423939; }
+#UserMgmntGrRoList2 table th, #UserMgmntCoRoList2 table th, #UserMgmntHoRoList2 table th { min-width: 125px; padding: 5px; color: #fff; border-bottom: 1px solid #423939; border-right: 1px solid #423939; background-color: #423939; }
+#UserMgmntCuRoList2 table th { min-width: 125px; padding: 5px; color: #fff; border-bottom: 1px solid #423939; border-right: 1px solid #423939; background-color: #423939; height: 15px; overflow-y: scroll; }
+#UserMgmntGrRoList2, #UserMgmntCuRoList2, #UserMgmntCoRoList2, #UserMgmntHoRoList2 { float: right; width: 890px; font-size: 14px; font-weight: bold; overflow-x: auto; }
+
 #UserMgmntUsGrList1 { float: left; width: 174px; border-right: 1px solid #423939; font-size: 12px; font-weight: bold; }
 #UserMgmntUsGrList1 table { table-layout: fixed; border-spacing: 0; border-collapse: collapse; width: 100%; cursor: default; }
 #UserMgmntUsGrList2 table { table-layout: fixed; border-spacing: 0; border-collapse: collapse; cursor: default; }
@@ -438,9 +454,24 @@ div#UserMenu span {
 #UserMgmntUsGrList1 table tr:first-child,#UserMgmntUsGrList2 table tr:first-child { height: 20px; font-size: 12px; }
 #UserMgmntUsGrList1 table th { padding: 5px; color: #fff; border-bottom: 1px solid #423939; background-color: #423939; }
 #UserMgmntUsGrList2 table th { min-width: 125px; padding: 5px; color: #fff; border-bottom: 1px solid #423939; border-right: 1px solid #423939; background-color: #423939; }
-#UserMgmntUsGrList2 { float: right; width: 900px; font-size: 14px; font-weight: bold; overflow-x: auto; }
+#UserMgmntUsGrList2 { float: right; width: 910px; font-size: 14px; font-weight: bold; overflow-x: auto; }
 #UserMgmntUsGrList2 img,#UserMgmntRoPrList2 img,#UserMgmntGrRoList2 img { cursor: pointer; }
-#UserMgmntUsGrList,#UserMgmntRoPrList,#UserMgmntGrRoList { background-color: #423939;}
+#UserMgmntUsGrList,#UserMgmntRoPrList,#UserMgmntGrRoList, #UserMgmntCoRoList, #UserMgmntCuRoList { background-color: #423939;}
+
+#UserMgmntHoCuList1, #UserMgmntHoCoList1 { float: left; width: 100px; border-right: 1px solid #423939; font-size: 12px; font-weight: bold; }
+#UserMgmntHoCuList1 table, #UserMgmntHoCoList1 table { table-layout: fixed; border-spacing: 0; border-collapse: collapse; width: 100%; cursor: default; }
+#UserMgmntHoCuList2 table, #UserMgmntHoCoList2 table { table-layout: fixed; border-spacing: 0; border-collapse: collapse; cursor: default; }
+#UserMgmntHoCuList1 table td, #UserMgmntHoCoList1 table td { padding-left: 5px; border-bottom: 1px solid #423939; }
+#UserMgmntHoCuList2 table td, #UserMgmntHoCoList2 table td { text-align: center; border-bottom: 1px solid #423939; border-right: 1px solid #423939; }
+#UserMgmntHoCuList1 table tr, #UserMgmntHoCuList2 table tr, #UserMgmntHoCoList1 table tr, #UserMgmntHoCoList2 table tr { height: 30px; background-color: #fff; }
+#UserMgmntHoCuList1 table tr:first-child, #UserMgmntHoCuList2 table tr:first-child, #UserMgmntHoCoList1 table tr:first-child, #UserMgmntHoCoList2 table tr:first-child { height: 20px; font-size: 12px; }
+#UserMgmntHoCuList1 table th, #UserMgmntHoCoList1 table th { padding: 5px; color: #fff; border-bottom: 1px solid #423939; background-color: #423939; }
+#UserMgmntHoCuList2 table th, #UserMgmntHoCoList2 table th { min-width: 125px; padding: 5px; color: #fff; border-bottom: 1px solid #423939; border-right: 1px solid #423939; background-color: #423939; }
+#UserMgmntHoCuList2, #UserMgmntHoCoList2 { float: right; width: 984px; font-size: 14px; font-weight: bold; overflow-x: auto; }
+
+#UserMgmntHoCuList2 img, #UserMgmntHoCoList2 img,#UserMgmntHoRoList2 img, #UserMgmntCuRoList2 img, #UserMgmntCoRoList2 img { cursor: pointer; }
+#UserMgmntHoCuList, #UserMgmntHoCoList, #UserMgmntHoRoList { background-color: #423939;}
+
 
 #MailHContent {  }
 #MailFContent {  }
@@ -534,8 +565,8 @@ div#UserMenu span {
 }
 
 .ui-taov-tile {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     display: block;
     margin: 2px;
     float: left;
@@ -547,12 +578,10 @@ div#UserMenu span {
 #Nodes {
     margin-top: 0px;
     padding: 5px;
-    color: #000;
     font-size: 12px;
 }
 
 #Nodes a {
-    color: #000;
     text-decoration: none;
 }
 
@@ -565,29 +594,37 @@ div#UserMenu span {
     margin-right: 8px;
 }
 
-.taov_default {
+.taov_default, .taov_default a {
     background-color: #fff;
+    color: #000;
+}
+
+.taov_default {
     border: 1px solid #423939;
 }
 
-.taov_ok {
+.taov_ok, .taov_ok a {
     background-color: #088A08;
     border: 1px solid #088A08;
+    color: #fff;
 }
 
-.taov_cr {
+.taov_cr, .taov_cr a {
     background-color: #E5442D;
     border: 1px solid #E5442D;
+    color: #fff;
 }
 
-.taov_un {
+.taov_un, .taov_un a {
     background-color: #C800C8;
     border: 1px solid #C800C8;
+    color: #fff;
 }
 
-.taov_wa {
+.taov_wa, .taov_wa a {
     background-color: orange;
     border: 1px solid orange;
+    color: #fff;
 }
 
 #ServicePie, #HostPie {
@@ -781,7 +818,8 @@ div#UserMenu span {
 #ManagedServiceMenus { position: absolute; width: 225px; top: 250px; bottom: 0px; left: 10px; }
 #WhosLoggedInH { position: absolute; width: 205px; top: -37px; left: -2px; font-size: 12px; color: #000; padding: 10px; height: 13px; }
 #WhosLoggedIn { width: 225px; overflow-y: auto; }
-#LoggedInUser { width: 219px; height: 50px; background-color: #fff; border: 1px solid #423939; cursor: default; font-size: 16px; letter-spacing: -1px; margin-left: 2px; margin-top: 2px; margin-right: 2px; margin-bottom: 2px; }
+#LoggedInUser { width: 219px; height: 50px; border: 1px solid transparent; cursor: default; font-size: 16px; letter-spacing: -1px; margin-left: 2px; margin-top: 2px; margin-right: 2px; margin-bottom: 2px; }
+#LoggedInUser:hover { background-color: #fff; border: 1px solid #423939; }
 #LoggedInUser img { margin-right: 5px;  }
 #LoggedInUser span#LIU_Head { float: left; cursor: default; margin-top: 6px; }
 #LoggedInUser span.ui-icon { float: left; cursor: pointer; margin-top: 9px; }
@@ -797,7 +835,7 @@ div#UserMenu span {
 #ManagedServiceActionsE:last-child {  }
 #ManagedServiceActionsE:focus, #ManagedServiceActionsE:hover { -webkit-box-shadow: 0px 0px 2px 0px #423939; -moz-box-shadow: 0px 0px 2px 0px #423939; box-shadow: 0px 0px 2px 0px #423939 }
 #ManagedServiceActionsE table { table-layout: fixed; border-spacing: 0; border-collapse: collapse; font-size: 14px; cursor: default; }
-#ManagedServiceActionsE img { width: 75px; height: 75px; border: 1px solid #423939; margin-left: 5px; }
+#ManagedServiceActionsE img { width: 75px; height: 75px; border: 1px solid #423939; margin-left: 5px; background-color: #423939;}
 #ManagedServiceActionsH { margin-top: 0px; margin-left: 10px; font-size: 16px; letter-spacing: -1px; }
 #ManagedServiceActionsD { margin-top: 0px; margin-left: 15px; font-size: 12px; }
 #ManagedServiceActionsT { margin-top: 15px; margin-left: 25px; font-size: 14px; }
@@ -808,7 +846,7 @@ div#UserMenu span {
 /* managed service customer info */
 
 #ManagedServiceInfos { position: absolute; width: 390px; top: 250px; bottom: 0px; right: 10px; overflow-y: auto; }
-#ManagedServiceInfosH { position: absolute; width: 370px; top: 217px; height: 13px; right: 10px; font-size: 12px; color: #000; padding: 10px; }
+#ManagedServiceInfosH { position: absolute; width: 370px; top: 213px; height: 13px; right: 10px; font-size: 12px; color: #000; padding: 10px; }
 #MSI_Cont { width: 100%; overflow-y: auto; height: 100%; }
 #CustomerInfoEntry { border: 1px solid #423939; padding: 5px; background-color: #fff; cursor: pointer; margin-bottom: 2px; margin-top: 2px; margin-left: 2px; margin-right: 2px;}
 #CustomerInfoEntryHeader { display: block; font-size: 18px; letter-spacing: -1px; }
@@ -870,11 +908,13 @@ div#UserMenu span {
 #DeleteCustomerLeft { padding-left: 30px; padding-right: 25px; padding-top: 15px; padding-bottom: 10px; font-size: 12px; }
 #ccomm { width: 385px; cursor: text; }
 #ccomm div.jqte { height: 485px; border: 1px solid #423939; cursor: text; }
-#ccomm .jqte_editor,#ccomm .jqte_source { height: 410px; font-size: 1em; font-weight: normal; }
+#ccomm .jqte_editor { height: 413px; font-size: 1em; font-weight: normal; }
+#ccomm .jqte_source { height: 433px; font-size: 1em; font-weight: normal; }
 
 #ccommE { width: 385px; cursor: text; }
 #ccommE div.jqte { height: 485px; border: 1px solid #423939; cursor: text; }
-#ccommE .jqte_editor,#ccommE .jqte_source { height: 410px; font-size: 1em; font-weight: normal; }
+#ccommE .jqte_editor { height: 413px; font-size: 1em; font-weight: normal; }
+#ccommE .jqte_source { height: 433px; font-size: 1em; font-weight: normal; }
 
 #ShowCustomer #ccommE { height: 477px; font-size: 12px; }
 #ShowCustomer #ContractsDiv1 { height: 477px; font-size: 12px; border: 0; }
@@ -900,16 +940,16 @@ div#UserMenu span {
 #CreateServiceEntryLeftMH div.jqte { height: 105px; cursor: text; border: 1px solid #423939; }
 #CreateServiceEntryLeftMH .jqte_editor,#CreateServiceEntryLeftMH .jqte_source { height: 56px; font-size: 12px; }
 #CreateServiceEntryLeftMC div.jqte { height: 670px; cursor: text; border: 1px solid #423939; }
-#CreateServiceEntryLeftMC .jqte_editor,#CreateServiceEntryLeftMC .jqte_source { height: 626px; font-size: 12px; }
+#CreateServiceEntryLeftMC .jqte_editor,#CreateServiceEntryLeftMC .jqte_source { height: 621px; font-size: 12px; }
 #CreateServiceEntryLeftMF,#CreateServiceEntryLeftMH { display: none; }
 #CreateServiceEntryLeftMF div.jqte { height: 155px; cursor: text; border: 1px solid #423939; }
 #CreateServiceEntryLeftMF .jqte_editor,#CreateServiceEntryLeftMF .jqte_source { height: 106px; font-size: 12px; }
 
 #CreateServiceEntryT,#CreateServiceEntryC,#CreateServiceEntryA { margin-left: 15px; font-size: 12px; }
 #CreateServiceEntryU input,#CreateServiceEntryD input,#CreateServiceEntryS input,#CreateServiceEntryM input { border: 1px solid #423939; background-color: #fff; color: #000; padding: 5px; padding-left: 7px; width: 373px;  margin-left: 15px; font-size: 12px; }
+#CreateServiceEntryT input { border: 1px solid #423939; background-color: #fff; color: #000; padding: 5px; padding-left: 7px; width: 373px;  font-size: 12px; }
 #CreateServiceEntryC select,#CreateServiceEntryT select { border: 1px solid #423939; background-color: #fff; color: #fff; padding: 4px; width: 387px; color: #000; }
-#CreateServiceEntryA select { border: 1px solid #fff; background-color: #fff; color: #fff; padding: 4px; width: 385px; color: #000; }
-#CreateServiceEntryAs { width: 385px; height: 28px; border: 1px solid #423939; }
+#CreateServiceEntryA select { border: 1px solid #423939; background-color: #fff; color: #fff; padding: 4px; width: 387px; color: #000; }
 #CreateServiceEntryT #CSEDsc,#CreateServiceEntryC #CSEDsc,#CreateServiceEntryA #CSEDsc { margin-bottom: 3px; margin-top: 6px; font-size: 12px; font-weight: bold; }
 #CreateServiceEntryU #CSEDsc,#CreateServiceEntryS #CSEDsc,#CreateServiceEntryD #CSEDsc { margin-bottom: 3px; margin-top: 6px; font-size: 12px; font-weight: bold; margin-left: 15px; }
 #CreateServiceEntryU { margin-top: 13px; }
@@ -922,7 +962,7 @@ div#UserMenu span {
 #CSEDsc2 input { position: absolute; left: -5px; margin-top: -1px; width: 10px; }
 #CSEDsc3 input { position: absolute; left: -5px; margin-top: -1px; width: 10px; }
 #CSEDsc3 span {  }
-#CSEDscOverLay { position: absolute; width: 444px; height: 300px; top: 360px; left: 0; z-index: 5; background-color: #fff; opacity: 0.5; filter: Aplha(Opacity=50);}
+#CSEDscOverLay { position: absolute; width: 444px; height: 305px; top: 355px; left: 0; z-index: 5; background-color: #fff; opacity: 0.5; filter: Aplha(Opacity=50);}
 
 /* Managed Service End */
 /* Custom */
@@ -935,7 +975,211 @@ ul.simple-pagination { list-style: none; }
 .simple-pagination li { list-style: none; padding: 0; margin: 0; float: left; }
 .compact-theme a, .compact-theme span { text-decoration: none; float: left; color: #000; font-size:12px; line-height:24px; font-weight: normal; text-align: center; border: 1px solid #423939; min-width: 14px; padding: 0 7px; background: #fff; margin-left: 1px; margin-right: 1px; }
 .compact-theme span:focus, .compact-theme span:hover { -webkit-box-shadow: 0px 0px 2px 0px #423939; -moz-box-shadow: 0px 0px 2px 0px #423939; box-shadow: 0px 0px 2px 0px #423939 }
+.compact-theme a:focus, .compact-theme a:hover { -webkit-box-shadow: 0px 0px 2px 0px #423939; -moz-box-shadow: 0px 0px 2px 0px #423939; box-shadow: 0px 0px 2px 0px #423939 }
 .compact-theme .next { border-right: 1px solid #423939; }
-.compact-theme .current { background: #fff; cursor: default; }
+.compact-theme .current { background: #fff; cursor: default; -webkit-box-shadow: 0px 0px 2px 0px #423939; -moz-box-shadow: 0px 0px 2px 0px #423939; box-shadow: 0px 0px 2px 0px #423939 }
 .compact-theme .ellipse { background: #fff; padding: 0 10px; cursor: default; }
 /* Pagination End */
+/* Monitoring Start */
+
+div#div-monitoring {
+    position: absolute;
+    overflow-y: auto;
+    bottom: 0;
+    top: 0;
+    left: 10px;
+    right: 10px;
+}
+
+div#div-monitoring-entry {
+    margin: 2px;
+    padding: 5px;
+    border: 1px solid #423939;
+    width: 616px;
+    float: left; 
+    height: 95px;
+}
+
+div#div-monitoring-entry img.img-h {
+    width: 50px;
+    margin: 22px 7px 6px 3px;
+    
+}
+
+div#div-monitoring-entry span.head-h {
+    position: absolute;
+    margin-top: 36px;
+}
+
+div#div-monitoring-entry span.content-h {
+    float: right;
+    width: 338px;
+    height: 95px;
+    overflow-y: auto;
+}
+
+/* Monitoring End */
+/* Service Menü Start  */
+
+#ServiceDetail #ServiceTabs1, #ServiceDetail #ServiceTabs2, #ServiceDetail #ServiceTabs3 { height: 650px; }
+#ServiceDetail #CreateServiceEntryLeft { width: 700px; }
+#ServiceDetail #CSEDscOverLay { top: 354px; }
+#ServiceDetail #InANt { top: 365px; }
+#ServiceDetail #InCCt { top: 396px; }
+#ServiceDetail #InSubt { top: 427px; }
+#ServiceDetail #CreateServiceEntryLeftMC div.jqte { height: 640px; }
+#ServiceDetail #CreateServiceEntryLeftMC .jqte_editor,#CreateServiceEntryLeftMC .jqte_source { height: 591px; }
+#ServiceDetail #CreateServiceEntryLeftMC b, #ServiceDetail #CreateServiceEntryLeftMC { font-size: 12px; }
+#ServiceDetail #CreateServiceEntryLeftMF div.jqte { height: 125px; cursor: text; border: 1px solid #423939; }
+#ServiceDetail #CreateServiceEntryLeftMF .jqte_editor,#CreateServiceEntryLeftMF .jqte_source { height: 86px; font-size: 12px; }
+#ServiceDetail #ServiceHistory { border: 1px solid #423939; position: absolute; }
+#ServiceDetail #ServiceInfo { position: absolute; width: 500px; height: 200px; top: 60px; left: 10px; }
+#ServiceDetail #ServiceReCheck { position: absolute; width: 500px; height: 80px; top: 270px; left: 10px; }
+#ServiceDetail #ServiceDowntime { position: absolute; width: 657px; height: 200px; top: 170px; right: 10px; }
+#ServiceDetail #ServiceAvailability { position: absolute; width: 657px; height: 100px; top: 60px; right: 10px; }
+#ServiceDetail #ServiceHistory { right: 10px; height: 330px; top: 380px; left: 10px; overflow-y: auto; }
+
+#ServiceDetail #ServiceInfo img {position: absolute;margin-top: 18px;width: 75px;height: 75px;margin-left: 30px;}
+#ServiceDetail div#ServiceInfoHt, #ServiceDetail div#ServiceInfoHn, #ServiceDetail div#ServiceInfoSn, #ServiceDetail div#ServiceInfoCo {position: absolute;margin-left: 140px;font-size: 12px;}
+#ServiceDetail div#ServiceInfoHt span:first-child, #ServiceDetail div#ServiceInfoHn span:first-child, #ServiceDetail div#ServiceInfoAd span:first-child, #ServiceDetail div#ServiceInfoSn span:first-child, #ServiceDetail div#ServiceAvailabilityH span:first-child, #ServiceDetail div#ServiceInfoCo span:first-child {font-weight: bold;}
+#ServiceDetail div#ServiceInfoHt span:last-child, #ServiceDetail div#ServiceInfoHn span:last-child, #ServiceDetail div#ServiceInfoAd span:last-child, #ServiceDetail div#ServiceInfoSn span:last-child { position: absolute; width: 200px; left: 0px; }
+#ServiceDetail div#ServiceInfoHt {margin-top: 0px;}
+#ServiceDetail div#ServiceInfoHn {margin-top: 40px;}
+#ServiceDetail div#ServiceInfoAd {position: absolute;margin-left: 300px;font-size: 12px; margin-top: 40px;}
+#ServiceDetail div#ServiceInfoSn {margin-top: 80px;}
+#ServiceDetail div#ServiceInfoCo {margin-top: 120px;}
+#ServiceDetail div#ServiceInfoCo span:last-child { position: absolute; width: 350px; left: 0px; }
+
+#ServiceDetail div#ServiceAvailabilityH, #ServiceDetail div#ServiceReCheckH, #ServiceDetail div#ServiceDowntimeH, #ServiceDetail div#ServiceHistoryH {
+    position: absolute;
+    font-size: 12px;
+}
+
+#ServiceDetail span#ServiceAvailabilityE {
+    display: block;
+    width: 120px;
+    float: left;
+    padding: 7px 15px 7px 15px;
+    font-size: 28px;
+    text-align: center;
+    margin: 2px;
+}
+
+#ServiceDetail #ServiceHistory table {
+    width: 100%;
+    border-spacing:0;
+    border-collapse:collapse;
+    font-size: 12px;
+    table-layout: fixed;
+}
+
+#ServiceDetail #ServiceHistory table tr {
+    border-bottom: 1px solid #423939;
+}
+
+#ServiceDetail #ServiceHistory table tr:last-child {
+    border-bottom: 0;
+}
+
+#ServiceDetail #ServiceHistory table tr:hover {
+    background-color: #ddd;
+}
+
+#ServiceDetail #ServiceHistory table td {
+    padding: 5px;
+}
+
+#ServiceDetail #ServiceHistory table td:first-child {
+    width: 1px;
+}
+
+#ServiceDetail #ServiceHistory table td:last-child {
+    width: 100px;
+}
+
+#ServiceDetail div#ServiceReCheckH {
+    font-weight: bold;
+    left: 5px;
+}
+
+#ServiceDetail div#ServiceDowntimeH {
+    font-weight: bold;
+}
+
+#ServiceDetail div#ServiceHistoryH {
+    font-weight: bold;
+    top: 360px;
+    left: 15px;
+}
+
+#ServiceDetail div#ServiceReCheckP {
+    margin-top: 30px;
+    margin-left: 30px; 
+    font-size: 12px;
+}
+
+#ServiceDetail div#ServiceReCheckP input {
+    width: 250px;
+    margin-left: 5px;
+    height: 15px;
+    font-size: 12px;
+}
+
+#ServiceDetail div#ServiceReCheckP button {
+    position: absolute;
+    left: 380px;
+    top: 30px;
+    font-size: 12px;
+}
+
+#ServiceDetail div#ServiceDowntimeS {
+    position: absolute;
+    margin-top: 50px;
+    margin-left: 30px; 
+    font-size: 12px;
+}
+
+#ServiceDetail div#ServiceDowntimeE {
+    position: absolute;
+    margin-top: 80px;
+    margin-left: 30px; 
+    font-size: 12px;
+}
+
+#ServiceDetail div#ServiceDowntimeS input, #ServiceDetail div#ServiceDowntimeE input {
+    position: absolute;
+    width: 250px;
+    left: 35px;
+    height: 15px;
+    font-size: 12px;
+    margin-top: -5px;
+}
+
+#ServiceDetail div#ServiceDowntimeE button {
+    position: absolute;
+    left: 233px;
+    top: 30px;
+    font-size: 12px;
+}
+
+#ServiceDetail textarea#ServiceDowntimeT {
+    position: absolute;
+    width: 225px;
+    height: 125px;
+    left: 350px;
+    top: 20px;
+    resize: none;
+    font-size: 12px;
+}
+
+#ServiceDetail #AckMessage {
+    position: absolute;
+    left: 158px;
+    top: 10px;
+    right: 10px;
+    padding: 5px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* Service Menü End  */

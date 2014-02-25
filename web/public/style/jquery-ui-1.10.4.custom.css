@@ -783,7 +783,7 @@ body .ui-tooltip {
 /* Component containers
 ----------------------------------*/
 .ui-widget {
-	font-family: SansProLight;
+	font-family: SansProLight,Arial;
 	font-size: 14px;
 }
 .ui-widget .ui-widget {

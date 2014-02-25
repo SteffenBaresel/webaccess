@@ -65,7 +65,15 @@ public class Login extends HttpServlet {
                     + "</script>\n"
                     + "");
                 out.println(Html.closeHeadOpenBody(null));
-                out.println(Html.printSectionMenu(null,"Login"));
+                    try {
+                        out.println(Html.printSectionMenu(null,"Login"));
+                    } catch (FileNotFoundException ex) {
+                        Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (NamingException ex) {
+                        Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 out.println(""
                     + "<div id='login-div'>\n"
                     + "<section>\n"
@@ -93,7 +101,7 @@ public class Login extends HttpServlet {
                 out.println(Html.printSectionBottom(null));
                 out.println(Html.closeBodyCloseHtml(null));
             } else {
-                response.sendRedirect("admin/");
+                response.sendRedirect("/admin");
             }
         
     }

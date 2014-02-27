@@ -1031,7 +1031,8 @@ div#div-monitoring-entry span.content-h {
 #ServiceDetail #CreateServiceEntryLeftMC .jqte_editor,#CreateServiceEntryLeftMC .jqte_source { height: 591px; }
 #ServiceDetail #CreateServiceEntryLeftMC b, #ServiceDetail #CreateServiceEntryLeftMC { font-size: 12px; }
 #ServiceDetail #CreateServiceEntryLeftMF div.jqte { height: 125px; cursor: text; border: 1px solid #423939; }
-#ServiceDetail #CreateServiceEntryLeftMF .jqte_editor,#CreateServiceEntryLeftMF .jqte_source { height: 86px; font-size: 12px; }
+#ServiceDetail #CreateServiceEntryLeftMF .jqte_editor,#CreateServiceEntryLeftMF .jqte_source { height: 76px; font-size: 12px; }
+#ServiceDetail #CreateServiceEntryLeftMH .jqte_editor,#CreateServiceEntryLeftMH .jqte_source { height: 56px; font-size: 12px; }
 #ServiceDetail #ServiceHistory { border: 1px solid #423939; position: absolute; }
 #ServiceDetail #ServiceInfo { position: absolute; width: 500px; height: 200px; top: 60px; left: 10px; }
 #ServiceDetail #ServiceReCheck { position: absolute; width: 500px; height: 80px; top: 270px; left: 10px; }
@@ -1134,14 +1135,14 @@ div#div-monitoring-entry span.content-h {
 
 #ServiceDetail div#ServiceDowntimeS {
     position: absolute;
-    margin-top: 50px;
+    margin-top: 80px;
     margin-left: 30px; 
     font-size: 12px;
 }
 
 #ServiceDetail div#ServiceDowntimeE {
     position: absolute;
-    margin-top: 80px;
+    margin-top: 110px;
     margin-left: 30px; 
     font-size: 12px;
 }
@@ -1165,9 +1166,9 @@ div#div-monitoring-entry span.content-h {
 #ServiceDetail textarea#ServiceDowntimeT {
     position: absolute;
     width: 225px;
-    height: 125px;
+    height: 80px;
     left: 350px;
-    top: 20px;
+    top: 74px;
     resize: none;
     font-size: 12px;
 }
@@ -1181,5 +1182,13 @@ div#div-monitoring-entry span.content-h {
     font-size: 12px;
     font-weight: bold;
 }
+
+#big-taov-services span.ui-taov-tile {
+    cursor: pointer;
+}
+
+#CreateServiceEntryDSselect,#CreateServiceEntryDAselect { border: 1px solid #423939; background-color: #fff; color: #fff; padding: 4px; width: 287px; color: #000; margin: 2px; position: absolute; margin-top: 25px; font-size: 12px; }
+#CreateServiceEntryDSselect { margin-left: 30px;}
+#CreateServiceEntryDAselect { margin-left: 330px; }
 
 /* Service Menü End  */

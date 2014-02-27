@@ -77,9 +77,9 @@ public class UserBasics extends HttpServlet {
 "                    crossDomain: true,\n" +
 "                    success: function(json) {\n" +
 "                        if (json.ADD == '1') {\n" +
-"                            DialogMailComplete('#UserProfileSuccess','Dashboard Link hinzugef&uuml;gt','Dashboard Link wurde erfolgreich hinzugef&uuml;gt.');\n" +
+"                            DialogMailComplete('#DialogSuccess','Dashboard Link hinzugef&uuml;gt','Dashboard Link wurde erfolgreich hinzugef&uuml;gt.');\n" +
 "                        } else {\n" +
-"                            DialogMailComplete('#UserProfileSuccess','+++ Fehler beim hinzuf&uuml;gen des Dashboard Links +++','<font color=red>Der Dashboard Link konnte NICHT hinzugef&uuml;gt werden.</font>');\n" +
+"                            DialogMailComplete('#DialogSuccess','+++ Fehler beim hinzuf&uuml;gen des Dashboard Links +++','<font color=red>Der Dashboard Link konnte NICHT hinzugef&uuml;gt werden.</font>');\n" +
 "                        }\n" +
 "                    },\n" +
 "                    error: function (xhr, thrownError) {\n" +
@@ -141,13 +141,13 @@ public class UserBasics extends HttpServlet {
             out.println("            <div id=\"ConfigurationTabs1\">" +
 "                <div id=\"ConfigurationSection\">" +
 "                    <div id=\"ConfigurationSectionTitle\">Reset</div>" +
-"                    <button id=\"2\" class=\"ConfigurationSectionPoint\" onclick=\"DeleteBasic(\\'' + b64uid + 'Ljd84K\\');\">Dashboard Zur&uuml;cksetzen</button>" +
-"                    <button id=\"3\" class=\"ConfigurationSectionPoint\" onclick=\"DeleteBasicConfig(\\'' + b64uid + 'Ljd84K\\');\">Alle Einstellungen zur&uuml;cksetzen</button>" +
+"                    <button id=\"2\" class=\"ConfigurationSectionPoint\" onclick=\"ResetDashboard();\">Dashboard Zur&uuml;cksetzen</button>" +
+"                    <!--button id=\"3\" class=\"ConfigurationSectionPoint\" onclick=\"DeleteBasicConfig();\">Alle Einstellungen zur&uuml;cksetzen</button-->" +
 "                </div>" +
-"                <div id=\"ConfigurationSection\">" +
+/*"                <div id=\"ConfigurationSection\">" +
 "                    <div id=\"ConfigurationSectionTitle\">Anzeige Einstellungen</div>" +
 "                    <div class=\"Config\"></div>" +
-"                </div>" +
+"                </div>" +*/
 "                <div id=\"ConfigurationSection\">" +
 "                    <div id=\"ConfigurationSectionTitle\">Mailing, Standard CC Empf&auml;nger</div>" +
 "                    <div id=\"MailCC\"><span>Mailadressen CC: (Mail1,Mail2,Mailn)</span><input type=text id=\"InMailCC\"/><button onclick=\"AddMailingConfig(\\'InMailCC\\',\\'CC\\');\">Festlegen</button></div>" +
@@ -376,15 +376,33 @@ public class UserBasics extends HttpServlet {
             if(CW == 1) {
                 
                 out.println("\n" +
+"function ResetDashboard() {\n" +
+"    $.ajax({\n" +
+"        url: '/gateway/exec/ResetDashboard',\n" +
+"        crossDomain: true,\n" +
+"        success: function(json) {\n" +
+"            if (json.RESET == \"1\") {\n" +
+"                DialogMailComplete(\"#DialogSuccess\",\"Konfiguration zur&uuml;ckgesetzt\",\"Die Konfiguration wurde erfolgreich zur&uuml;ckgesetzt.\");\n" +
+"            } else {\n" +
+"                DialogMailComplete(\"#DialogSuccess\",\"+++ Fehler beim zur&uuml;cksetzen der Konfiguration +++\",\"<font color=red>Die Konfiguration konnte nicht zur&uuml;ckgesetzt werden.</font>\");\n" +
+"            }\n" +
+"        },\n" +
+"        dataType: 'json',\n" +
+"        cache: false\n" +
+"    });\n" +
+"}\n" +
+                "\n");
+                
+                out.println("\n" +
 "function AddMailingConfig(id,key) {\n" +
 "    $.ajax({\n" +
 "        url: '/gateway/exec/AddMailingConfig?uuid=' + $.base64.encode( UUID ) + '&key=' + $.base64.encode( key ) + '&val=' + $.base64.encode( $('#' + id).val() ),\n" +
 "        crossDomain: true,\n" +
 "        success: function(json) {\n" +
 "            if (json.ADD == \"1\") {\n" +
-"                DialogMailComplete(\"#UserProfileSuccess\",\"Mailing Konfiguration hinzugef&uuml;gt\",\"Mailing Konfiguration wurde erfolgreich hinzugef&uuml;gt.\");\n" +
+"                DialogMailComplete(\"#DialogSuccess\",\"Mailing Konfiguration hinzugef&uuml;gt\",\"Mailing Konfiguration wurde erfolgreich hinzugef&uuml;gt.\");\n" +
 "            } else {\n" +
-"                DialogMailComplete(\"#UserProfileSuccess\",\"+++ Fehler beim hinzuf&uuml;gen der Mailing Konfiguration +++\",\"<font color=red>Die Mailing Konfiguration konnte NICHT hinzugef&uuml;gt werden.</font>\");\n" +
+"                DialogMailComplete(\"#DialogSuccess\",\"+++ Fehler beim hinzuf&uuml;gen der Mailing Konfiguration +++\",\"<font color=red>Die Mailing Konfiguration konnte NICHT hinzugef&uuml;gt werden.</font>\");\n" +
 "            }\n" +
 "        },\n" +
 "        dataType: 'json',\n" +
@@ -401,9 +419,9 @@ public class UserBasics extends HttpServlet {
 "        crossDomain: true,\n" +
 "        success: function(json) {\n" +
 "            if (json.ADD == \"1\") {\n" +
-"                DialogMailComplete(\"#UserProfileSuccess\",\"Mailing Konfiguration hinzugef&uuml;gt\",\"Mailing Konfiguration wurde erfolgreich hinzugef&uuml;gt.\");\n" +
+"                DialogMailComplete(\"#DialogSuccess\",\"Mailing Konfiguration hinzugef&uuml;gt\",\"Mailing Konfiguration wurde erfolgreich hinzugef&uuml;gt.\");\n" +
 "            } else {\n" +
-"                DialogMailComplete(\"#UserProfileSuccess\",\"+++ Fehler beim hinzuf&uuml;gen der Mailing Konfiguration +++\",\"<font color=red>Die Mailing Konfiguration konnte NICHT hinzugef&uuml;gt werden.</font>\");\n" +
+"                DialogMailComplete(\"#DialogSuccess\",\"+++ Fehler beim hinzuf&uuml;gen der Mailing Konfiguration +++\",\"<font color=red>Die Mailing Konfiguration konnte NICHT hinzugef&uuml;gt werden.</font>\");\n" +
 "            }\n" +
 "        },\n" +
 "        dataType: 'json',\n" +
@@ -782,9 +800,9 @@ public class UserBasics extends HttpServlet {
 "        crossDomain: true,\n" +
 "        success: function(json) {\n" +
 "            if (json.ADD == \"1\") {\n" +
-"                DialogMailComplete(\"#UserProfileSuccess\",\"Mail Konfiguration hinzugef&uuml;gt\",\"Mail Konfiguration wurde erfolgreich hinzugef&uuml;gt.\");\n" +
+"                DialogMailComplete(\"#DialogSuccess\",\"Mail Konfiguration hinzugef&uuml;gt\",\"Mail Konfiguration wurde erfolgreich hinzugef&uuml;gt.\");\n" +
 "            } else {\n" +
-"                DialogMailComplete(\"#UserProfileSuccess\",\"+++ Fehler beim hinzuf&uuml;gen der Mail Konfiguration +++\",\"<font color=red>Die Mail Konfiguration konnte NICHT hinzugef&uuml;gt werden.</font>\");\n" +
+"                DialogMailComplete(\"#DialogSuccess\",\"+++ Fehler beim hinzuf&uuml;gen der Mail Konfiguration +++\",\"<font color=red>Die Mail Konfiguration konnte NICHT hinzugef&uuml;gt werden.</font>\");\n" +
 "            }\n" +
 "        },\n" +
 "        dataType: 'json',\n" +

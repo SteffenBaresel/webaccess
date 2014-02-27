@@ -791,7 +791,7 @@ public class ManagedServiceBasics extends HttpServlet {
         if(Executions.UserIsPermitted(Uid,"managed_services_csw")) {
             
             out.println("" +
-                "function GetSingleCustomerInfo(id) {\n" +
+                "function GetSingleCustomerInfoMS(id) {\n" +
                 "    $.ajax({\n" +
                 "        url: '/gateway/exec/GetCustomerContractNumbers?cuid=' + $.base64.encode( $('#' + id).val() ),\n" +
                 "        crossDomain: true,\n" +
@@ -821,7 +821,7 @@ public class ManagedServiceBasics extends HttpServlet {
             "");
             
             out.println("" +
-                "function ActivateMailing(id) {\n" +
+                "function ActivateMailingMS(id) {\n" +
                 "    if( $('#' + id).is(':checked') ) {\n"+
                 "        $('#CSEDscOverLay').css('display','none');\n" +
                 "        $('#CreateServiceEntryLeftMF').css('display','block');" +
@@ -843,13 +843,13 @@ public class ManagedServiceBasics extends HttpServlet {
             "");
             
             out.println("" +
-                "function ShowEscalationSubject(dsc) {\n" +
+                "function ShowEscalationSubjectMS(dsc) {\n" +
                 "    $('#InSub').val('!!! Wichtig !!! - Eskalation ' + dsc + ': Information zur laufenden Wartung Ihrer Systeme');\n" +
                 "}\n" +
             "");
             
             out.println("" +
-                "function ChangeSubject(id1,id2) {\n" +
+                "function ChangeSubjectMS(id1,id2) {\n" +
                 "    var cu = $('#' + id1 + ' option:selected').text();\n" +
                 "    var a = $('#' + id2 + ' option:selected').text();\n" +
                 "    var an = a.substring(0,a.indexOf('\\('));\n" +
@@ -867,24 +867,24 @@ public class ManagedServiceBasics extends HttpServlet {
                 "    $('#MSDialog').html('<div id=\"CreateServiceEntry\" title=\"Servicearbeit eintragen.\">" +
                 "<div id=\"CreateServiceEntryRight\">" +
                 "<div id=\"CreateServiceEntryU\"><div id=\"CSEDsc\"><span style=\"float: left\">Arbeiten wurden ausgef&uuml;hrt durch</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></div><input class=\"ui-input-hofo\" type=text value=\"' + FullName + '\" disabled/><input id=\"InFrom\" type=hidden value=\"' + UserMail + '\" /></div>" +
-                "<div id=\"CreateServiceEntryC\"><div id=\"CSEDsc\"><span style=\"float: left\">Arbeiten wurden ausgef&uuml;hrt f&uuml;r</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></div><div id=\"CreateServiceEntryCs\"><select class=\"ui-input-hofo\" id=\"CreateServiceEntryCselect\" onchange=\"GetSingleCustomerInfo(\\\'CreateServiceEntryCselect\\\');\"><option selected value=\"0000\">Kunde w&auml;hlen</option></select></div></div>" +
-                "<div id=\"CreateServiceEntryA\"><div id=\"CSEDsc\"><span style=\"float: left\">Auftragsnummer</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></div><select class=\"ui-input-hofo\" id=\"CreateServiceEntryAselect\" onchange=\"ChangeSubject(\\\'CreateServiceEntryCselect\\\',\\\'CreateServiceEntryAselect\\\');\"><option selected value=\"0000\">-</option></select></div>" +
+                "<div id=\"CreateServiceEntryC\"><div id=\"CSEDsc\"><span style=\"float: left\">Arbeiten wurden ausgef&uuml;hrt f&uuml;r</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></div><div id=\"CreateServiceEntryCs\"><select class=\"ui-input-hofo\" id=\"CreateServiceEntryCselect\" onchange=\"GetSingleCustomerInfoMS(\\\'CreateServiceEntryCselect\\\');\"><option selected value=\"0000\">Kunde w&auml;hlen</option></select></div></div>" +
+                "<div id=\"CreateServiceEntryA\"><div id=\"CSEDsc\"><span style=\"float: left\">Auftragsnummer</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></div><select class=\"ui-input-hofo\" id=\"CreateServiceEntryAselect\" onchange=\"ChangeSubjectMS(\\\'CreateServiceEntryCselect\\\',\\\'CreateServiceEntryAselect\\\');\"><option selected value=\"0000\">-</option></select></div>" +
                 "<div id=\"CreateServiceEntryT\"><div id=\"CSEDsc\"><span style=\"float: left\">Typ des Eintrags</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></div><div id=\"CreateServiceEntryTs\"><select class=\"ui-input-hofo\" id=\"CreateServiceEntryTselect\"><option selected value=\"0000\">Bitte w&auml;hlen</option></select></div></div>" +
                 "<div id=\"CreateServiceEntryS\"><div id=\"CSEDsc\"><span style=\"float: left\">Zeitstempel</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></div><input class=\"ui-input-hofo\" id=\"CreateServiceEntryTime\" type=text value=\"' + now.format(\"yyyy-mm-dd HH:MM:ss\") + '\" /></div>" +
                 "<div id=\"CreateServiceEntryD\"><div id=\"CSEDsc\"><span style=\"float: left\">Dauer (min)</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></div><input class=\"ui-input-hofo\" id=\"CreateServiceEntryDelay\" type=text value=\"15\" /></div>" +
                 "<div id=\"CreateServiceEntryM\">" +
                 "<div id=\"CSEDsc2\">Soll der Eintrag per Mail an den Kunden verschickt werden?" +
-                "<input id=\"CSEDscCB\" type=\"checkbox\" value=\"1\" name=\"mailingto\" onclick=\"ActivateMailing(\\\'CSEDscCB\\\');\"></div>" +
+                "<input id=\"CSEDscCB\" type=\"checkbox\" value=\"1\" name=\"mailingto\" onclick=\"ActivateMailingMS(\\\'CSEDscCB\\\');\"></div>" +
                 "<div id=\"CSEDscOverLay\"></div>" +
                 "<div id=\"InANt\">An:</div><input class=\"ui-input-hofo\" id=\"InAN\" type=\"text\" />" +
                 "<div id=\"InCCt\">Cc:</div><input class=\"ui-input-hofo\" id=\"InCC\" type=\"text\" />" +
                 "<div id=\"InSubt\">Btr.</div><input class=\"ui-input-hofo\" id=\"InSub\" type=\"text\" value=\"\" />" +
                 "<div id=\"CSEDsc2\">Soll der Eintrag eskaliert werden?</div>" +
-                "<div id=\"CSEDsc3\" class=\"CSEDsc3a\"><span>Stufe 1 - erweitert den Betreff, CC bis in die FGL Ebene</span><input onclick=\"ShowEscalationSubject(\\\'Stufe 1\\\');\" type=\"radio\" value=\"1\" name=\"escalate\" /></div>" +
+                "<div id=\"CSEDsc3\" class=\"CSEDsc3a\"><span>Stufe 1 - erweitert den Betreff, CC bis in die FGL Ebene</span><input onclick=\"ShowEscalationSubjectMS(\\\'Stufe 1\\\');\" type=\"radio\" value=\"1\" name=\"escalate\" /></div>" +
                 "<input class=\"ui-input-hofo\" id=\"InEsk1\" type=\"text\" value=\"\" />" +
-                "<div id=\"CSEDsc3\" class=\"CSEDsc3b\">Stufe 2 - erweitert den Betreff, CC bis in die AL Ebene<input onclick=\"ShowEscalationSubject(\\\'Stufe 2\\\');\" type=\"radio\" value=\"2\" name=\"escalate\" /></div>" +
+                "<div id=\"CSEDsc3\" class=\"CSEDsc3b\">Stufe 2 - erweitert den Betreff, CC bis in die AL Ebene<input onclick=\"ShowEscalationSubjectMS(\\\'Stufe 2\\\');\" type=\"radio\" value=\"2\" name=\"escalate\" /></div>" +
                 "<input class=\"ui-input-hofo\" id=\"InEsk2\" type=\"text\" value=\"\" />" +
-                "<div id=\"CSEDsc3\" class=\"CSEDsc3c\">Stufe 3 - erweitert den Betreff, CC bis in die GF Ebene<input onclick=\"ShowEscalationSubject(\\\'Stufe 3\\\');\" type=\"radio\" value=\"3\" name=\"escalate\" /></div>" +
+                "<div id=\"CSEDsc3\" class=\"CSEDsc3c\">Stufe 3 - erweitert den Betreff, CC bis in die GF Ebene<input onclick=\"ShowEscalationSubjectMS(\\\'Stufe 3\\\');\" type=\"radio\" value=\"3\" name=\"escalate\" /></div>" +
                 "<input class=\"ui-input-hofo\" id=\"InEsk3\" type=\"text\" value=\"\" />" +
                 "</div></div>" +
                 "<div id=\"CreateServiceEntryLeft\">" +

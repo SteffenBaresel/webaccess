@@ -51,9 +51,10 @@ public class TacticalOverview extends HttpServlet {
                     + "            });\n"*/
                     + "            $('section#big-taov').html('<div id=\"big-taov-services\"><span id=\"big-taov-header\">Alle Services (' + json.SERVICES.length + ')</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span><br><span id=\"big-taov-services-content\"></span></div>');\n"
                     + "            $.each(json.SERVICES, function() {\n"
-                    + "                var csscl;\n"
+                    + "                var csscl; var dtmcl='';\n"
                     + "                if (this.ACK == \"t\") { csscl = \"ack\"; } else { if (this.STATE == \"1\") { csscl = \"warning\"; } else if (this.STATE == \"2\") { csscl = \"critical\"; } else if (this.STATE == \"3\") { csscl = \"unknown\"; } else { csscl = \"ok\"; } }\n"
-                    + "                $('#big-taov-services-content').append('<span class=\"ui-taov-tile ' + csscl + '\" title=\"Service ' + $.base64.decode( this.SRV_NAME ) + ' auf ' + $.base64.decode( this.HOST_NAME ) + '\" onclick=\"ServiceMenu(\\\'' + this.HOST_NAME + '\\\',\\\'' + this.HOST_ID + '\\\',\\\'' + this.SRV_NAME + '\\\',\\\'' + this.SRV_ID + '\\\',\\\'' + this.INSTID + '\\\',\\\'' + this.ACK + '\\\',\\\'' + this.ACKID + '\\\');\"></span>');\n"
+                    + "                if (this.DTM == \"t\") { dtmcl='<img src=\"public/images/clock-small.png\" />'; } else { dtmcl=''; }\n"
+                    + "                $('#big-taov-services-content').append('<span class=\"ui-taov-tile ' + csscl + '\" title=\"Service ' + $.base64.decode( this.SRV_NAME ) + ' auf ' + $.base64.decode( this.HOST_NAME ) + '\" onclick=\"ServiceMenu(\\\'' + this.HOST_NAME + '\\\',\\\'' + this.HOST_ID + '\\\',\\\'' + this.SRV_NAME + '\\\',\\\'' + this.SRV_ID + '\\\',\\\'' + this.INSTID + '\\\',\\\'' + this.ACK + '\\\',\\\'' + this.ACKID + '\\\',\\\'' + this.DTM + '\\\',\\\'' + this.DTMID + '\\\');\">' + dtmcl + '</span>');\n"
                     + "            });\n"
                     + "            $('#SlimTaov').html('<div id=\"Nodes\"></div><div id=\"div-liveticker\"></div>');\n"
                     + "\n"
@@ -441,7 +442,7 @@ public class TacticalOverview extends HttpServlet {
                    line+= "</div>";
                     
             out.println(""
-                    + "function ServiceMenu(hstna,hstid,srvna,srvid,instid,ack,ackid) {\n"
+                    + "function ServiceMenu(hstna,hstid,srvna,srvid,instid,ack,ackid,dtm,dtmid) {\n"
                     + "    $.Shortcuts.stop();\n"
                     + "    var now = new Date();\n"
                     + "    $('#Dialog').html('" + line + "');\n"

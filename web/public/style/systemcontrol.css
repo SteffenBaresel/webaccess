@@ -1019,6 +1019,12 @@ div#div-monitoring-entry span.content-h {
     overflow-y: auto;
 }
 
+div#div-monitoring-entry span.content-h img {
+    position: absolute;
+    margin-top: -3px;
+    margin-left: 5px;
+}
+
 /* Monitoring End */
 /* Service Menü Start  */
 
@@ -1186,6 +1192,12 @@ div#div-monitoring-entry span.content-h {
 
 #big-taov-services span.ui-taov-tile {
     cursor: pointer;
+}
+
+#big-taov-services span.ui-taov-tile img {
+    position: absolute;
+    margin-top: -3px;
+    margin-left: 5px;
 }
 
 #CreateServiceEntryDSselect,#CreateServiceEntryDAselect { border: 1px solid #423939; background-color: #fff; color: #fff; padding: 4px; width: 287px; color: #000; margin: 2px; position: absolute; margin-top: 25px; font-size: 12px; }

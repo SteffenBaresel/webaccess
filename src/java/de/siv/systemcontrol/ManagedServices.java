@@ -48,15 +48,14 @@ public class ManagedServices extends HttpServlet {
                 out.println(""
                         + "<script>\n"
                         + "$(function() {\n"
+                        + "    $('#managedservices').addClass('ui-nav-focus');\n"
                         + "    jQuery.support.cors = true;\n"
                         + "    GetUserConfig();\n"
-                        + "    $('div#menu-locator').html('<div class=\"ui-user-menu\"><span style=\"float: right\" >Managed Services</span><span style=\"float: right; margin-top: 2px;\" class=\"ui-icon ui-icon-triangle-1-e\"></span><span style=\"float: right; cursor: pointer;\" onclick=\"OpenWindow(\\'/webaccess/\\',\\'_self\\');\">Home</span></div>');\n"
                         + "    $('input').addClass('ui-input-hofo');\n"
                         + "    $('span#ui-tile').addClass('ui-input-hofo');\n"
                         + "    SummaryView();\n"
-                        + "    //SidebarBottom();\n"
                         + "    StyleManagedServices();\n"
-                        + "    MenuSidebar();\n"
+                        + "    SelectCustomer();\n"
                         + "");
                         
                 if (Executions.UserMailEmpty(Uid)) {
@@ -68,6 +67,15 @@ public class ManagedServices extends HttpServlet {
                         + "</script>\n"
                         + "");
                 out.println(Html.closeHeadOpenBody(null));
+                
+                /* Navigation */
+                
+                out.println(Html.printSectionMenu(Uid,"NavigationOpen"));
+                
+                out.println(Html.printSectionMenu(Uid,"NavigationClose"));
+                
+                /* Navigation */
+                
                 out.println(Html.printSectionMenu(Uid,"ManagedService"));
         
                 if(Executions.UserIsPermitted(Uid,"managed_services")) {
@@ -76,7 +84,7 @@ public class ManagedServices extends HttpServlet {
                     
                     if(Executions.UserIsPermitted(Uid,"managed_services_wili")) {
                         out.println("<script type='text/javascript'>$(function() { WhoIsLoggedIn(); });</script>");
-                        out.println("<div id='WhosLoggedInH'><span style=\"float: left;\" id='WLI_Head'>Wer ist noch angemeldet</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></div>");
+                        //out.println("<div id='WhosLoggedInH'><span style=\"float: left;\" id='WLI_Head'>Wer ist noch angemeldet</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></div>");
                         out.println("<div id='WhosLoggedIn'><span id='WLI_Cont'></span></div>");
                     }
                     
@@ -84,14 +92,19 @@ public class ManagedServices extends HttpServlet {
                     
                     if(Executions.UserIsPermitted(Uid,"managed_services_csr")) {
                         out.println("<script type='text/javascript'>$(function() { GetServiceEntry('0','75','1'); });</script>");
+                        //out.println("<div id='ManagedServiceActionsSelectDiv'><select id='ManagedServiceActionsSelect' onchange=\"GetCustomerServiceEntries('ManagedServiceActionsSelect','0','75','1');CustomerInfoServiceEntries('ManagedServiceActionsSelect');\"><option value='0000' selected>Kunden w&auml;hlen</option></select></div>");
                         out.println("<div id='ManagedServiceActionsPage'></div><div id='ManagedServiceActions'></div>");
                     }
                     
+                    out.println("        <div id='ManagedServiceInfo'>");
+                    
                     if(Executions.UserIsPermitted(Uid,"managed_services_ki")) {
                         out.println("<script type='text/javascript'>$(function() { CustomerInfo(); });</script>");
-                        out.println("<div id='ManagedServiceInfosH'><span style=\"float: left;\" id='MSI_Head'>Kundeninformationen</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></div>");
+                        //out.println("<div id='ManagedServiceInfosH'><span style=\"float: left;\" id='MSI_Head'>Kundeninformationen</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></div>");
                         out.println("<div id='ManagedServiceInfos'><div id='MSI_Cont'></div></div><div id='MSIDialog'></div>");
                     }
+                    
+                    out.println("        </div>");
                  
                 }
                 

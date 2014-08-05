@@ -22,7 +22,7 @@ public class Html {
     }
     
     static public String closeHeadOpenBody(String mod) {
-        String replace ="    </head>\n    <body>\n";
+        String replace ="    </head>\n    <body><div id=\"ScreenAlertBG\"></div><div id=\"ScreenAlertText\">Die Bildschirm Aufl&ouml;sung ist zu klein. Bitte sorgen Sie daf&uuml;r, dass mind. 1280px*1024px eingestellt sind.</div>\n";
         return replace;
     }
     
@@ -38,6 +38,7 @@ public class Html {
 	replace+="    <meta name='keywords' content='kVASy, System Control, kVASy System Control'>\n";
 	replace+="    <meta name='language' content='it'>\n";
 	replace+="    <meta name='charset' content='utf-8'>\n";
+        replace+="    <meta name='viewport' content='width=device-width,initial-scale=1.0'>\n";
         return replace;
     }
     
@@ -45,29 +46,14 @@ public class Html {
         String replace = "    <script type='text/javascript' src='public/script/jquery-1.8.2.min.js'></script>\n";
         replace+="    <script type='text/javascript' src='public/script/jquery-ui-1.10.4.custom.min.js'></script>\n";
         replace+="    <script type='text/javascript' src='public/script/jquery.shortcuts.min.js'></script>\n";
-        replace+="    <script type='text/javascript' src='public/script/base64.js'></script>\n";
         replace+="    <script type='text/javascript' src='public/script/jquery.cookie.js'></script>\n";
         replace+="    <script type='text/javascript' src='public/script/timepicker.js'></script>\n";
+        replace+="    <script type='text/javascript' src='public/script/basics.js'></script>\n";
         
-        if(mod.equals("Index")) {
-            replace+="    <script type='text/javascript' src='public/script/basics.js'></script>\n";
+        if(!mod.equals("Login")) {
+        
             replace+="    <script type='text/javascript' src='script/UserBasics.js'></script>\n";
-            replace+="    <script type='text/javascript' src='script/UserProfile.js'></script>\n";
-            replace+="    <script type='text/javascript' src='public/script/jquery-te-1.4.0.min.js'></script>\n";
-            replace+="    <script type='text/javascript' src='script/TacticalOverview.js'></script>\n";
-            replace+="    <script type='text/javascript' src='public/script/charting.js'></script>\n";
-            replace+="    <script type='text/javascript' src='public/script/charts.js'></script>\n";
-        } else if (mod.equals("ManagedServices")) {
-            replace+="    <script type='text/javascript' src='public/script/basics.js'></script>\n";
             replace+="    <script type='text/javascript' src='script/ManagedServiceBasics.js'></script>\n";
-            replace+="    <script type='text/javascript' src='script/UserProfile.js'></script>\n";
-            replace+="    <script type='text/javascript' src='public/script/jquery-te-1.4.0.min.js'></script>\n";
-            replace+="    <script type='text/javascript' src='script/TacticalOverview.js'></script>\n";
-            replace+="    <script type='text/javascript' src='public/script/charting.js'></script>\n";
-            replace+="    <script type='text/javascript' src='public/script/charts.js'></script>\n";
-            replace+="    <script type='text/javascript' src='public/script/jquery.simplePagination.js'></script>\n";
-        } else if (mod.equals("Monitoring")) {
-            replace+="    <script type='text/javascript' src='public/script/basics.js'></script>\n";
             replace+="    <script type='text/javascript' src='script/MonitoringBasics.js'></script>\n";
             replace+="    <script type='text/javascript' src='script/UserProfile.js'></script>\n";
             replace+="    <script type='text/javascript' src='public/script/jquery-te-1.4.0.min.js'></script>\n";
@@ -75,6 +61,7 @@ public class Html {
             replace+="    <script type='text/javascript' src='public/script/charting.js'></script>\n";
             replace+="    <script type='text/javascript' src='public/script/charts.js'></script>\n";
             replace+="    <script type='text/javascript' src='public/script/jquery.simplePagination.js'></script>\n";
+        
         }
         
         return replace;
@@ -89,96 +76,128 @@ public class Html {
     }
     
     static public String printSectionMenu(String uid,String mod) throws FileNotFoundException, IOException, NamingException, SQLException {
-        String replace = ""
-                + "<section id='menu'><div id='bg-menu' class='ui-opacity'></div><div id='bg-user-menu' class='ui-opacity-med'></div>"
-                + "    <div id='logo-title'>"
-                + "        <font class='logo-red'>kVASy&reg;</font><font class='logo-blue'>System Control</font>"
-                + "    </div>"
-                + "    <div id='logo-img'>"
-                + "        <img src='public/images/SIV_AG_Logo_RGB_Web.png' title='SIV.AG'/>"
-                + "    </div>"
-                + "    <div id='logo-subtitle'>"
-                + "        Version 3 Build 2014.02"
-                + "    </div>"
-                + "    <div id='menu-locator'>"
-                + "    </div>"
-                + "</section>";
+        String replace = "<div id=\"search-tool-tip\"><div id=\"search-tool-tip-header\"><span>Wonach wollen Sie suchen?</span><span title='Tooltip Schlie&szlig;en' onclick=\"closeTooltip('search-tool-tip');\" style='cursor: pointer; margin-top: 1px;' class='ui-icon ui-icon-close'></span></div><div id=\"search-tool-tip-content\"><table><tr><td><input type=\"radio\" name=\"search\" value=\"Hosts\" onclick=\"setValue('search-field','Host: ');\">Hosts</td><td><input type=\"radio\" name=\"search\" value=\"Services\" onclick=\"setValue('search-field','Service: ');\">Services</td></tr><tr><td><!--input type=\"radio\" name=\"search\" value=\"Kunden\" onclick=\"setValue('search-field','Kunden: ');\">Kunden</td><td><input type=\"radio\" name=\"search\" value=\"Vertrag\" onclick=\"setValue('search-field','Vertrag: ');\">Vertrag</td></tr><tr><td><input type=\"radio\" name=\"search\" value=\"LDAP\" onclick=\"setValue('search-field','LDAP: ');\">LDAP</td><td><input type=\"radio\" name=\"search\" value=\"Vertrag\" onclick=\"setValue('search-field','Vertrag: ');\">Vertrag--></td></tr></table></div></div>";
         
-            if(mod.equals("Index") || mod.equals("ManagedService") || mod.equals("Monitoring")) {
+            if(mod.equals("NavigationOpen")) {
+                replace += "<section id='left-pane'><section id='navigation-top'><br>";
                 
-                replace += "<section id='user-menu'><div id='UserMenu' class='ui-user-menu'><span class='login_username' style='float: left'></span>";
+                if(Executions.UserIsPermitted(uid,"sidebarsearch")) {
+                    replace += "<form method='GET' id='search-form'><input type='hidden' name='v'/><input type='text' name='search-field' id='search-field' onkeypress='submitOnEnter(this, event);' onclick='showTooltip();' autofocus='autofocus' autocomplete='off' placeholder='Suchen' /></form>";
+                }
+                    
+                if(Executions.UserIsPermitted(uid,"monitoring")) {
+                    replace += "    <span id='dashboard' class='ui-nav-tile ui-nav-normal ui-nav-hover' onclick=\"OpenWindow('/webaccess/','_self');\"><div><img src='public/images/discoverer-128.png' />Dashboard</div></span>\n";
+                    replace += "    <span id='monitoring' class='ui-nav-tile ui-nav-normal ui-nav-hover' onclick=\"OpenWindow('Monitoring?v=RnVsbFZpZXc=','_self');\"><div><img src='public/images/server-128.png' />Monitoring</div></span>\n";
+                }                        
+                
+                if(Executions.UserIsPermitted(uid,"managed_services")) {
+                    replace += "    <span id='managedservices' class='ui-nav-tile ui-nav-normal ui-nav-hover' onclick=\"OpenWindow('ManagedServices','_self');\"><div><img src='public/images/group-128.png' />Managed Services</div></span>\n";
+                } 
+                
+                replace += "<br>";
+                
+                if(Executions.UserIsPermitted(uid,"managed_services")) {
+                    
+                    if(Executions.UserIsPermitted(uid,"managed_services_csw")) {
+                        replace += "    <span id='managedservicescsw' class='ui-nav-tile ui-nav-normal ui-nav-hover' onclick=\"CreateServiceEntry();\"><div><img src='public/images/add.png' />Servicearbeit eintragen</div></span>\n";
+                    }
+                
+                    replace += "<br>";
+                    
+                    if(Executions.UserIsPermitted(uid,"managed_services_nka")) {
+                        replace += "    <span id='managedservicesnka' class='ui-nav-tile ui-nav-normal ui-nav-hover' onclick=\"CreateCustomer();\"><div><img src='public/images/add.png' />Kunde hinzuf&uuml;gen</div></span>\n";
+                        
+                        if(Executions.UserIsPermitted(uid,"managed_services_kb")) {
+                            replace += "    <span id='managedserviceskb' class='ui-nav-tile ui-nav-normal ui-nav-hover' onclick=\"EditCustomer();\"><div><img src='public/images/edit.png' />Kunde bearbeiten</div></span>\n";
+                        } 
+                    
+                        if(Executions.UserIsPermitted(uid,"managed_services_kl")) {
+                            replace += "    <span id='managedserviceskl' class='ui-nav-tile ui-nav-normal ui-nav-hover' onclick=\"DeleteCustomer();\"><div><img src='public/images/delete.png' />Kunde l&ouml;schen</div></span>\n";
+                        } 
+                   
+                    }
+                    
+                    replace += "<br>";
+                    
+                    if(Executions.UserIsPermitted(uid,"managed_services_vae")) {
+                        
+                        replace += "    <span id='managedservicesvae' class='ui-nav-tile ui-nav-normal ui-nav-hover' onclick=\"CreateContractType();\"><div><img src='public/images/add.png' />Vertragstyp hinzuf&uuml;gen</div></span>\n";
+                        
+                        if(Executions.UserIsPermitted(uid,"managed_services_vab")) {
+                            replace += "    <span id='managedservicesvab' class='ui-nav-tile ui-nav-normal ui-nav-hover' onclick=\"EditContractType();\"><div><img src='public/images/edit.png' />Vertragstyp bearbeiten</div></span>\n";
+                        } 
+                    
+                        if(Executions.UserIsPermitted(uid,"managed_services_val")) {
+                            replace += "    <span id='managedservicesval' class='ui-nav-tile ui-nav-normal ui-nav-hover' onclick=\"DeleteContractType();\"><div><img src='public/images/delete.png' />Vertragstyp l&ouml;schen</div></span>\n";
+                        }
+                            
+                    }
+                            
+                    replace += "<div id='MSDialog'></div><div id='MSDialogSuccess'></div>";
+                }
+                
+                replace += "</section><section id='navigation-bottom'>";
                 
                 if(Executions.UserIsPermitted(uid,"profile")) {
-                    replace += "<span title='Edit' style='float: left; margin-top: 1px; cursor: pointer;' class='ui-icon ui-icon-wrench' onclick=\"UserProfile('" + Base64Coder.encodeString(uid) + "');\"></span>";
+                    replace += "    <span id='profile' class='ui-nav-tile ui-nav-normal ui-nav-hover' onclick=\"UserProfile('" + Base64Coder.encodeString(uid) + "');\"><div><img src='public/images/magazine-128.png' />Profileinstellungen</div></span></span>";
                 }
+                
+                if(Executions.UserIsPermitted(uid,"config")) {                
+                    replace += "    <span id='config' class='ui-nav-tile ui-nav-normal ui-nav-hover' onclick=\"OpenWindow('Configuration','_self');\"><div><img src='public/images/configure-128.png' />Konfiguration</div></span>\n";
+                }
+                
+                replace += "<br>\n";
+                
+            } else if(mod.equals("NavigationClose")) {
+                replace += "</section></section>";
+            } else if(mod.equals("Index") || mod.equals("ManagedService") || mod.equals("Monitoring")) {
+                
+                replace += "<section id='menu'><div id='bg-menu' class='ui-opacity'></div><div id='bg-user-menu' class='ui-opacity-med'></div>";
+                replace += "    <div id='logo-title'>";
+                replace += "        <font class='logo-red'>kVASy&reg;</font><font class='logo-blue'>System Control</font>";
+                replace += "    </div>";
+                replace += "    <div id='logo-img'>";
+                replace += "        <img src='public/images/SIV_AG_Logo_RGB_Web.png' title='SIV.AG'/>";
+                replace += "    </div>";
+                replace += "    <div id='logo-subtitle'>";
+                replace += "        Version 3 Build 2014.06";
+                replace += "    </div>";
+                replace += "    <div id='menu-locator'>";
+                replace += "    </div>";
+                replace += "</section>";
+                
+                replace += "<section id='monitoring-menu'><div id='monitoring-view'></div></section>";
+                replace += "<section id='user-menu'><div id='UserMenu' class='ui-user-menu'><span class='login_username' style='float: left'></span>";
                 
                 replace += "<a href='logout'><span title='Logout' style='float: left; margin-top: 1px;' class='ui-icon ui-icon-power'></span></a></div></section><section id='user-picture'><img id='UserProfileConfig' src='public/images/DefaultProfile.png' /></section>";
                 
-                
-                if(mod.equals("ManagedService")) {
-                    if(Executions.UserIsPermitted(uid,"managed_services")) {
-                    
-                        replace += "<div id='MenuSidebarSmall'></div><div id='MenuSidebar'><div id='MenuSidebarContent'>\n";
-                        replace += "        <div id='MenuSidebarManagedServiceMenus'><div id='MS_CustActions'>\n";
-                        replace += "<div class='UserDesc'><span style=\"float: left;\">Arbeiten</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></div><br>\n";
-                        replace += "<div id='MS_srv'>";
-                
-                        if(Executions.UserIsPermitted(uid,"managed_services_csw")) {
-                            replace += "<span class='icon ui-input-hofo' onclick=\"CreateServiceEntry()\" title='Servicearbeiten eintragen'><img src='public/images/add.png' alt='Add' width='50' height='50'></span>";
-                        }
-                
-                        replace += "</div>";
-                        
-                        if(Executions.UserIsPermitted(uid,"managed_services_nka")) {
-                            replace += "<div class='UserDesc'><span style=\"float: left;\">Kundeninfo</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></div><br>";
-                            replace += "<div id='MS_cc'>";
-                            replace += "<span class='icon ui-input-hofo' onclick=\"CreateCustomer();\" title='Neuen Kunden anlegen'><img src='public/images/add.png' alt='Add' width='50' height='50'></span>";
-                    
-                            if(Executions.UserIsPermitted(uid,"managed_services_kb")) {
-                                replace += "<span class='icon ui-input-hofo' onclick=\"EditCustomer();\" title='Kunden bearbeiten'><img src='public/images/edit.png' alt='Edit' width='50' height='50'></span>";
-                            } 
-                    
-                            if(Executions.UserIsPermitted(uid,"managed_services_kl")) {
-                                replace += "<span class='icon ui-input-hofo' onclick=\"DeleteCustomer();\" title='Kunden l&ouml;schen'><img src='public/images/delete.png' alt='Delete' width='50' height='50'></span>";
-                            } 
-                    
-                            replace += "</div>";
-                        }
-                        
-                        if(Executions.UserIsPermitted(uid,"managed_services_vae")) {
-                        
-                            replace += "<div class='UserDesc'><span style=\"float: left;\">Vertragstypen</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></div><br>";
-                            replace += "<div id='MS_vt'>";
-                            replace += "<span class='icon ui-input-hofo' onclick=\"CreateContractType();\" title='Neuer Vertragstyp'><img src='public/images/add.png' alt='Add' width='50' height='50'></span>";
-                        
-                            if(Executions.UserIsPermitted(uid,"managed_services_vab")) {
-                                replace += "<span class='icon ui-input-hofo' onclick=\"EditContractType();\" title='Vertragstyp bearbeiten'><img src='public/images/edit.png' alt='Edit' width='50' height='50'></span>";
-                            } 
-                    
-                            if(Executions.UserIsPermitted(uid,"managed_services_val")) {
-                                replace += "<span class='icon ui-input-hofo' onclick=\"DeleteContractType();\" title='Vertragstyp l&ouml;schen'><img src='public/images/delete.png' alt='Delete' width='50' height='50'></span>";
-                            }
-                
-                            replace += "</div>";
-                            
-                        }
-                            
-                        replace += "        </div><div id='MSDialog'></div><div id='MSDialogSuccess'></div>";
-                        replace += "</div></div></div>";
-                    }
-                }
-                
                 replace += "<section id='content-index'>";
-                    
+
                 if(Executions.UserIsPermitted(uid,"liveticker")) {
                     replace += "<section id='big-taov'></section>";
                     replace += "<div id='DialogSuccess'></div>";
                 }
                     
+            } else if (mod.equals("Login")) { 
+                replace += "<section id='login-top'></section><section id='login-bottom'></section>";
+                replace += "<section id='menu'><div id='bg-menu' class='ui-opacity'></div><div id='bg-user-menu' class='ui-opacity-med'></div>";
+                replace += "    <div id='logo-title'>";
+                replace += "        <font class='logo-red'>kVASy&reg;</font><font class='logo-blue'>System Control</font>";
+                replace += "    </div>";
+                replace += "    <div id='logo-img'>";
+                replace += "        <img src='public/images/SIV_AG_Logo_RGB_Web.png' title='SIV.AG'/>";
+                replace += "    </div>";
+                replace += "    <div id='logo-subtitle'>";
+                replace += "        Version 3 Build 2014.02";
+                replace += "    </div>";
+                replace += "    <div id='menu-locator'>";
+                replace += "    </div>";
+                replace += "</section>";
+                replace += "<section id='content'>";
             } else {
                 replace += "<section id='content'>";
             }
-            
+
                 replace += "";
                 
         return replace;
@@ -238,36 +257,13 @@ public class Html {
         replace+="            <div id='SlimTaov'></div>\n";
         replace+="        </div>\n";
         replace+="        <div id='SidebarBottom'>\n";
-        replace+="            <div id='SidebarBottomContent'>\n";
-        replace+="                <table id='TPie' cellpadding='0' cellspacing='0' border='0'>\n";
-        replace+="                    <tr>\n";
-        replace+="                        <td>\n";
-        replace+="                            <div id='HeaderHostPie'><span style=\"float: left;\">Host Status &Uuml;bersicht</span><span style=\"float: left; margin-top: -1px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></div>\n";
-        replace+="                            <div id='HostPie'></div>\n";
-        replace+="                        </td>\n";
-        replace+="                        <td>\n";
-        replace+="                            <div id='HostPer'></div>\n";
-        replace+="                        </td>\n";
-        /*replace+="                        <td>\n";
-        replace+="                            <div id='HeadComments'>Letzte Kommentare</div>\n";
-        replace+="                            <div id='Comments'></div>\n";
-        replace+="                            <div id='FooterComments'></div>\n";
-        replace+="                        </td>\n";*/
-        replace+="                        <td>\n";
-        replace+="                            <div id='HeaderServicePie'><span style=\"float: left;\">Service Status &Uuml;bersicht</span><span style=\"float: left; margin-top: -1px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></div>\n";
-        replace+="                            <div id='ServicePie'></div>\n";
-        replace+="                        </td>\n";
-        replace+="                        <td>\n";
-        replace+="                            <div id='ServicePer'></div>\n";
-        replace+="                        </td>\n";
-        replace+="                    </tr>\n";
-        replace+="                </table>\n";
-        replace+="                <br>\n";
-        /*replace+="                <div id='HeadDivShowCritical'>Aktuelle Probleme</div>\n";
-        replace+="                <div id='DivShowCritical'></div>\n";
-        replace+="                <div id='FooterDivShowCritical'></div>\n";*/
-        replace+="            </div>\n";
+        
         replace+="        </div>\n";
+        return replace;
+    }
+    
+    static public String printAccessDenied(String lang) {
+        String replace = "<span class='access-denied'>Du bis nicht berechtigt dieses Modul aufzurufen.</span><script>alert('Du bis nicht berechtigt dieses Modul aufzurufen.');</script>";
         return replace;
     }
 }

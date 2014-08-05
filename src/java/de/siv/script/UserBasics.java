@@ -73,7 +73,7 @@ public class UserBasics extends HttpServlet {
 "	buttons: { \n" +
 "            EINTRAGEN: function() { \n" +
 "                $.ajax({\n" +
-"                    url: '/gateway/exec/AddDashboardLink?uuid=' + $.base64.encode( UUID ) + '&title=' + $.base64.encode( $('#DaBTitle').val() ) + '&desc=' + $.base64.encode( $('#DaBDesc').val() ) + '&target=' + $.base64.encode( $('#DaBTarget').val() ),\n" +
+"                    url: '/gateway/exec/AddDashboardLink?uuid=' + base64_encode( UUID ) + '&title=' + base64_encode( $('#DaBTitle').val() ) + '&desc=' + base64_encode( $('#DaBDesc').val() ) + '&target=' + base64_encode( $('#DaBTarget').val() ),\n" +
 "                    crossDomain: true,\n" +
 "                    success: function(json) {\n" +
 "                        if (json.ADD == '1') {\n" +
@@ -108,9 +108,9 @@ public class UserBasics extends HttpServlet {
         
             out.println("" +
 "function Configuration(uid) {\n" +
-"    var b64uid = $.base64.encode( uid );\n" +
+"    var b64uid = uid;\n" +
 "    /* Dialog format start */\n" +
-"    $('#Dialog').append('<div id=\"ConfigurationDialog\" title=\"Einstellungen\">" +
+"    $('section#section-configuration').append('" +
 "        <div id=\"ConfigurationTabs\">" +
 "            <ul>\\n\\");
             
@@ -139,24 +139,24 @@ public class UserBasics extends HttpServlet {
             if(CW == 1) {
             
             out.println("            <div id=\"ConfigurationTabs1\">" +
-"                <div id=\"ConfigurationSection\">" +
+/*"                <div id=\"ConfigurationSection\">" +
 "                    <div id=\"ConfigurationSectionTitle\">Reset</div>" +
 "                    <button id=\"2\" class=\"ConfigurationSectionPoint\" onclick=\"ResetDashboard();\">Dashboard Zur&uuml;cksetzen</button>" +
 "                    <!--button id=\"3\" class=\"ConfigurationSectionPoint\" onclick=\"DeleteBasicConfig();\">Alle Einstellungen zur&uuml;cksetzen</button-->" +
 "                </div>" +
-/*"                <div id=\"ConfigurationSection\">" +
+"                <div id=\"ConfigurationSection\">" +
 "                    <div id=\"ConfigurationSectionTitle\">Anzeige Einstellungen</div>" +
 "                    <div class=\"Config\"></div>" +
 "                </div>" +*/
 "                <div id=\"ConfigurationSection\">" +
 "                    <div id=\"ConfigurationSectionTitle\">Mailing, Standard CC Empf&auml;nger</div>" +
-"                    <div id=\"MailCC\"><span>Mailadressen CC: (Mail1,Mail2,Mailn)</span><input type=text id=\"InMailCC\"/><button onclick=\"AddMailingConfig(\\'InMailCC\\',\\'CC\\');\">Festlegen</button></div>" +
+"                    <div id=\"MailCC\"><span>Mailadressen CC: (Mail1,Mail2,Mailn)</span><input type=text id=\"InMailCC\"/ placeholder=\"group@domain.local\"><button onclick=\"AddMailingConfig(\\'InMailCC\\',\\'CC\\');\">Festlegen</button></div>" +
 "                </div>" +
 "                <div id=\"ConfigurationSection\">" +
 "                    <div id=\"ConfigurationSectionTitle\">Mailing, Eskalationsmanagement</div>" +
-"                    <div id=\"MailEsk1\"><span>Mailadressen Eskalationsstufe 1: (Mail1,Mail2,Mailn)</span><input type=text id=\"InMailEsk1\"/><button onclick=\"AddMailingConfig(\\'InMailEsk1\\',\\'ESK1\\');\">Festlegen</button></div>" +
-"                    <div id=\"MailEsk2\"><span>Mailadressen Eskalationsstufe 2: (Mail1,Mail2,Mailn)</span><input type=text id=\"InMailEsk2\"/><button onclick=\"AddMailingConfig(\\'InMailEsk2\\',\\'ESK2\\');\">Festlegen</button></div>" +
-"                    <div id=\"MailEsk3\"><span>Mailadressen Eskalationsstufe 3: (Mail1,Mail2,Mailn)</span><input type=text id=\"InMailEsk3\"/><button onclick=\"AddMailingConfig(\\'InMailEsk3\\',\\'ESK3\\');\">Festlegen</button></div>" +
+"                    <div id=\"MailEsk1\"><span>Mailadressen Eskalationsstufe 1: (Mail1,Mail2,Mailn)</span><input type=text id=\"InMailEsk1\" placeholder=\"esk1@domain.local\"/><button onclick=\"AddMailingConfig(\\'InMailEsk1\\',\\'ESK1\\');\">Festlegen</button></div>" +
+"                    <div id=\"MailEsk2\"><span>Mailadressen Eskalationsstufe 2: (Mail1,Mail2,Mailn)</span><input type=text id=\"InMailEsk2\" placeholder=\"esk1@domain.local,esk2@domain.local\"/><button onclick=\"AddMailingConfig(\\'InMailEsk2\\',\\'ESK2\\');\">Festlegen</button></div>" +
+"                    <div id=\"MailEsk3\"><span>Mailadressen Eskalationsstufe 3: (Mail1,Mail2,Mailn)</span><input type=text id=\"InMailEsk3\" placeholder=\"esk1@domain.local,esk2@domain.local,esk3@domain.local\"/><button onclick=\"AddMailingConfig(\\'InMailEsk3\\',\\'ESK3\\');\">Festlegen</button></div>" +
 "                </div>" +
 "                <div id=\"ConfigurationSection\">" +
 "                    <div id=\"ConfigurationSectionTitle\">Mailing, Signatur</div>" +
@@ -171,12 +171,12 @@ public class UserBasics extends HttpServlet {
             out.println("            <div id=\"ConfigurationTabs2\">" +
 "                <div id=\"ConfigurationSection\">" +
 "                    <div id=\"ConfigurationSectionTitle\">Nutzer</div>" +
-"                    <div id=\"UserMgmntUserMenu\"><table><tr><td>UsID:</td></tr><tr><td><input type=\"text\" value=\"mmustermann\" id=\"UMUMuid\" onclick=\"ClearValue(\\'UMUMuid\\');\"/></td></tr><tr><td>Name:</td></tr><tr><td><input type=\"text\" value=\"Max Mustermann\" id=\"UMUMusnm\" onclick=\"ClearValue(\\'UMUMusnm\\');\"/></td></tr></table><button id=\"UserMgmntUserAdd\" onclick=\"AddEntry(\\'USER\\',\\'UMUMuid\\',\\'UMUMusnm\\');\">Nutzer Anlegen</button></div>" +
+"                    <div id=\"UserMgmntUserMenu\"><table><tr><td>UsID:</td></tr><tr><td><input type=\"text\" placeholder=\"mmustermann\" id=\"UMUMuid\" /></td></tr><tr><td>Name:</td></tr><tr><td><input type=\"text\" placeholder=\"Max Mustermann\" id=\"UMUMusnm\" /></td></tr></table><button id=\"UserMgmntUserAdd\" onclick=\"AddEntry(\\'USER\\',\\'UMUMuid\\',\\'UMUMusnm\\');\">Nutzer Anlegen</button></div>" +
 "                    <div id=\"UserMgmntUserList\"><table></table></div>" +
 "                </div>" +
 "                <div id=\"ConfigurationSection\">" +
 "                    <div id=\"ConfigurationSectionTitle\">Gruppen</div>" +
-"                    <div id=\"UserMgmntGroupMenu\"><table><tr><td>GrID:</td></tr><tr><td><input type=\"text\" value=\"admin\" id=\"UMGMgrid\" onclick=\"ClearValue(\\'UMGMgrid\\');\"/></td></tr><tr><td>Name:</td></tr><tr><td><input type=\"text\" value=\"Administrator\" id=\"UMGMgrnm\" onclick=\"ClearValue(\\'UMGMgrnm\\');\"/></td></tr></table><button id=\"UserMgmntGroupAdd\" onclick=\"AddEntry(\\'GROUP\\',\\'UMGMgrid\\',\\'UMGMgrnm\\');\">Gruppe Anlegen</button></div>" +
+"                    <div id=\"UserMgmntGroupMenu\"><table><tr><td>GrID:</td></tr><tr><td><input type=\"text\" placeholder=\"admin\" id=\"UMGMgrid\" /></td></tr><tr><td>Name:</td></tr><tr><td><input type=\"text\" placeholder=\"Administrator\" id=\"UMGMgrnm\" /></td></tr></table><button id=\"UserMgmntGroupAdd\" onclick=\"AddEntry(\\'GROUP\\',\\'UMGMgrid\\',\\'UMGMgrnm\\');\">Gruppe Anlegen</button></div>" +
 "                    <div id=\"UserMgmntGroupList\"><table></table></div>" +
 "                </div>" +
 "            </div>\\n\\");
@@ -184,12 +184,12 @@ public class UserBasics extends HttpServlet {
             out.println("            <div id=\"ConfigurationTabs3\">" +
 "                <div id=\"ConfigurationSection\">" +
 "                    <div id=\"ConfigurationSectionTitle\">Rollen</div>" +
-"                    <div id=\"UserMgmntRoleMenu\"><table><tr><td>RoID:</td></tr><tr><td><input type=\"text\" value=\"full\" id=\"UMRMrlid\" onclick=\"ClearValue(\\'UMRMrlid\\');\"/></td></tr><tr><td>Beschreibung:</td></tr><tr><td><input type=\"text\" value=\"Vollzugriff\" id=\"UMRMrlnm\" onclick=\"ClearValue(\\'UMRMrlnm\\');\"/></td></tr></table><button id=\"UserMgmntRoleAdd\" onclick=\"AddEntry(\\'ROLE\\',\\'UMRMrlid\\',\\'UMRMrlnm\\');\">Rolle Anlegen</button></div>" +
+"                    <div id=\"UserMgmntRoleMenu\"><table><tr><td>RoID:</td></tr><tr><td><input type=\"text\" placeholder=\"full\" id=\"UMRMrlid\" /></td></tr><tr><td>Beschreibung:</td></tr><tr><td><input type=\"text\" placeholder=\"Vollzugriff\" id=\"UMRMrlnm\" /></td></tr></table><button id=\"UserMgmntRoleAdd\" onclick=\"AddEntry(\\'ROLE\\',\\'UMRMrlid\\',\\'UMRMrlnm\\');\">Rolle Anlegen</button></div>" +
 "                    <div id=\"UserMgmntRoleList\"><table></table></div>" +
 "                </div>" +
 "                <div id=\"ConfigurationSection\">" +
 "                    <div id=\"ConfigurationSectionTitle\">Privilegien</div>" +
-"                    <div id=\"UserMgmntPrivMenu\"><table><tr><td>PrID:</td></tr><tr><td><input type=\"text\" value=\"list_hosts\" id=\"UMPMprid\" onclick=\"ClearValue(\\'UMPMprid\\');\"/></td></tr><tr><td>Beschreibung:</td></tr><tr><td><input type=\"text\" value=\"Liste alle Hosts\" id=\"UMPMprnm\" onclick=\"ClearValue(\\'UMPMprnm\\');\"/></td></tr></table><button id=\"UserMgmntPrivAdd\" onclick=\"AddEntry(\\'PRIV\\',\\'UMPMprid\\',\\'UMPMprnm\\');\">Privileg Anlegen</button></div>" +
+"                    <div id=\"UserMgmntPrivMenu\"><table><tr><td>PrID:</td></tr><tr><td><input type=\"text\" placeholder=\"list_hosts\" id=\"UMPMprid\" /></td></tr><tr><td>Beschreibung:</td></tr><tr><td><input type=\"text\" placeholder=\"Liste alle Hosts\" id=\"UMPMprnm\" /></td></tr></table><button id=\"UserMgmntPrivAdd\" onclick=\"AddEntry(\\'PRIV\\',\\'UMPMprid\\',\\'UMPMprnm\\');\">Privileg Anlegen</button></div>" +
 "                    <div id=\"UserMgmntPrivList\"><table></table></div>" +
 "                </div>" +
 "            </div>\\n\\");
@@ -257,7 +257,7 @@ public class UserBasics extends HttpServlet {
             }
             
             out.println("       </div>" +
-"   </div>');\n" +
+"   ');\n" +
 "    \n" +
 "    $('#ConfigurationTabs').tabs();\n" +
 "    $('#2').button();\n" +
@@ -278,32 +278,6 @@ public class UserBasics extends HttpServlet {
 "    $('#MailFContent').jqte();\n" +
 "    $('input[type=text]').addClass('ui-input-hofo');\n" +
 "\n" +
-"    /* Dialog open */\n" +
-"    $('#ConfigurationDialog').dialog({\n" +
-"	autoOpen: true,\n" +
-"	height: 900,\n" +
-"	width: 1200,\n" +
-"	draggable: false,\n" +
-"	resizable: false,\n" +
-"	modal: true,\n" +
-"        open: function() {\n" +
-/*"            $.ajax({\n" +
-"                url: 'http://' + Backend + '/repo/json/?e=1&m=U2VsZWN0Q29uZmlnJk8Uhg&u=' + b64uid + 'KjHu8s&m2=Q29uZmlnJq0OpP',\n" +
-"                crossDomain: true,\n" +
-"                success: function(json) {\n" +
-"                    $('div.Config').append('<table id=\"TableConfig\" cellpadding=0 cellspacing=5 border=0></table>');\n" +
-"                    $.each(json, function(key,value) {\n" +
-"                        if ( value.ACTION == 0 ) {\n" +
-"                            $('table#TableConfig').append('<tr><td>' + value.DESC + '</td><td></td><td><div id=\"radio' + value.KEY + '\" class=\"RadioBorder\"><input type=\"radio\" id=\"radio1' + value.KEY + '\" name=\"radio' + value.KEY + '\" onclick=\"AddConfig(\\'' + b64uid + 'Ljd84K\\',\\'Config\\',\\'' + value.KEY + '\\',\\'1\\',\\'' + value.DESC + '\\',\\'\\');\" /><label for=\"radio1' + value.KEY + '\">ON</label><input type=\"radio\" id=\"radio2' + value.KEY + '\" name=\"radio' + value.KEY + '\" checked=\"checked\" onclick=\"AddConfig(\\'' + b64uid + 'Ljd84K\\',\\'Config\\',\\'' + value.KEY + '\\',\\'0\\',\\'' + value.DESC + '\\',\\'\\');\" /><label for=\"radio2' + value.KEY + '\">OFF</label></div></td></tr>');\n" +
-"                        } else {\n" +
-"                            $('table#TableConfig').append('<tr><td>' + value.DESC + '</td><td></td><td><div id=\"radio' + value.KEY + '\" class=\"RadioBorder\"><input type=\"radio\" id=\"radio1' + value.KEY + '\" name=\"radio' + value.KEY + '\" onclick=\"AddConfig(\\'' + b64uid + 'Ljd84K\\',\\'Config\\',\\'' + value.KEY + '\\',\\'1\\',\\'' + value.DESC + '\\',\\'\\');\" checked=\"checked\" /><label for=\"radio1' + value.KEY + '\">ON</label><input type=\"radio\" id=\"radio2' + value.KEY + '\" name=\"radio' + value.KEY + '\" onclick=\"AddConfig(\\'' + b64uid + 'Ljd84K\\',\\'Config\\',\\'' + value.KEY + '\\',\\'0\\',\\'' + value.DESC + '\\',\\'\\');\" /><label for=\"radio2' + value.KEY + '\">OFF</label></div></td></tr>');\n" +
-"                        }\n" +
-"                        $('#radio' + value.KEY ).buttonset();\n" +
-"                    });\n" +
-"                },\n" +
-"                dataType: 'json',\n" +
-"                cache: false\n" +
-"            });\n");*/
 "\n");
                     
             if(CFGUM == 1) {
@@ -337,16 +311,16 @@ public class UserBasics extends HttpServlet {
 "                 for (var prop in obj) {" +
 "                     if(obj.hasOwnProperty(prop)) {\n" +
 "                         if (prop == 'CC') {\n" +
-"                             $('#InMailCC').val($.base64.decode( obj[prop] ));\n" +
+"                             $('#InMailCC').val(base64_decode( obj[prop] ));\n" +
 "                         } else if (prop == 'ESK1') {\n" +
-"                             $('#InMailEsk1').val($.base64.decode( obj[prop] ));\n" +
+"                             $('#InMailEsk1').val(base64_decode( obj[prop] ));\n" +
 "                         } else if (prop == 'ESK2') {\n" +
-"                             $('#InMailEsk2').val($.base64.decode( obj[prop] ));\n" +
+"                             $('#InMailEsk2').val(base64_decode( obj[prop] ));\n" +
 "                         } else if (prop == 'ESK3') {\n" +
-"                             $('#InMailEsk3').val($.base64.decode( obj[prop] ));\n" +
+"                             $('#InMailEsk3').val(base64_decode( obj[prop] ));\n" +
 "                         } else if (prop == 'SIGN') {\n" +
-"                             //$('#MailSGContent').val($.base64.decode( obj[prop] ));\n" +
-"                             $('#MailSG div.jqte_editor').html($.base64.decode( obj[prop] ));\n" +
+"                             //$('#MailSGContent').val(base64_decode( obj[prop] ));\n" +
+"                             $('#MailSG div.jqte_editor').html(base64_decode( obj[prop] ));\n" +
 "                         }\n" +
 "                     }\n" +
 "                 }" +
@@ -361,15 +335,9 @@ public class UserBasics extends HttpServlet {
         
             }
             
-            out.println("        },\n" +
-"        buttons: { \n" +
-"            BEENDEN: function() {\n" +
-"                $(this).dialog('close');\n" +
-"		 $('#ConfigurationDialog').remove();\n" +
-"                location.reload();\n" +
-"            }\n" +
-"	}\n" +
-"    }).parent().find('.ui-dialog-titlebar-close').hide();\n" +
+            out.println("            PrepareHtmlPasteJqte('MailSG');" +
+"            PrepareHtmlPasteJqte('MailH');" +
+"            PrepareHtmlPasteJqte('MailF');" +         
 "}");
             
             
@@ -396,7 +364,7 @@ public class UserBasics extends HttpServlet {
                 out.println("\n" +
 "function AddMailingConfig(id,key) {\n" +
 "    $.ajax({\n" +
-"        url: '/gateway/exec/AddMailingConfig?uuid=' + $.base64.encode( UUID ) + '&key=' + $.base64.encode( key ) + '&val=' + $.base64.encode( $('#' + id).val() ),\n" +
+"        url: '/gateway/exec/AddMailingConfig?uuid=' + base64_encode( UUID ) + '&key=' + base64_encode( key ) + '&val=' + base64_encode( $('#' + id).val() ),\n" +
 "        crossDomain: true,\n" +
 "        success: function(json) {\n" +
 "            if (json.ADD == \"1\") {\n" +
@@ -413,9 +381,9 @@ public class UserBasics extends HttpServlet {
 
                 out.println("\n" +
 "function AddMailingSignature(id,key) {\n" +
-"    var val = $.base64.encode( $('#' + id + ' div.jqte_editor').html() ).replace(/\\+/g,'78');\n" +
+"    var val = base64_encode( $('#' + id + ' div.jqte_editor').html() ).replace(/\\+/g,'78');\n" +
 "    $.ajax({\n" +
-"        url: '/gateway/exec/AddMailingConfig?uuid=' + $.base64.encode( UUID ) + '&key=' + $.base64.encode( key ) + '&val=' + val,\n" +
+"        url: '/gateway/exec/AddMailingConfig?uuid=' + base64_encode( UUID ) + '&key=' + base64_encode( key ) + '&val=' + val,\n" +
 "        crossDomain: true,\n" +
 "        success: function(json) {\n" +
 "            if (json.ADD == \"1\") {\n" +
@@ -444,19 +412,19 @@ public class UserBasics extends HttpServlet {
 "            $.each(json.USERS, function() {\n" +
 "                var active;\n" +
 "                if (this.UACT == \"1\") { active = \"<img onclick=\\\"ActivateUser(\\'0\\',\\'\" + this.UUID + \"\\');\\\" src=\\\"public/images/accept.png\\\" title=\\\"Nutzer deaktivieren\\\"/>\"; } else { active = \"<img onclick=\\\"ActivateUser(\\'1\\',\\'\" + this.UUID + \"\\')\\\" src=\\\"public/images/cross-circle.png\\\" title=\\\"Nutzer aktivieren\\\"/>\"; }" +
-"                $('#UserMgmntUserList table').append('<tr><td>' + $.base64.decode( this.USDC ) + '</td><td>' + this.UCRT + '</td><td>' + this.ULAL + '</td><td>' + active + '</td><td><img onclick=\"DeleteEntry(\\'USER\\',\\'' + this.UUID + '\\')\" src=\"public/images/minus-circle.png\" title=\"Nutzer l&ouml;schen\"/></td></tr>');\n" +
+"                $('#UserMgmntUserList table').append('<tr><td>' + base64_decode( this.USDC ) + '</td><td>' + this.UCRT + '</td><td>' + this.ULAL + '</td><td>' + active + '</td><td><img onclick=\"DeleteEntry(\\'USER\\',\\'' + this.UUID + '\\')\" src=\"public/images/minus-circle.png\" title=\"Nutzer l&ouml;schen\"/></td></tr>');\n" +
 "            });\n" +
 "            $('#UserMgmntGroupList table').html('<tr><th>Gruppenname:</th><th>Gruppenbeschreibung:</th><th></th></tr>');\n" +
 "            $.each(json.GROUPS, function() {\n" +
-"                $('#UserMgmntGroupList table').append('<tr><td>' + $.base64.decode( this.GRNM ) + '</td><td>' + $.base64.decode( this.GRDC ) + '</td><td><img onclick=\"DeleteEntry(\\'GROUP\\',\\'' + this.GRID + '\\')\" src=\"public/images/minus-circle.png\" title=\"Gruppe l&ouml;schen\"/></td></tr>');\n" +
+"                $('#UserMgmntGroupList table').append('<tr><td>' + base64_decode( this.GRNM ) + '</td><td>' + base64_decode( this.GRDC ) + '</td><td><img onclick=\"DeleteEntry(\\'GROUP\\',\\'' + this.GRID + '\\')\" src=\"public/images/minus-circle.png\" title=\"Gruppe l&ouml;schen\"/></td></tr>');\n" +
 "            });\n" +
 "            $('#UserMgmntRoleList table').html('<tr><th>Rollenname:</th><th>Rollenbeschreibung:</th><th></th></tr>');\n" +
 "            $.each(json.ROLES, function() {\n" +
-"                $('#UserMgmntRoleList table').append('<tr><td>' + $.base64.decode( this.RLNM ) + '</td><td>' + $.base64.decode( this.RLDC ) + '</td><td><img onclick=\"DeleteEntry(\\'ROLE\\',\\'' + this.RLID + '\\')\" src=\"public/images/minus-circle.png\" title=\"Rolle l&ouml;schen\"/></td></tr>');\n" +
+"                $('#UserMgmntRoleList table').append('<tr><td>' + base64_decode( this.RLNM ) + '</td><td>' + base64_decode( this.RLDC ) + '</td><td><img onclick=\"DeleteEntry(\\'ROLE\\',\\'' + this.RLID + '\\')\" src=\"public/images/minus-circle.png\" title=\"Rolle l&ouml;schen\"/></td></tr>');\n" +
 "            });\n" +
 "            $('#UserMgmntPrivList table').html('<tr><th>Privilegname:</th><th>Privilegbeschreibung:</th><th></th></tr>');\n" +
 "            $.each(json.PRIVS, function() {\n" +
-"                $('#UserMgmntPrivList table').append('<tr><td>' + $.base64.decode( this.PRNM ) + '</td><td>' + $.base64.decode( this.PRDC ) + '</td><td><img onclick=\"DeleteEntry(\\'PRIV\\',\\'' + this.PRID + '\\')\" src=\"public/images/minus-circle.png\" title=\"Privileg l&ouml;schen\"/></td></tr>');\n" +
+"                $('#UserMgmntPrivList table').append('<tr><td>' + base64_decode( this.PRNM ) + '</td><td>' + base64_decode( this.PRDC ) + '</td><td><img onclick=\"DeleteEntry(\\'PRIV\\',\\'' + this.PRID + '\\')\" src=\"public/images/minus-circle.png\" title=\"Privileg l&ouml;schen\"/></td></tr>');\n" +
 "            });\n" +
 "        },\n" +
 "        dataType: 'json',\n" +
@@ -475,15 +443,15 @@ public class UserBasics extends HttpServlet {
 "            $('#UserMgmntRoPrList2 table').html('<tr id=\"thd\"></tr>');\n" +
 "            $.each(json.PRIVILEGE, function() {\n" +
 "                var PRID = this.PRID;\n" +
-"                $('#UserMgmntRoPrList1 table').append('<tr id=\"ptr' + PRID + '\"><td>' + $.base64.decode( this.PRDC ) + '<br>(' + $.base64.decode( this.PRNM ) + ')</td></tr>');\n" +
+"                $('#UserMgmntRoPrList1 table').append('<tr id=\"ptr' + PRID + '\"><td>' + base64_decode( this.PRDC ) + '<br>(' + base64_decode( this.PRNM ) + ')</td></tr>');\n" +
 "                $('#UserMgmntRoPrList2 table').append('<tr id=\"rtr' + PRID + '\"></tr>');\n" +
 "                $('#ptr' + PRID).hover( function() { $( this ).css('background-color','#dedede'); $('#rtr' + PRID).css('background-color','#dedede'); }, function() { $( this ).css('background-color','#fff'); $('#rtr' + PRID).css('background-color','#fff'); } );\n" +
 "                $('#rtr' + PRID).hover( function() { $( this ).css('background-color','#dedede'); $('#ptr' + PRID).css('background-color','#dedede'); }, function() { $( this ).css('background-color','#fff'); $('#ptr' + PRID).css('background-color','#fff'); } );\n" +
 "                $.each(json.ROLE, function() {\n" +
 "                    if(c == 0) {\n" +
-"                        $('#UserMgmntRoPrList2 table tr#thd').append('<th>' + $.base64.decode( this.ROLE_DC ) + '</th>');\n" +
+"                        $('#UserMgmntRoPrList2 table tr#thd').append('<th>' + base64_decode( this.ROLE_DC ) + '</th>');\n" +
 "                    }" +
-"                    $('#UserMgmntRoPrList2 table tr#rtr' + PRID ).append('<td><img id=\"PrID' + PRID + '_RlID' + this.ROLE_ID + '\" onclick=\"UpdateRolePriv(\\'' + this.ROLE_ID + '\\',\\'' + PRID + '\\');\" src=\"public/images/cross-circle.png\" title=\"' + $.base64.decode( this.ROLE_DC ) + ' dieses Privileg erteilen\"/></td>');\n" +
+"                    $('#UserMgmntRoPrList2 table tr#rtr' + PRID ).append('<td><img id=\"PrID' + PRID + '_RlID' + this.ROLE_ID + '\" onclick=\"UpdateRolePriv(\\'' + this.ROLE_ID + '\\',\\'' + PRID + '\\');\" src=\"public/images/cross-circle.png\" title=\"' + base64_decode( this.ROLE_DC ) + ' dieses Privileg erteilen\"/></td>');\n" +
 "                });\n" +
 "                c++;" +
 "            });\n" +
@@ -491,7 +459,7 @@ public class UserBasics extends HttpServlet {
 "                var ROLEID = this.ROLE_ID;\n" +                    
 "                for(var i=0;i<this.ROLE_PRIV.length;i++) {\n" +
 "                    $('#PrID' + this.ROLE_PRIV[i] + '_RlID' + ROLEID).attr('src','public/images/accept.png');\n" +                    
-"                    $('#PrID' + this.ROLE_PRIV[i] + '_RlID' + ROLEID).attr('title',$.base64.decode( this.ROLE_DC ) + ' dieses Privileg entziehen');\n" + 
+"                    $('#PrID' + this.ROLE_PRIV[i] + '_RlID' + ROLEID).attr('title',base64_decode( this.ROLE_DC ) + ' dieses Privileg entziehen');\n" + 
 "                };\n" +
 "            });\n" +
 "        },\n" +
@@ -511,15 +479,15 @@ public class UserBasics extends HttpServlet {
 "            $('#UserMgmntGrRoList2 table').html('<tr id=\"tghd\"></tr>');\n" +
 "            $.each(json.ROLE, function() {\n" +
 "                var ROID = this.ROID;\n" +
-"                $('#UserMgmntGrRoList1 table').append('<tr id=\"pgtr' + ROID + '\"><td>' + $.base64.decode( this.RODC ) + '<br>(' + $.base64.decode( this.RONM ) + ')</td></tr>');\n" +
+"                $('#UserMgmntGrRoList1 table').append('<tr id=\"pgtr' + ROID + '\"><td>' + base64_decode( this.RODC ) + '<br>(' + base64_decode( this.RONM ) + ')</td></tr>');\n" +
 "                $('#UserMgmntGrRoList2 table').append('<tr id=\"rgtr' + ROID + '\"></tr>');\n" +
 "                $('#pgtr' + ROID).hover( function() { $( this ).css('background-color','#dedede'); $('#rgtr' + ROID).css('background-color','#dedede'); }, function() { $( this ).css('background-color','#fff'); $('#rgtr' + ROID).css('background-color','#fff'); } );\n" +
 "                $('#rgtr' + ROID).hover( function() { $( this ).css('background-color','#dedede'); $('#pgtr' + ROID).css('background-color','#dedede'); }, function() { $( this ).css('background-color','#fff'); $('#pgtr' + ROID).css('background-color','#fff'); } );\n" +
 "                $.each(json.GROUP, function() {\n" +
 "                    if(c == 0) {\n" +
-"                        $('#UserMgmntGrRoList2 table tr#tghd').append('<th>' + $.base64.decode( this.GROUP_DC ) + '</th>');\n" +
+"                        $('#UserMgmntGrRoList2 table tr#tghd').append('<th>' + base64_decode( this.GROUP_DC ) + '</th>');\n" +
 "                    }" +
-"                    $('#UserMgmntGrRoList2 table tr#rgtr' + ROID ).append('<td><img id=\"RoID' + ROID + '_GrID' + this.GROUP_ID + '\" onclick=\"UpdateGroupRole(\\'' + this.GROUP_ID + '\\',\\'' + ROID + '\\');\" src=\"public/images/cross-circle.png\" title=\"' + $.base64.decode( this.GROUP_DC ) + ' dieser Rolle zuweisen\"/></td>');\n" +
+"                    $('#UserMgmntGrRoList2 table tr#rgtr' + ROID ).append('<td><img id=\"RoID' + ROID + '_GrID' + this.GROUP_ID + '\" onclick=\"UpdateGroupRole(\\'' + this.GROUP_ID + '\\',\\'' + ROID + '\\');\" src=\"public/images/cross-circle.png\" title=\"' + base64_decode( this.GROUP_DC ) + ' dieser Rolle zuweisen\"/></td>');\n" +
 "                });\n" +
 "                c++;" +
 "            });\n" +
@@ -527,7 +495,7 @@ public class UserBasics extends HttpServlet {
 "                var GROUPID = this.GROUP_ID;\n" +                    
 "                for(var i=0;i<this.GROUP_ROLE.length;i++) {\n" +
 "                    $('#RoID' + this.GROUP_ROLE[i] + '_GrID' + GROUPID).attr('src','public/images/accept.png');\n" +                    
-"                    $('#RoID' + this.GROUP_ROLE[i] + '_GrID' + GROUPID).attr('title',$.base64.decode( this.GROUP_DC ) + ' dieser Rolle entziehen');\n" + 
+"                    $('#RoID' + this.GROUP_ROLE[i] + '_GrID' + GROUPID).attr('title',base64_decode( this.GROUP_DC ) + ' dieser Rolle entziehen');\n" + 
 "                };\n" +
 "            });\n" +
 "        },\n" +
@@ -547,15 +515,15 @@ public class UserBasics extends HttpServlet {
 "            $('#UserMgmntCuRoList2 table').html('<tr id=\"tgcuro\"></tr>');\n" +
 "            $.each(json.ROLE, function() {\n" +
 "                var ROID = this.ROID;\n" +
-"                $('#UserMgmntCuRoList1 table').append('<tr id=\"pgcuro' + ROID + '\"><td>' + $.base64.decode( this.RODC ) + '<br>(' + $.base64.decode( this.RONM ) + ')</td></tr>');\n" +
+"                $('#UserMgmntCuRoList1 table').append('<tr id=\"pgcuro' + ROID + '\"><td>' + base64_decode( this.RODC ) + '<br>(' + base64_decode( this.RONM ) + ')</td></tr>');\n" +
 "                $('#UserMgmntCuRoList2 table').append('<tr id=\"rgcuro' + ROID + '\"></tr>');\n" +
 "                $('#pgcuro' + ROID).hover( function() { $( this ).css('background-color','#dedede'); $('#rgcuro' + ROID).css('background-color','#dedede'); }, function() { $( this ).css('background-color','#fff'); $('#rgcuro' + ROID).css('background-color','#fff'); } );\n" +
 "                $('#rgcuro' + ROID).hover( function() { $( this ).css('background-color','#dedede'); $('#pgcuro' + ROID).css('background-color','#dedede'); }, function() { $( this ).css('background-color','#fff'); $('#pgcuro' + ROID).css('background-color','#fff'); } );\n" +
 "                $.each(json.CUSTOMER, function() {\n" +
 "                    if(c == 0) {\n" +
-"                        $('#UserMgmntCuRoList2 table tr#tgcuro').append('<th title=\"' + $.base64.decode( this.CUNM ) + '\">' + $.base64.decode( this.CUNR ) + '</th>');\n" +
+"                        $('#UserMgmntCuRoList2 table tr#tgcuro').append('<th title=\"' + base64_decode( this.CUNM ) + '\">' + base64_decode( this.CUNR ) + '</th>');\n" +
 "                    }" +
-"                    $('#UserMgmntCuRoList2 table tr#rgcuro' + ROID ).append('<td><img id=\"RoID' + ROID + '_CuID' + this.CUID + '\" onclick=\"UpdateCustomerRole(\\'' + this.CUID + '\\',\\'' + ROID + '\\');\" src=\"public/images/cross-circle.png\" title=\"' + $.base64.decode( this.CUNM ) + ' dieser Rolle zuweisen\"/></td>');\n" +
+"                    $('#UserMgmntCuRoList2 table tr#rgcuro' + ROID ).append('<td><img id=\"RoID' + ROID + '_CuID' + this.CUID + '\" onclick=\"UpdateCustomerRole(\\'' + this.CUID + '\\',\\'' + ROID + '\\');\" src=\"public/images/cross-circle.png\" title=\"' + base64_decode( this.CUNM ) + ' dieser Rolle zuweisen\"/></td>');\n" +
 "                });\n" +
 "                c++;" +
 "            });\n" +
@@ -563,7 +531,7 @@ public class UserBasics extends HttpServlet {
 "                var CUID = this.CUID;\n" +                    
 "                for(var i=0;i<this.ROLES.length;i++) {\n" +
 "                    $('#RoID' + this.ROLES[i] + '_CuID' + CUID).attr('src','public/images/accept.png');\n" +                    
-"                    $('#RoID' + this.ROLES[i] + '_CuID' + CUID).attr('title',$.base64.decode( this.CUNM ) + ' dieser Rolle entziehen');\n" + 
+"                    $('#RoID' + this.ROLES[i] + '_CuID' + CUID).attr('title',base64_decode( this.CUNM ) + ' dieser Rolle entziehen');\n" + 
 "                };\n" +
 "            });\n" +
 "        },\n" +
@@ -583,15 +551,15 @@ public class UserBasics extends HttpServlet {
 "            $('#UserMgmntCoRoList2 table').html('<tr id=\"tgcoro\"></tr>');\n" +
 "            $.each(json.ROLE, function() {\n" +
 "                var ROID = this.ROID;\n" +
-"                $('#UserMgmntCoRoList1 table').append('<tr id=\"pgcoro' + ROID + '\"><td>' + $.base64.decode( this.RODC ) + '<br>(' + $.base64.decode( this.RONM ) + ')</td></tr>');\n" +
+"                $('#UserMgmntCoRoList1 table').append('<tr id=\"pgcoro' + ROID + '\"><td>' + base64_decode( this.RODC ) + '<br>(' + base64_decode( this.RONM ) + ')</td></tr>');\n" +
 "                $('#UserMgmntCoRoList2 table').append('<tr id=\"rgcoro' + ROID + '\"></tr>');\n" +
 "                $('#pgcoro' + ROID).hover( function() { $( this ).css('background-color','#dedede'); $('#rgcoro' + ROID).css('background-color','#dedede'); }, function() { $( this ).css('background-color','#fff'); $('#rgcoro' + ROID).css('background-color','#fff'); } );\n" +
 "                $('#rgcoro' + ROID).hover( function() { $( this ).css('background-color','#dedede'); $('#pgcoro' + ROID).css('background-color','#dedede'); }, function() { $( this ).css('background-color','#fff'); $('#pgcoro' + ROID).css('background-color','#fff'); } );\n" +
 "                $.each(json.CONTRACT, function() {\n" +
 "                    if(c == 0) {\n" +
-"                        $('#UserMgmntCoRoList2 table tr#tgcoro').append('<th title=\"' + $.base64.decode( this.CCNM ) + ' von ' + $.base64.decode( this.CUNM ) + '\">' + $.base64.decode( this.CCNR ) + '</th>');\n" +
+"                        $('#UserMgmntCoRoList2 table tr#tgcoro').append('<th title=\"' + base64_decode( this.CCNM ) + ' von ' + base64_decode( this.CUNM ) + '\">' + base64_decode( this.CCNR ) + '</th>');\n" +
 "                    }" +
-"                    $('#UserMgmntCoRoList2 table tr#rgcoro' + ROID ).append('<td><img id=\"RoID' + ROID + '_CcID' + this.CCID + '\" onclick=\"UpdateContractRole(\\'' + this.CCID + '\\',\\'' + ROID + '\\');\" src=\"public/images/cross-circle.png\" title=\"' + $.base64.decode( this.CCNM ) + ' von ' + $.base64.decode( this.CUNM ) + ' dieser Rolle zuweisen\"/></td>');\n" +
+"                    $('#UserMgmntCoRoList2 table tr#rgcoro' + ROID ).append('<td><img id=\"RoID' + ROID + '_CcID' + this.CCID + '\" onclick=\"UpdateContractRole(\\'' + this.CCID + '\\',\\'' + ROID + '\\');\" src=\"public/images/cross-circle.png\" title=\"' + base64_decode( this.CCNM ) + ' von ' + base64_decode( this.CUNM ) + ' dieser Rolle zuweisen\"/></td>');\n" +
 "                });\n" +
 "                c++;" +
 "            });\n" +
@@ -599,7 +567,7 @@ public class UserBasics extends HttpServlet {
 "                var CCID = this.CCID;\n" +                    
 "                for(var i=0;i<this.ROLES.length;i++) {\n" +
 "                    $('#RoID' + this.ROLES[i] + '_CcID' + CCID).attr('src','public/images/accept.png');\n" +                    
-"                    $('#RoID' + this.ROLES[i] + '_CcID' + CCID).attr('title',$.base64.decode( this.CCNM ) + ' von ' + $.base64.decode( this.CUNM ) + ' dieser Rolle entziehen');\n" + 
+"                    $('#RoID' + this.ROLES[i] + '_CcID' + CCID).attr('title',base64_decode( this.CCNM ) + ' von ' + base64_decode( this.CUNM ) + ' dieser Rolle entziehen');\n" + 
 "                };\n" +
 "            });\n" +
 "        },\n" +
@@ -619,15 +587,15 @@ public class UserBasics extends HttpServlet {
 "            $('#UserMgmntUsGrList2 table').html('<tr id=\"tuhd\"></tr>');\n" +
 "            $.each(json.GROUP, function() {\n" +
 "                var GRID = this.GRID;\n" +
-"                $('#UserMgmntUsGrList1 table').append('<tr id=\"putr' + GRID + '\"><td>' + $.base64.decode( this.GRDC ) + '<br>(' + $.base64.decode( this.GRNM ) + ')</td></tr>');\n" +
+"                $('#UserMgmntUsGrList1 table').append('<tr id=\"putr' + GRID + '\"><td>' + base64_decode( this.GRDC ) + '<br>(' + base64_decode( this.GRNM ) + ')</td></tr>');\n" +
 "                $('#UserMgmntUsGrList2 table').append('<tr id=\"rutr' + GRID + '\"></tr>');\n" +
 "                $('#putr' + GRID).hover( function() { $( this ).css('background-color','#dedede'); $('#rutr' + GRID).css('background-color','#dedede'); }, function() { $( this ).css('background-color','#fff'); $('#rutr' + GRID).css('background-color','#fff'); } );\n" +
 "                $('#rutr' + GRID).hover( function() { $( this ).css('background-color','#dedede'); $('#putr' + GRID).css('background-color','#dedede'); }, function() { $( this ).css('background-color','#fff'); $('#putr' + GRID).css('background-color','#fff'); } );\n" +
 "                $.each(json.USER, function() {\n" +
 "                    if(c == 0) {\n" +
-"                        $('#UserMgmntUsGrList2 table tr#tuhd').append('<th>' + $.base64.decode( this.USER_DC ) + '</th>');\n" +
+"                        $('#UserMgmntUsGrList2 table tr#tuhd').append('<th>' + base64_decode( this.USER_DC ) + '</th>');\n" +
 "                    }" +
-"                    $('#UserMgmntUsGrList2 table tr#rutr' + GRID ).append('<td><img id=\"GrID' + GRID + '_UsID' + this.USER_ID + '\" onclick=\"UpdateUserGroup(\\'' + this.USER_ID + '\\',\\'' + GRID + '\\');\" src=\"public/images/cross-circle.png\" title=\"' + $.base64.decode( this.USER_DC ) + ' dieser Gruppe zuweisen\"/></td>');\n" +
+"                    $('#UserMgmntUsGrList2 table tr#rutr' + GRID ).append('<td><img id=\"GrID' + GRID + '_UsID' + this.USER_ID + '\" onclick=\"UpdateUserGroup(\\'' + this.USER_ID + '\\',\\'' + GRID + '\\');\" src=\"public/images/cross-circle.png\" title=\"' + base64_decode( this.USER_DC ) + ' dieser Gruppe zuweisen\"/></td>');\n" +
 "                });\n" +
 "                c++;" +
 "            });\n" +
@@ -635,7 +603,7 @@ public class UserBasics extends HttpServlet {
 "                var USERID = this.USER_ID;\n" +                    
 "                for(var i=0;i<this.USER_GROUP.length;i++) {\n" +
 "                    $('#GrID' + this.USER_GROUP[i] + '_UsID' + USERID).attr('src','public/images/accept.png');\n" +                    
-"                    $('#GrID' + this.USER_GROUP[i] + '_UsID' + USERID).attr('title',$.base64.decode( this.USER_DC ) + ' diser Gruppe entziehen');\n" + 
+"                    $('#GrID' + this.USER_GROUP[i] + '_UsID' + USERID).attr('title',base64_decode( this.USER_DC ) + ' diser Gruppe entziehen');\n" + 
 "                };\n" +
 "            });\n" +
 "        },\n" +
@@ -654,7 +622,7 @@ public class UserBasics extends HttpServlet {
 "        alert('Der Wert ist nicht korrekt eingetragen.');\n" +
 "    } else {\n" +
 "        $.ajax({\n" +
-"            url: '/gateway/exec/AddEntry?mod=' + $.base64.encode( mod ) + '&id=' + $.base64.encode( $('#' + id).val() ) + '&desc=' + $.base64.encode( $('#' + nm).val() ) ,\n" +
+"            url: '/gateway/exec/AddEntry?mod=' + base64_encode( mod ) + '&id=' + base64_encode( $('#' + id).val() ) + '&desc=' + base64_encode( $('#' + nm).val() ) ,\n" +
 "            crossDomain: true,\n" +
 "            success: function() {\n" +
 "                DialogSuccess('#Dialog','Der Eintrag wurde erfolgreich gesetzt.');\n" +
@@ -674,7 +642,7 @@ public class UserBasics extends HttpServlet {
             out.println("\n" +
 "function DeleteEntry(mod,id) {\n" +
 "    $.ajax({\n" +
-"        url: '/gateway/exec/DeleteEntry?mod=' + $.base64.encode( mod ) + '&id=' + $.base64.encode( id ),\n" +
+"        url: '/gateway/exec/DeleteEntry?mod=' + base64_encode( mod ) + '&id=' + base64_encode( id ),\n" +
 "        crossDomain: true,\n" +
 "        success: function() {\n" +
 "            DialogSuccess('#Dialog','Der Eintrag wurde erfolgreich entfernt.');\n" +
@@ -691,7 +659,7 @@ public class UserBasics extends HttpServlet {
             out.println("\n" +
 "function ActivateUser(mod,id) {\n" +
 "    $.ajax({\n" +
-"        url: '/gateway/exec/ActivateUser?mod=' + $.base64.encode( mod ) + '&id=' + $.base64.encode( id ),\n" +
+"        url: '/gateway/exec/ActivateUser?mod=' + base64_encode( mod ) + '&id=' + base64_encode( id ),\n" +
 "        crossDomain: true,\n" +
 "        success: function() {\n" +
 "            DialogSuccess('#Dialog','Der User wurde erfolgreich angepasst.');\n" +
@@ -783,8 +751,8 @@ public class UserBasics extends HttpServlet {
 "        url: '/gateway/exec/GetMailConfig',\n" +
 "        crossDomain: true,\n" +
 "        success: function(json) {\n" +
-"            $('#MailH div.jqte_editor').html($.base64.decode( json.HEADER )); \n" +
-"            $('#MailF div.jqte_editor').html($.base64.decode( json.FOOTER )); \n" +
+"            $('#MailH div.jqte_editor').html(base64_decode( json.HEADER )); \n" +
+"            $('#MailF div.jqte_editor').html(base64_decode( json.FOOTER )); \n" +
 "        },\n" +
 "        dataType: 'json',\n" +
 "        cache: false\n" +
@@ -794,9 +762,9 @@ public class UserBasics extends HttpServlet {
                 
             out.println("\n" +
 "function AddMailConfig(id,key) {\n" +
-"    var val = $.base64.encode( $('#' + id + ' div.jqte_editor').html() ).replace(/\\+/g,'78');\n" +
+"    var val = base64_encode( $('#' + id + ' div.jqte_editor').html() ).replace(/\\+/g,'78');\n" +
 "    $.ajax({\n" +
-"        url: '/gateway/exec/AddMailConfig?key=' + $.base64.encode( key ) + '&val=' + val,\n" +
+"        url: '/gateway/exec/AddMailConfig?key=' + base64_encode( key ) + '&val=' + val,\n" +
 "        crossDomain: true,\n" +
 "        success: function(json) {\n" +
 "            if (json.ADD == \"1\") {\n" +
@@ -827,15 +795,15 @@ public class UserBasics extends HttpServlet {
 "            $('#UserMgmntHoCuList2 table').html('<tr id=\"tuhocu\"></tr>');\n" +
 "            $.each(json.CUSTOMER, function() {\n" +
 "                var CUID = this.CUID;\n" +
-"                $('#UserMgmntHoCuList1 table').append('<tr id=\"puhocu' + CUID + '\" title=\"' + $.base64.decode( this.CUNM ) + '\"><td>' + $.base64.decode( this.CUNR ) + '</td></tr>');\n" +
+"                $('#UserMgmntHoCuList1 table').append('<tr id=\"puhocu' + CUID + '\" title=\"' + base64_decode( this.CUNM ) + '\"><td>' + base64_decode( this.CUNR ) + '</td></tr>');\n" +
 "                $('#UserMgmntHoCuList2 table').append('<tr id=\"ruhocu' + CUID + '\"></tr>');\n" +
 "                $('#puhocu' + CUID).hover( function() { $( this ).css('background-color','#dedede'); $('#ruhocu' + CUID).css('background-color','#dedede'); }, function() { $( this ).css('background-color','#fff'); $('#ruhocu' + CUID).css('background-color','#fff'); } );\n" +
 "                $('#ruhocu' + CUID).hover( function() { $( this ).css('background-color','#dedede'); $('#puhocu' + CUID).css('background-color','#dedede'); }, function() { $( this ).css('background-color','#fff'); $('#puhocu' + CUID).css('background-color','#fff'); } );\n" +
 "                $.each(json.HOST, function() {\n" +
 "                    if(c == 0) {\n" +
-"                        $('#UserMgmntHoCuList2 table tr#tuhocu').append('<th>' + $.base64.decode( this.HOST_NM ) + '</th>');\n" +
+"                        $('#UserMgmntHoCuList2 table tr#tuhocu').append('<th title=\"' + base64_decode( this.HOST_NM ) + '\">' + this.HOST_ID + '</th>');\n" +
 "                    }" +
-"                    $('#UserMgmntHoCuList2 table tr#ruhocu' + CUID ).append('<td><img id=\"CuID' + CUID + '_HtID' + this.HOST_ID + '\" onclick=\"UpdateHostCustomer(\\'' + this.HOST_ID + '\\',\\'' + CUID + '\\');\" src=\"public/images/cross-circle.png\" title=\"' + $.base64.decode( this.HOST_NM ) + ' diesem Kunden zuweisen\"/></td>');\n" +
+"                    $('#UserMgmntHoCuList2 table tr#ruhocu' + CUID ).append('<td><img id=\"CuID' + CUID + '_HtID' + this.HOST_ID + '\" onclick=\"UpdateHostCustomer(\\'' + this.HOST_ID + '\\',\\'' + CUID + '\\');\" src=\"public/images/cross-circle.png\" title=\"' + base64_decode( this.HOST_NM ) + ' diesem Kunden zuweisen\"/></td>');\n" +
 "                });\n" +
 "                c++;" +
 "            });\n" +
@@ -843,7 +811,7 @@ public class UserBasics extends HttpServlet {
 "                var HOSTID = this.HOST_ID;\n" +                    
 "                for(var i=0;i<this.HOST_GROUP.length;i++) {\n" +
 "                    $('#CuID' + this.HOST_GROUP[i] + '_HtID' + HOSTID).attr('src','public/images/accept.png');\n" +                    
-"                    $('#CuID' + this.HOST_GROUP[i] + '_HtID' + HOSTID).attr('title',$.base64.decode( this.HOST_NM ) + ' diesem Kunden entziehen');\n" + 
+"                    $('#CuID' + this.HOST_GROUP[i] + '_HtID' + HOSTID).attr('title',base64_decode( this.HOST_NM ) + ' diesem Kunden entziehen');\n" + 
 "                };\n" +
 "            });\n" +
 "        },\n" +
@@ -863,15 +831,15 @@ public class UserBasics extends HttpServlet {
 "            $('#UserMgmntHoCoList2 table').html('<tr id=\"tuhoco\"></tr>');\n" +
 "            $.each(json.CONTRACT, function() {\n" +
 "                var CCID = this.CCID;\n" +
-"                $('#UserMgmntHoCoList1 table').append('<tr id=\"puhoco' + CCID + '\"><td title=\"' + $.base64.decode( this.CCNM ) + ' von ' + $.base64.decode( this.CUNM ) + '\">' + $.base64.decode( this.CCNR ) + '</td></tr>');\n" +
+"                $('#UserMgmntHoCoList1 table').append('<tr id=\"puhoco' + CCID + '\"><td title=\"' + base64_decode( this.CCNM ) + ' von ' + base64_decode( this.CUNM ) + '\">' + base64_decode( this.CCNR ) + '</td></tr>');\n" +
 "                $('#UserMgmntHoCoList2 table').append('<tr id=\"ruhoco' + CCID + '\"></tr>');\n" +
 "                $('#puhoco' + CCID).hover( function() { $( this ).css('background-color','#dedede'); $('#ruhoco' + CCID).css('background-color','#dedede'); }, function() { $( this ).css('background-color','#fff'); $('#ruhoco' + CCID).css('background-color','#fff'); } );\n" +
 "                $('#ruhoco' + CCID).hover( function() { $( this ).css('background-color','#dedede'); $('#puhoco' + CCID).css('background-color','#dedede'); }, function() { $( this ).css('background-color','#fff'); $('#puhoco' + CCID).css('background-color','#fff'); } );\n" +
 "                $.each(json.HOST, function() {\n" +
 "                    if(c == 0) {\n" +
-"                        $('#UserMgmntHoCoList2 table tr#tuhoco').append('<th>' + $.base64.decode( this.HOST_NM ) + '</th>');\n" +
+"                        $('#UserMgmntHoCoList2 table tr#tuhoco').append('<th title=\"' + base64_decode( this.HOST_NM ) + '\">' + this.HOST_ID + '</th>');\n" +
 "                    }" +
-"                    $('#UserMgmntHoCoList2 table tr#ruhoco' + CCID ).append('<td><img id=\"CcID' + CCID + '_HtID' + this.HOST_ID + '\" onclick=\"UpdateHostContract(\\'' + this.HOST_ID + '\\',\\'' + CCID + '\\');\" src=\"public/images/cross-circle.png\" title=\"' + $.base64.decode( this.HOST_NM ) + ' diesem Vertrag zuweisen\"/></td>');\n" +
+"                    $('#UserMgmntHoCoList2 table tr#ruhoco' + CCID ).append('<td><img id=\"CcID' + CCID + '_HtID' + this.HOST_ID + '\" onclick=\"UpdateHostContract(\\'' + this.HOST_ID + '\\',\\'' + CCID + '\\');\" src=\"public/images/cross-circle.png\" title=\"' + base64_decode( this.HOST_NM ) + ' diesem Vertrag zuweisen\"/></td>');\n" +
 "                });\n" +
 "                c++;" +
 "            });\n" +
@@ -879,7 +847,7 @@ public class UserBasics extends HttpServlet {
 "                var HOSTID = this.HOST_ID;\n" +                    
 "                for(var i=0;i<this.CONTRACTS.length;i++) {\n" +
 "                    $('#CcID' + this.CONTRACTS[i] + '_HtID' + HOSTID).attr('src','public/images/accept.png');\n" +                    
-"                    $('#CcID' + this.CONTRACTS[i] + '_HtID' + HOSTID).attr('title',$.base64.decode( this.HOST_NM ) + ' diesem Vertrag entziehen');\n" + 
+"                    $('#CcID' + this.CONTRACTS[i] + '_HtID' + HOSTID).attr('title',base64_decode( this.HOST_NM ) + ' diesem Vertrag entziehen');\n" + 
 "                };\n" +
 "            });\n" +
 "        },\n" +
@@ -899,15 +867,15 @@ public class UserBasics extends HttpServlet {
 "            $('#UserMgmntHoRoList2 table').html('<tr id=\"tuhoro\"></tr>');\n" +
 "            $.each(json.ROLE, function() {\n" +
 "                var ROID = this.ROID;\n" +
-"                $('#UserMgmntHoRoList1 table').append('<tr id=\"puhoro' + ROID + '\"><td>' + $.base64.decode( this.RODC ) + '<br>(' + $.base64.decode( this.RONM ) + ')</td></tr>');\n" +
+"                $('#UserMgmntHoRoList1 table').append('<tr id=\"puhoro' + ROID + '\"><td>' + base64_decode( this.RODC ) + '<br>(' + base64_decode( this.RONM ) + ')</td></tr>');\n" +
 "                $('#UserMgmntHoRoList2 table').append('<tr id=\"ruhoro' + ROID + '\"></tr>');\n" +
 "                $('#puhoro' + ROID).hover( function() { $( this ).css('background-color','#dedede'); $('#ruhoro' + ROID).css('background-color','#dedede'); }, function() { $( this ).css('background-color','#fff'); $('#ruhoro' + ROID).css('background-color','#fff'); } );\n" +
 "                $('#ruhoro' + ROID).hover( function() { $( this ).css('background-color','#dedede'); $('#puhoro' + ROID).css('background-color','#dedede'); }, function() { $( this ).css('background-color','#fff'); $('#puhoro' + ROID).css('background-color','#fff'); } );\n" +
 "                $.each(json.HOST, function() {\n" +
 "                    if(c == 0) {\n" +
-"                        $('#UserMgmntHoRoList2 table tr#tuhoro').append('<th>' + $.base64.decode( this.HOST_NM ) + '</th>');\n" +
+"                        $('#UserMgmntHoRoList2 table tr#tuhoro').append('<th title=\"' + base64_decode( this.HOST_NM ) + '\">' + this.HOST_ID + '</th>');\n" +
 "                    }" +
-"                    $('#UserMgmntHoRoList2 table tr#ruhoro' + ROID ).append('<td><img id=\"RoID' + ROID + '_HtID' + this.HOST_ID + '\" onclick=\"UpdateHostRole(\\'' + this.HOST_ID + '\\',\\'' + ROID + '\\');\" src=\"public/images/cross-circle.png\" title=\"' + $.base64.decode( this.HOST_NM ) + ' dieser Rolle zuweisen\"/></td>');\n" +
+"                    $('#UserMgmntHoRoList2 table tr#ruhoro' + ROID ).append('<td><img id=\"RoID' + ROID + '_HtID' + this.HOST_ID + '\" onclick=\"UpdateHostRole(\\'' + this.HOST_ID + '\\',\\'' + ROID + '\\');\" src=\"public/images/cross-circle.png\" title=\"' + base64_decode( this.HOST_NM ) + ' dieser Rolle zuweisen\"/></td>');\n" +
 "                });\n" +
 "                c++;" +
 "            });\n" +
@@ -915,7 +883,7 @@ public class UserBasics extends HttpServlet {
 "                var HOSTID = this.HOST_ID;\n" +                    
 "                for(var i=0;i<this.ROLE.length;i++) {\n" +
 "                    $('#RoID' + this.ROLE[i] + '_HtID' + HOSTID).attr('src','public/images/accept.png');\n" +                    
-"                    $('#RoID' + this.ROLE[i] + '_HtID' + HOSTID).attr('title','' + $.base64.decode( this.HOST_NM ) + ' dieser Rolle entziehen');\n" + 
+"                    $('#RoID' + this.ROLE[i] + '_HtID' + HOSTID).attr('title','' + base64_decode( this.HOST_NM ) + ' dieser Rolle entziehen');\n" + 
 "                };\n" +
 "            });\n" +
 "        },\n" +

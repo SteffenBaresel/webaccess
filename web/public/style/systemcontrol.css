@@ -7,16 +7,34 @@
 */
 
 @font-face { font-family: SansProLight; src: url(SourceSansPro-Regular.ttf) format("truetype"); }
-body { background-color: #ffffff; font-family: SansProLight, Arial; cursor: default; min-width: 1180px; min-height: 800px; }
+body { background-color: #ffffff; font-family: SansProLight, Arial; cursor: default; min-width: 1405px; min-height: 800px; }
 span.NoEntry { font-size: 12px; color: 000; margin-left: 4px; }
 
 /* Page Structure Start */
 
-section#menu, section#content, section#bottom, section#content-index {
+section#menu, section#content {
     position: absolute;
     left: 0;
     right: 0;
     min-width: 1180px;
+}
+
+section#left-pane {
+    position: absolute;
+    left: 0;
+    top: 132px;
+    bottom: 0;
+    width: 250px;
+    background-color: #423939;
+    z-index: 55;
+    min-height: 700px;
+}
+
+section#content-index, section#bottom {
+    position: absolute;
+    left: 250px;
+    right: 0;
+    min-width: 1160px;
 }
 
 section#menu {
@@ -24,6 +42,7 @@ section#menu {
     height: 120px;
     padding: 10px;
     background-image: url(../images/header.png);
+    min-width: 1400px;
 }
 
 section#content {
@@ -36,7 +55,7 @@ section#content {
 section#content-index {
     top: 140px;
     bottom: 73px;
-    background-image: url(../images/bg.png);
+    #background-image: url(../images/bg.png);
     padding: 10px;
 }
 
@@ -44,11 +63,11 @@ section#bottom {
     bottom: 0px;
     height: 53px;
     padding: 10px;
-    background-image: url(../images/bg.png);
+    #background-image: url(../images/bg.png);
 }
 
 section#big-taov {
-    height: 200px;
+    height: 105px;
     top: 120px;
     margin: 5px;
     min-width: 1180px;
@@ -61,15 +80,25 @@ section#user-menu {
     left: 0;
     background-color: #423939;
     height: 32px;
-    min-width: 1200px;
+    min-width: 1420px;
+}
+
+section#monitoring-menu {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #423939;
+    height: 32px;
+    border: 1px solid #fff;
 }
 
 section#user-picture {
-    position: absolute;
+    position: relative;
     background-color: #423939;
-    border: 1px solid #fff;
-    right: 15px;
+    border: 3px solid #d0d0d0;
     height: 75px;
+    width: 75px;
+    float: right;
 }
 
 section#user-picture img {
@@ -77,7 +106,93 @@ section#user-picture img {
     height: 75px;
 }
 
+section#navigation-top {
+    position: absolute;
+    width: 250px;   
+}
+
+section#navigation-bottom {
+    position: absolute;
+    width: 250px;
+    bottom: 0;
+}
+
+section#login-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 24px;
+    background-color: #423939;
+    display: block;
+    z-index: 55;
+    opacity: 0.75;       /* modern browser */  
+    -moz-opacity: 0.75;  /* older Mozilla browser */  
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=75)"; /* IE8 in Standard Compliant Mode */  
+    filter:alpha(opacity=75); /* IE5.x -7.0 */ 
+}
+
+section#login-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 64px;
+    background-color: #423939;
+    display: block;
+    z-index: 55;
+    opacity: 0.75;       /* modern browser */  
+    -moz-opacity: 0.75;  /* older Mozilla browser */  
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=75)"; /* IE8 in Standard Compliant Mode */  
+    filter:alpha(opacity=75); /* IE5.x -7.0 */ 
+}
+
 /* Page Structure End */
+/* Media Screen Start */
+
+span.access-denied {
+    position: absolute;
+    left: 20px;
+    top: 10px;
+    color: red;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+div#ScreenAlertBG {
+    display: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: #423939;
+    z-index: 5000;
+    opacity: 0.75;       /* modern browser */  
+    -moz-opacity: 0.75;  /* older Mozilla browser */  
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=75)"; /* IE8 in Standard Compliant Mode */  
+    filter:alpha(opacity=75); /* IE5.x -7.0 */  
+}
+
+div#ScreenAlertText {
+    display: none;
+    padding: 15px;
+    border: 1px solid #423939;
+    background-color: #fff;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    width: 200px;
+    height: 50px;
+    color: #000;
+    font-size: 12px;
+    z-index: 5005;
+}
+
+/* Media Screen End */
 /* Section Menu Start */
 
 div#bg-menu {
@@ -96,6 +211,7 @@ div#bg-user-menu {
     left: 540px;
     right: 0;
     height: 100px;
+    min-width: 800px;
 }
 
 div#logo-title, div#logo-img, div#logo-subtitle {
@@ -144,6 +260,24 @@ div#menu-locator {
     color: #fff;
 }
 
+div#monitoring-view {
+    position: absolute;
+    z-index: 1000;    
+    width: 200px;
+}
+
+div#monitoring-view img {
+    float: left;
+    width: 30px;
+    margin-left: 2px;
+    margin-right: 2px;
+    cursor: pointer;
+    background-color: #fff;
+    padding: 1px;
+    height: 25px;
+    margin-top: 2px;
+}
+
 /* Section Menu End */
 /* Login Page Start */
 
@@ -152,7 +286,8 @@ div#login-div {
     top: 50px;
     right: 50px;
     border: 1px solid #423939;
-    background-image: url(../images/bg.png);
+    #background-image: url(../images/bg.png);
+    background-color: #fff;
     padding: 15px; 
 }
 
@@ -200,7 +335,7 @@ div#login-error, div#login-success {
 /* Jquery Extension Start */
 
 .ui-bg-white {
-    background-image: url(../images/bg.png);
+    #background-image: url(../images/bg.png);
 }
 
 .ui-corner-top {
@@ -215,7 +350,7 @@ div#login-error, div#login-success {
 }
 
 .ui-input-corner-all {
-    border: 1px solid #423939;
+    border: 3px solid #d0d0d0;
 }
 
 .ui-input-corner-all-error {
@@ -224,18 +359,50 @@ div#login-error, div#login-success {
 
 .ui-input-hofo {
     background-color: #fff;
+    border: 3px solid #f0f0f0;
 }
 
 .ui-input-hofo:focus, .ui-input-hofo:hover {
-    -webkit-box-shadow: 0px 0px 2px 0px #423939;
-    -moz-box-shadow: 0px 0px 2px 0px #423939;
-    box-shadow: 0px 0px 2px 0px #423939;
+    #-webkit-box-shadow: 0px 0px 2px 0px #423939;
+    #-moz-box-shadow: 0px 0px 2px 0px #423939;
+    #box-shadow: 0px 0px 2px 0px #423939;
+    border: 3px solid #423939;
+}
+
+.ui-input-hofo-g {
+    display: block;
+    background-color: #fff;
+    #border: 7px solid #d0d0d0;
+}
+
+.ui-input-hofo-grey {
+    display: block;
+    border: 3px solid #f0f0f0;
+}
+
+.ui-input-hofo-grey:hover {
+    border: 3px solid #423939;
+}
+
+.ui-input-hofo-grey-header .ui-icon {
+    background-image: url(../images/ui-icons_000000_256x240.png);
+}
+
+.ui-input-hofo-grey-header {
+    font-size: 12px;
+    color: #000;
+    background-color: #fff;
+    display: block;
+    padding: 7px;
+    height: 18px;
+    margin-left: 35px;
+    margin-top: 5px;
 }
 
 button.ui-state-hover:focus, button.ui-state-hover:hover {
-    -webkit-box-shadow: 0px 0px 2px 0px #423939;
-    -moz-box-shadow: 0px 0px 2px 0px #423939;
-    box-shadow: 0px 0px 2px 0px #423939;
+    #-webkit-box-shadow: 0px 0px 2px 0px #423939;
+    #-moz-box-shadow: 0px 0px 2px 0px #423939;
+    #box-shadow: 0px 0px 2px 0px #423939;
 }
 
 .ui-opacity {   
@@ -344,8 +511,14 @@ span#ui-tile span.ui-tile-content {
 }
 
 .ack {
-    background-color: #fff;
-    border: 1px solid #423939;
+    background-color: #f0f0f0;
+    border: 1px solid #f0f0f0;
+    color: #000;
+}
+
+.ack2 {
+    background-color: #d0d0d0;
+    border: 1px solid #d0d0d0;
     color: #000;
 }
 
@@ -373,37 +546,39 @@ div#UserMenu span {
 /* User Menu End */
 /* User Profile Dialog Start */
 
-#UserProfileImg { position: absolute; margin-top: 5px; margin-left: 5px; background-color: #423939; height: 150px; }
+#UserProfileImg { position: absolute; margin-top: 5px; margin-left: 5px; background-color: #423939; height: 150px; border: 3px solid #d0d0d0;}
 #UserProfileImg img { width: 150px;  height: 150px; }
 #UserProfileUid { position: absolute; left: 200px; top: 35px; width: 350px; }
-#UserProfileName { position: absolute; left: 200px; top: 70px; width: 350px; }
-#UserProfileMail { position: absolute; left: 200px; top: 105px; width: 350px; }
-#UserProfileGroup { position: absolute; left: 15px; top: 185px; width: 158px; border: 1px solid #423939; height: 300px; cursor: default; }
-#UserProfilePerm { position: absolute; left: 183px; top: 185px; width: 402px; border: 1px solid #423939; height: 300px; cursor: default; }
+#UserProfileName { position: absolute; left: 200px; top: 73px; width: 350px; }
+#UserProfileMail { position: absolute; left: 200px; top: 111px; width: 350px; }
+#UserProfileGroup { position: absolute; left: 15px; top: 185px; width: 158px; height: 300px; cursor: default; }
+#UserProfilePerm { position: absolute; left: 183px; top: 185px; width: 402px; height: 300px; cursor: default; }
 #UserProfileGroupCnt { padding: 5px; margin-top: 30px; height: 250px; overflow-y: auto; width: 147px; }
 #UserProfilePermCnt { padding: 5px; margin-top: 30px; height: 250px; overflow-y: auto; width: 392px; }
-#UserProfileDialog input { border: 1px solid #423939; background-color: #fff; color: #000; width: 265px; padding: 5px; float: right; }
+#UserProfileDialog input { background-color: #fff; color: #000; width: 265px; padding: 5px; float: right; }
 #UserProfileDialog span { padding: 8px; float: left; font-size: 12px; font-weight: bold; }
-#UserProfileImgHover { display: none; position: absolute; width: 130px; padding: 10px; background-color: #fff; margin-left: 5px; top: 118px; cursor: pointer; text-align: center; font-weight: bold; color: #000; }
+#UserProfileImgHover { display: none; position: absolute; width: 136px; padding: 10px; background-color: #d0d0d0; margin-left: 5px; top: 100px; cursor: pointer; text-align: center; font-weight: bold; color: #000; }
 
 /* User Profile Dialog End */
 /* Configuration Dilaog Start */
 
 #MailCC,#MailEsk1,#MailEsk2,#MailEsk3 { padding: 4px; }
-#MailCC input,#MailEsk1 input,#MailEsk2 input,#MailEsk3 input { border: 1px solid #423939; background-color: #fff; color: #000; width: 400px; padding: 7px; height: 21px; }
+#MailCC input,#MailEsk1 input,#MailEsk2 input,#MailEsk3 input { background-color: #fff; color: #000; width: 400px; padding: 7px; height: 21px; }
 #MailCC span,#MailEsk1 span,#MailEsk2 span,#MailEsk3 span { margin-left: 33px; margin-right: 25px; }
 #MailCC button,#MailEsk1 button,#MailEsk2 button,#MailEsk3 button { position: absolute; margin-left: 5px; }
-#MailSG div.jqte { height: 170px; border: 1px solid #423939; }
-#MailSG .jqte_editor,#MailSG .jqte_source { height: 76px; }
+#MailSG div.jqte { height: 180px; border: 3px solid #f0f0f0; }
+#MailSG div.jqte:hover { border: 3px solid #423939; }
+#MailSG .jqte_editor,#MailSG .jqte_source { height: 130px; cursor: text; }
 
-#UserMgmntUserList,#UserMgmntGroupList,#UserMgmntPrivList,#UserMgmntRoleList { margin-top: -297px; margin-left: 300px; width: 792px; height: 295px; border: 1px solid #423939; overflow-y: scroll; background-color: #423939; }
+#UserMgmntUserList,#UserMgmntGroupList,#UserMgmntPrivList,#UserMgmntRoleList { margin-top: -297px; margin-left: 300px; width: 792px; height: 295px; border: 3px solid #f0f0f0; overflow-y: scroll; background-color: #423939; }
+#UserMgmntUserList:hover,#UserMgmntGroupList:hover,#UserMgmntPrivList:hover,#UserMgmntRoleList:hover { border: 3px solid #423939; }
 #UserMgmntUserMenu,#UserMgmntGroupMenu,#UserMgmntPrivMenu,#UserMgmntRoleMenu { width: 285px; height: 295px; }
 #UserMgmntGrRoList, #UserMgmntHoCuList, #UserMgmntCuRoList, #UserMgmntCoRoList, #UserMgmntHoCoList, #UserMgmntHoRoList { width: 1102px; height: 175px; border: 1px solid #423939; overflow-y: scroll; }
 #UserMgmntUsGrList { width: 1102px; height: 235px; border: 1px solid #423939; overflow-y: scroll; }
-#UserMgmntRoPrList { width: 1102px; height: 375px; border: 1px solid #423939; overflow-y: scroll; }
+#UserMgmntRoPrList { width: 1102px; height: 340px; border: 1px solid #423939; overflow-y: scroll; }
 #UserMgmntUserMenu table,#UserMgmntGroupMenu table,#UserMgmntRoleMenu table,#UserMgmntPrivMenu table { width: 285px; table-layout: fixed; border-spacing: 0; border-collapse: collapse; font-size: 12px; font-weight: bold; cursor: default; }
 #UserMgmntUserMenu table td,#UserMgmntGroupMenu table td,#UserMgmntRoleMenu table td,#UserMgmntPrivMenu table td { padding: 2px; }
-#UserMgmntUserMenu table input,#UserMgmntGroupMenu table input,#UserMgmntRoleMenu table input,#UserMgmntPrivMenu table input { width: 270px; border: 1px solid #423939; background-color: #fff; color: #000; padding: 5px; font-size: 16px; cursor: text; }
+#UserMgmntUserMenu table input,#UserMgmntGroupMenu table input,#UserMgmntRoleMenu table input,#UserMgmntPrivMenu table input { width: 270px; background-color: #fff; color: #000; padding: 5px; font-size: 16px; cursor: text; }
 #UserMgmntUserMenu button,#UserMgmntGroupMenu button,#UserMgmntRoleMenu button,#UserMgmntPrivMenu button { margin-left: 10px; margin-top: 10px; }
 #UserMgmntUserList table,#UserMgmntGroupList table,#UserMgmntRoleList table,#UserMgmntPrivList table { width: 774px; table-layout: fixed; border-spacing: 0; border-collapse: collapse; cursor: default; }
 #UserMgmntUserList table td,#UserMgmntGroupList table td,#UserMgmntRoleList table td,#UserMgmntPrivList table td { padding: 5px; text-align: left; }
@@ -431,7 +606,7 @@ div#UserMenu span {
 #UserMgmntRoPrList1 table tr:first-child,#UserMgmntRoPrList2 table tr:first-child { height: 20px; font-size: 12px; }
 #UserMgmntRoPrList1 table th { padding: 5px; color: #fff; border-bottom: 1px solid #423939; background-color: #423939; }
 #UserMgmntRoPrList2 table th { min-width: 125px; padding: 5px; color: #fff; border-bottom: 1px solid #423939; border-right: 1px solid #423939; background-color: #423939; }
-#UserMgmntRoPrList2 { float: right; width: 710px; font-size: 14px; font-weight: bold; overflow-x: auto; }
+#UserMgmntRoPrList2 { float: right; width: 705px; font-size: 14px; font-weight: bold; overflow-x: auto; }
 
 #UserMgmntGrRoList1, #UserMgmntCuRoList1, #UserMgmntCoRoList1, #UserMgmntHoRoList1 { float: left; width: 194px; border-right: 1px solid #423939; font-size: 12px; font-weight: bold; }
 #UserMgmntGrRoList1 table, #UserMgmntCuRoList1 table, #UserMgmntCoRoList1 table, #UserMgmntHoRoList1 table { table-layout: fixed; border-spacing: 0; border-collapse: collapse; width: 100%; cursor: default; }
@@ -441,11 +616,13 @@ div#UserMenu span {
 #UserMgmntGrRoList1 table tr,#UserMgmntGrRoList2 table tr, #UserMgmntCuRoList1 table tr,#UserMgmntCuRoList2 table tr, #UserMgmntCoRoList1 table tr,#UserMgmntCoRoList2 table tr, #UserMgmntHoRoList1 table tr,#UserMgmntHoRoList2 table tr { height: 42px; background-color: #fff; }
 #UserMgmntGrRoList1 table tr:first-child,#UserMgmntGrRoList2 table tr:first-child, #UserMgmntCuRoList1 table tr:first-child,#UserMgmntCuRoList2 table tr:first-child, #UserMgmntCoRoList1 table tr:first-child,#UserMgmntCoRoList2 table tr:first-child, #UserMgmntHoRoList1 table tr:first-child,#UserMgmntHoRoList2 table tr:first-child { height: 20px; font-size: 12px; }
 #UserMgmntGrRoList1 table th, #UserMgmntCuRoList1 table th, #UserMgmntCoRoList1 table th, #UserMgmntHoRoList1 table th { padding: 5px; color: #fff; border-bottom: 1px solid #423939; background-color: #423939; }
-#UserMgmntGrRoList2 table th, #UserMgmntCoRoList2 table th, #UserMgmntHoRoList2 table th { min-width: 125px; padding: 5px; color: #fff; border-bottom: 1px solid #423939; border-right: 1px solid #423939; background-color: #423939; }
+#UserMgmntGrRoList2 table th, #UserMgmntCoRoList2 table th { min-width: 125px; padding: 5px; color: #fff; border-bottom: 1px solid #423939; border-right: 1px solid #423939; background-color: #423939; }
+#UserMgmntCoRoList2 table th, #UserMgmntCuRoList2 table th { cursor: help; }
+#UserMgmntHoRoList2 table th { width: 60px; padding: 5px; color: #fff; border-bottom: 1px solid #423939; border-right: 1px solid #423939; background-color: #423939; cursor: help; }
 #UserMgmntCuRoList2 table th { min-width: 125px; padding: 5px; color: #fff; border-bottom: 1px solid #423939; border-right: 1px solid #423939; background-color: #423939; height: 15px; overflow-y: scroll; }
-#UserMgmntGrRoList2, #UserMgmntCuRoList2, #UserMgmntCoRoList2, #UserMgmntHoRoList2 { float: right; width: 890px; font-size: 14px; font-weight: bold; overflow-x: auto; }
+#UserMgmntGrRoList2, #UserMgmntCuRoList2, #UserMgmntCoRoList2, #UserMgmntHoRoList2 { float: right; width: 885px; font-size: 14px; font-weight: bold; overflow-x: auto; }
 
-#UserMgmntUsGrList1 { float: left; width: 174px; border-right: 1px solid #423939; font-size: 12px; font-weight: bold; }
+#UserMgmntUsGrList1 { z-index: 5; float: left; width: 174px; border-right: 1px solid #423939; font-size: 12px; font-weight: bold; }
 #UserMgmntUsGrList1 table { table-layout: fixed; border-spacing: 0; border-collapse: collapse; width: 100%; cursor: default; }
 #UserMgmntUsGrList2 table { table-layout: fixed; border-spacing: 0; border-collapse: collapse; cursor: default; }
 #UserMgmntUsGrList1 table td { padding-left: 5px; border-bottom: 1px solid #423939; }
@@ -454,36 +631,34 @@ div#UserMenu span {
 #UserMgmntUsGrList1 table tr:first-child,#UserMgmntUsGrList2 table tr:first-child { height: 20px; font-size: 12px; }
 #UserMgmntUsGrList1 table th { padding: 5px; color: #fff; border-bottom: 1px solid #423939; background-color: #423939; }
 #UserMgmntUsGrList2 table th { min-width: 125px; padding: 5px; color: #fff; border-bottom: 1px solid #423939; border-right: 1px solid #423939; background-color: #423939; }
-#UserMgmntUsGrList2 { float: right; width: 910px; font-size: 14px; font-weight: bold; overflow-x: auto; }
+#UserMgmntUsGrList2 { z-index: 10; float: right; width: 905px; font-size: 14px; font-weight: bold; overflow-x: auto; }
 #UserMgmntUsGrList2 img,#UserMgmntRoPrList2 img,#UserMgmntGrRoList2 img { cursor: pointer; }
-#UserMgmntUsGrList,#UserMgmntRoPrList,#UserMgmntGrRoList, #UserMgmntCoRoList, #UserMgmntCuRoList { background-color: #423939;}
+#UserMgmntUsGrList,#UserMgmntRoPrList,#UserMgmntGrRoList, #UserMgmntCoRoList, #UserMgmntCuRoList { background-color: #423939; border: 3px solid #f0f0f0; }
+#UserMgmntUsGrList:hover, #UserMgmntRoPrList:hover, #UserMgmntGrRoList:hover, #UserMgmntCoRoList:hover, #UserMgmntCuRoList:hover { border: 3px solid #423939; }
 
 #UserMgmntHoCuList1, #UserMgmntHoCoList1 { float: left; width: 100px; border-right: 1px solid #423939; font-size: 12px; font-weight: bold; }
 #UserMgmntHoCuList1 table, #UserMgmntHoCoList1 table { table-layout: fixed; border-spacing: 0; border-collapse: collapse; width: 100%; cursor: default; }
 #UserMgmntHoCuList2 table, #UserMgmntHoCoList2 table { table-layout: fixed; border-spacing: 0; border-collapse: collapse; cursor: default; }
-#UserMgmntHoCuList1 table td, #UserMgmntHoCoList1 table td { padding-left: 5px; border-bottom: 1px solid #423939; }
+#UserMgmntHoCuList1 table td, #UserMgmntHoCoList1 table td { padding-left: 5px; border-bottom: 1px solid #423939; cursor: help; }
 #UserMgmntHoCuList2 table td, #UserMgmntHoCoList2 table td { text-align: center; border-bottom: 1px solid #423939; border-right: 1px solid #423939; }
 #UserMgmntHoCuList1 table tr, #UserMgmntHoCuList2 table tr, #UserMgmntHoCoList1 table tr, #UserMgmntHoCoList2 table tr { height: 30px; background-color: #fff; }
 #UserMgmntHoCuList1 table tr:first-child, #UserMgmntHoCuList2 table tr:first-child, #UserMgmntHoCoList1 table tr:first-child, #UserMgmntHoCoList2 table tr:first-child { height: 20px; font-size: 12px; }
 #UserMgmntHoCuList1 table th, #UserMgmntHoCoList1 table th { padding: 5px; color: #fff; border-bottom: 1px solid #423939; background-color: #423939; }
-#UserMgmntHoCuList2 table th, #UserMgmntHoCoList2 table th { min-width: 125px; padding: 5px; color: #fff; border-bottom: 1px solid #423939; border-right: 1px solid #423939; background-color: #423939; }
-#UserMgmntHoCuList2, #UserMgmntHoCoList2 { float: right; width: 984px; font-size: 14px; font-weight: bold; overflow-x: auto; }
+#UserMgmntHoCuList2 table th, #UserMgmntHoCoList2 table th { width: 60px; padding: 5px; color: #fff; border-bottom: 1px solid #423939; border-right: 1px solid #423939; background-color: #423939; cursor: help; }
+#UserMgmntHoCuList2, #UserMgmntHoCoList2 { float: right; width: 979px; font-size: 14px; font-weight: bold; overflow-x: auto; }
 
 #UserMgmntHoCuList2 img, #UserMgmntHoCoList2 img,#UserMgmntHoRoList2 img, #UserMgmntCuRoList2 img, #UserMgmntCoRoList2 img { cursor: pointer; }
-#UserMgmntHoCuList, #UserMgmntHoCoList, #UserMgmntHoRoList { background-color: #423939;}
+#UserMgmntHoCuList, #UserMgmntHoCoList, #UserMgmntHoRoList { background-color: #423939; border: 3px solid #f0f0f0; }
+#UserMgmntHoCuList:hover, #UserMgmntHoCoList:hover, #UserMgmntHoRoList:hover { border: 3px solid #423939; }
 
 
 #MailHContent {  }
 #MailFContent {  }
-#MailH div.jqte { height: 175px; border: 1px solid #423939; }
-#MailH .jqte_editor,#MailH .jqte_source { height: 126px; }
-#MailF div.jqte { height: 325px; border: 1px solid #423939; }
-#MailF .jqte_editor,#MailF .jqte_source { height: 276px; }
-
-#ConfigurationTabs .ui-tabs-panel {
-    height: 700px;
-    overflow-y: auto;
-}
+#MailH div.jqte { height: 175px; border: 3px solid #f0f0f0; }
+#MailH div.jqte:hover, #MailF div.jqte:hover { border: 3px solid #423939; }
+#MailH .jqte_editor,#MailH .jqte_source { height: 126px; cursor: text; }
+#MailF div.jqte { height: 325px; border: 3px solid #f0f0f0; }
+#MailF .jqte_editor,#MailF .jqte_source { height: 276px; cursor: text; }
 
 #ConfigurationSection {
     width: 97%;
@@ -550,7 +725,7 @@ div#UserMenu span {
     #left: 378px;
     left: 18px;
     right: 18px;
-    height: 185px;
+    height: 85px;
 }
 
 #big-taov-header {
@@ -601,39 +776,53 @@ div#UserMenu span {
 }
 
 .taov_default {
-    border: 1px solid #423939;
+    border: 3px solid #f0f0f0;
 }
 
 .taov_ok, .taov_ok a {
     background-color: #088A08;
-    border: 1px solid #088A08;
+    border: 3px solid #088A08;
     color: #fff;
 }
 
 .taov_cr, .taov_cr a {
     background-color: #E5442D;
-    border: 1px solid #E5442D;
+    border: 3px solid #E5442D;
     color: #fff;
 }
 
 .taov_un, .taov_un a {
     background-color: #C800C8;
-    border: 1px solid #C800C8;
+    border: 3px solid #C800C8;
     color: #fff;
 }
 
 .taov_wa, .taov_wa a {
     background-color: orange;
-    border: 1px solid orange;
+    border: 3px solid orange;
     color: #fff;
 }
 
 #ServicePie, #HostPie {
-    float: left;
+    position: absolute;
+    top: 150px;
+    left: 150px;
+}
+
+#ServicePer {
+    position: absolute;
+    top: 150px;
 }
 
 #HeaderServicePie, #HeaderHostPie {
     font-size: 12px;
+    color: #000;
+    background-color: #fff;
+    border: 3px solid #423939;
+    display: block;
+    width: 506px;
+    padding: 7px;
+    height: 18px;
 }
 
 /* Slim Taov End */
@@ -711,9 +900,9 @@ div#UserMenu span {
 /* Bottom Sidebar */
 
 #SidebarBottomSmall {
-    position: fixed;
+    position: absolute;
     right: 0;
-    left: 0;
+    left: 250px;
     bottom: 0;
     height: 60px;
     cursor: pointer;
@@ -725,7 +914,7 @@ div#UserMenu span {
     left: 0;
     bottom: 0;
     height: 850px;
-    background-image: url(../images/bg.png);
+    #background-image: url(../images/bg.png);
     display: none;
     padding: 10px;
 }
@@ -816,43 +1005,45 @@ div#UserMenu span {
 #MS_CustActions button { width: 214px; margin-top: 3px; margin-bottom: 2px; }
 
 /* Who is logged in */
-#ManagedServiceMenus { position: absolute; width: 225px; top: 250px; bottom: 0px; left: 10px; }
-#WhosLoggedInH { position: absolute; width: 205px; top: -37px; left: -2px; font-size: 12px; color: #000; padding: 10px; height: 13px; }
-#WhosLoggedIn { width: 225px; overflow-y: auto; }
-#LoggedInUser { width: 219px; height: 50px; border: 1px solid transparent; cursor: default; font-size: 16px; letter-spacing: -1px; margin-left: 2px; margin-top: 2px; margin-right: 2px; margin-bottom: 2px; }
-#LoggedInUser:hover { background-color: #fff; border: 1px solid #423939; }
+#ManagedServiceMenus { position: absolute; width: 225px; top: 125px; bottom: 0px; left: 10px; #border: 7px solid #d0d0d0;}
+#WhosLoggedInH { width: 211px; font-size: 12px; color: #fff; padding: 10px; height: 18px; background-color: #423939; padding: 7px; }
+#WhosLoggedInH .ui-icon { background-image: url(../images/ui-icons_ffffff_256x240.png); }
+#WhosLoggedIn { position: absolute; top: 35px; bottom: 0px; width: 225px; overflow-y: auto; overflow-x: hidden; padding: 5px; }
+#LoggedInUser { background: transparent; height: 50px; border: 3px solid #f0f0f0; cursor: default; font-size: 16px; letter-spacing: -1px; }
+#LoggedInUser:hover { background-color: #fff; border: 3px solid #423939; }
 #LoggedInUser img { margin-right: 5px; background-color: #423939; }
 #LoggedInUser span#LIU_Head { float: left; cursor: default; margin-top: 6px; }
 #LoggedInUser span.ui-icon { float: left; cursor: pointer; margin-top: 9px; }
-#LoggedInUser span:last-child { color: #423939; font-size: 12px; font-weight: bold; letter-spacing: 0px; }
+#LoggedInUser span:last-child { position: absolute; left: 59px; margin-top: 2px; color: #423939; font-size: 12px; font-weight: bold; letter-spacing: 0px; }
 #WhosLoggedIn span#WLI_Cont { font-size: 14px; color: #000; float: left; width: 203px; }
 
 /* Managed Service actions (mid column) */
 #ManagedServiceActionsPageSelected { padding: 3px; }
-#ManagedServiceActions { position: absolute; top: 250px; bottom: 0px; left: 245px; right: 410px; overflow-y: auto; }
-#ManagedServiceActionsPage { height: 33px; position: absolute; top: 200px; left: 245px; right: 410px; text-align: center; }
-#ManagedServiceActionsE { padding: 5px; background-color: #fff; border: 1px solid #423939; margin-left: 2px; margin-right: 2px; margin-top: 2px; margin-bottom: 2px; }
+#ManagedServiceActions { position: absolute; top: 155px; bottom: 0px; left: 255px; right: 420px; overflow-y: auto; }
+#ManagedServiceActionsPage { height: 33px; position: absolute; top: 105px; left: 255px; right: 410px; text-align: center; }
+#ManagedServiceActionsE { padding: 5px; margin-left: 2px; margin-right: 2px; margin-top: 2px; margin-bottom: 2px; }
 #ManagedServiceActionsE:first-child {  }
 #ManagedServiceActionsE:last-child {  }
-#ManagedServiceActionsE:focus, #ManagedServiceActionsE:hover { -webkit-box-shadow: 0px 0px 2px 0px #423939; -moz-box-shadow: 0px 0px 2px 0px #423939; box-shadow: 0px 0px 2px 0px #423939 }
 #ManagedServiceActionsE table { table-layout: fixed; border-spacing: 0; border-collapse: collapse; font-size: 14px; cursor: default; }
 #ManagedServiceActionsE img { width: 75px; height: 75px; border: 1px solid #423939; margin-left: 5px; background-color: #423939;}
 #ManagedServiceActionsH { margin-top: 0px; margin-left: 10px; font-size: 16px; letter-spacing: -1px; }
 #ManagedServiceActionsD { margin-top: 0px; margin-left: 15px; font-size: 12px; }
-#ManagedServiceActionsT { margin-top: 15px; margin-left: 25px; font-size: 14px; }
+#ManagedServiceActionsT { margin-top: 15px; margin-left: 25px; font-size: 14px; word-wrap: break-word; -ms-word-break: break-all; word-break: break-all;}
 #ManagedServiceActionsF { margin-top: 15px; margin-left: 15px; margin-bottom: 5px; font-size: 12px; }
 #EskDscD { color: #423939; }
 #EskDscE { color: #E5442D; }
 
 /* managed service customer info */
 
-#ManagedServiceInfos { position: absolute; width: 390px; top: 250px; bottom: 0px; right: 10px; overflow-y: auto; }
-#ManagedServiceInfosH { position: absolute; width: 370px; top: 213px; height: 13px; right: 10px; font-size: 12px; color: #000; padding: 10px; }
+#ManagedServiceInfo { position: absolute; width: 390px; top: 125px; bottom: 0px; right: 10px; #border: 7px solid #d0d0d0; }
+#ManagedServiceInfos { position: absolute; top: 35px; bottom: 0px; width: 225px; width: 390px; overflow-y: auto; }
+#ManagedServiceInfosH { font-size: 12px; color: #fff; height: 18px; background-color: #423939; padding: 7px; }
+#ManagedServiceInfosH .ui-icon { background-image: url(../images/ui-icons_ffffff_256x240.png); }
 #MSI_Cont { width: 100%; overflow-y: auto; height: 100%; }
-#CustomerInfoEntry { border: 1px solid #423939; padding: 5px; background-color: #fff; cursor: pointer; margin-bottom: 2px; margin-top: 2px; margin-left: 2px; margin-right: 2px;}
+#CustomerInfoEntry { padding: 5px; cursor: pointer; margin-bottom: 2px; margin-top: 2px; margin-left: 2px; margin-right: 2px;}
 #CustomerInfoEntryHeader { display: block; font-size: 18px; letter-spacing: -1px; }
 #CustomerInfoEntryContent { display: block; font-size: 12px; font-weight: bold; color: 423939; margin-top: -20px; }
-#ShowCustomer #ccommE { border: 1px solid #423939; background-color: #fff; color: #000; width: 375px; height: 443px; padding: 5px; margin-top: 3px; margin-bottom: 10px; resize: none; font-size: 16px; font-weight: normal; overflow-y: auto; white-space: pre-wrap; }
+#ShowCustomer #ccommE { background-color: #fff; color: #000; width: 375px; padding: 5px; margin-top: 3px; margin-bottom: 10px; resize: none; font-size: 16px; font-weight: normal; overflow-y: auto; white-space: pre-wrap; }
 
 /* menu sidebar */
 #MenuSidebar { display: none; position: absolute; width: 125px; top: 0; bottom: 0; left: 0px; border-right: 1px solid #423939; background-image: url(../images/bg.png); -webkit-box-shadow: 0px 0px 2px 0px #423939; -moz-box-shadow: 0px 0px 2px 0px #423939; box-shadow: 0px 0px 2px 0px #423939; }
@@ -887,35 +1078,39 @@ div#UserMenu span {
 
 /* Create Customer */
 #ContractTypeDiv1,#ContractTypeDiv2,#ContractTypeDiv3,#ContractTypeDiv4,#ContractTypeDiv5,#ContractTypeDiv6,#cnameE { margin-top: 3px; margin-bottom: 5px; }
-#ContractsDiv1 { border: 1px solid #423939; background-color: #fff; color: #000; width: 375px; height: 340px; padding: 5px; margin-top: 3px; margin-bottom: 10px; resize: none; font-size: 16px; font-weight: normal; overflow-y: auto; white-space: pre-wrap; }
+#ContractsDiv1 { border: none; background-color: #fff; color: #000; width: 375px; height: 340px; padding: 5px; margin-top: 3px; margin-bottom: 10px; resize: none; font-size: 16px; font-weight: normal; overflow-y: auto; white-space: pre-wrap; }
 #ContractsDivTable { table-layout: fixed; border-spacing: 0; border-collapse: collapse; font-size: 14px; cursor: default; } 
-#CreateCustomerRight select,#CreateCustomerLeft select,#DeleteCustomerLeft select { border: 1px solid #423939; background-color: #fff; color: #000; padding: 4px; width: 387px; cursor: pointer; }
-#CreateCustomerRight input { border: 1px solid #423939; background-color: #fff; color: #000; padding: 5px; margin-left: 2px; margin-right: 2px; margin-bottom: 10px; width: 113px; font-size: 1em; }
+#CreateCustomerRight select,#DeleteCustomerLeft select { background-color: #fff; color: #000; padding: 4px; width: 397px; cursor: pointer; }
+#CreateCustomerLeft select { background-color: #fff; color: #000; padding: 4px; width: 391px; cursor: pointer; }
+#CreateCustomerRight input { background-color: #fff; color: #000; padding: 5px; margin-left: 2px; margin-right: 2px; margin-bottom: 10px; width: 113px; font-size: 1em; }
 
-#CreateCustomerLeft,#CreateCustomerMiddle,#CreateCustomerRight { position: absolute; width: 390px; height: 490px; }
+#CreateCustomerLeft,#CreateCustomerMiddle { position: absolute; width: 390px; height: 490px; }
+#CreateCustomerRight { position: absolute; width: 410px; height: 490px; }
 #CreateCustomerLeft { left: 10px; }
 #CreateCustomerMiddle { left: 405px; }
 #CreateCustomerRight { left: 800px; }
-#CreateCustomerLeft input { border: 1px solid #423939; background-color: #fff; color: #000; width: 375px; padding: 5px; margin-top: 3px; margin-bottom: 10px; }
-#caddress { border: 1px solid #423939; background-color: #fff; color: #000; width: 375px; height: 212px; padding: 5px; margin-top: 3px; margin-bottom: 10px; resize: none; font-size: 16px; font-weight: normal; overflow-y: auto; white-space: pre-wrap; font-size: 1em; cursor: text; }
-#caddressE { border: 1px solid #423939; background-color: #fff; color: #000; width: 375px; height: 217px; padding: 5px; margin-top: 3px; margin-bottom: 10px; resize: none; font-size: 16px; font-weight: normal; overflow-y: auto; white-space: pre-wrap; font-size: 1em; cursor: text; }
+#CreateCustomerLeft input { background-color: #fff; color: #000; width: 375px; padding: 5px; margin-top: 3px; margin-bottom: 10px; }
+#caddress { background-color: #fff; color: #000; width: 375px; height: 207px; padding: 5px; margin-top: 3px; margin-bottom: 10px; resize: none; font-size: 16px; font-weight: normal; overflow-y: auto; white-space: pre-wrap; font-size: 1em; cursor: text; }
+#caddressE { background-color: #fff; color: #000; width: 375px; height: 212px; padding: 5px; margin-top: 3px; margin-bottom: 10px; resize: none; font-size: 16px; font-weight: normal; overflow-y: auto; white-space: pre-wrap; font-size: 1em; cursor: text; }
+#ShowCustomer #caddressE { background-color: #fff; color: #000; width: 375px; height: 201px; padding: 5px; margin-top: 3px; margin-bottom: 10px; resize: none; font-size: 16px; font-weight: normal; overflow-y: auto; white-space: pre-wrap; font-size: 1em; cursor: text; }
 #CreateCustomerLeft table tr td:first-child,#CreateCustomerMiddle table tr td:first-child,#CreateCustomerRight table tr td:first-child, #DeleteCustomerLeft table tr td:first-child { font-size: 12px; font-weight: bold; }
 
-#CT_Outer { background-color: #fff; border: 1px solid #423939; width: 97%; margin-bottom: 5px; padding: 5px; cursor: default; }
+#CT_Outer { background-color: #fff; border: 3px solid #f0f0f0; width: 97%; margin-bottom: 5px; padding: 5px; cursor: default; }
+#CT_Outer:hover { border: 3px solid #423939; }
 #CT_Outer:hover { background-color: #fff;  }
 #CT_Head,#CT_AN,#CT_PR { font-size: 12px; color: #000; padding: 1px; }
 #CT_Head span:last-child,#CT_AN span:last-child,#CT_PR span:last-child { font-size: 12px; color: #000; }
 #ContractsDelete { margin-bottom: -20px; float: right; cursor: pointer; }
 #DeleteCustomerLeft { padding-left: 30px; padding-right: 25px; padding-top: 15px; padding-bottom: 10px; font-size: 12px; }
 #ccomm { width: 385px; cursor: text; }
-#ccomm div.jqte { height: 485px; border: 1px solid #423939; cursor: text; }
-#ccomm .jqte_editor { height: 413px; font-size: 1em; font-weight: normal; }
-#ccomm .jqte_source { height: 433px; font-size: 1em; font-weight: normal; }
+#ccomm div.jqte { height: 491px; cursor: text; }
+#ccomm .jqte_editor { height: 419px; font-size: 1em; font-weight: normal; }
+#ccomm .jqte_source { height: 439px; font-size: 1em; font-weight: normal; }
 
 #ccommE { width: 385px; cursor: text; }
-#ccommE div.jqte { height: 485px; border: 1px solid #423939; cursor: text; }
-#ccommE .jqte_editor { height: 413px; font-size: 1em; font-weight: normal; }
-#ccommE .jqte_source { height: 433px; font-size: 1em; font-weight: normal; }
+#ccommE div.jqte { height: 491px; cursor: text; }
+#ccommE .jqte_editor { height: 419px; font-size: 1em; font-weight: normal; }
+#ccommE .jqte_source { height: 439px; font-size: 1em; font-weight: normal; }
 
 #ShowCustomer #ccommE { height: 477px; font-size: 12px; }
 #ShowCustomer #ContractsDiv1 { height: 477px; font-size: 12px; border: 0; }
@@ -924,46 +1119,47 @@ div#UserMenu span {
 #CreateContractTypeLeft { width: 550px; height: 475px; padding: 5px; }
 #CreateContractTypeLeft table { table-layout: fixed; border-spacing: 0; border-collapse: collapse; font-size: 12px; cursor: default; width: 550px; } 
 #CreateContractTypeLeft table tr:first-child,#CreateContractTypeLeft table tr:first-child + tr + tr,#CreateContractTypeLeftE table tr:first-child { font-size: 12px; font-weight: bold; }
-#CreateContractTypeLeft input { border: 1px solid #423939; background-color: #fff; color: #000; width: 255px; padding: 4px; margin-top: 3px; margin-bottom: 10px; }
-#CreateContractTypeLeft select { border: 1px solid #423939; background-color: #fff; color: #000; padding: 4px; width: 255px; }
-#cotrlnE { border: 1px solid #423939; background-color: #fff; color: #000; width: 255px; padding: 5px; cursor: text; }
+#CreateContractTypeLeft input { background-color: #fff; color: #000; width: 255px; padding: 4px; margin-top: 3px; margin-bottom: 10px; }
+#CreateContractTypeLeft select { background-color: #fff; color: #000; padding: 4px; width: 255px; }
+#cotrlnE { background-color: #fff; color: #000; width: 255px; padding: 5px; cursor: text; }
 #CreateContractTypeLeftE { padding-left: 40px; padding-top: 20px;  } 
 #CreateContractTypeLeftE table { table-layout: fixed; border-spacing: 0; border-collapse: collapse; font-size: 12px; cursor: default; width: 400px; }
 #cotrsnD { background-color: #fff; color: #000; width: 385px; margin-top: 3px; margin-bottom: 10px; }
-#CreateContractTypeLeftE select { border: 1px solid #423939; background-color: #fff; color: #000; padding: 4px; width: 385px; }
-#mactionsE,#mactions { width: 540px; border: 1px solid #423939; }
+#CreateContractTypeLeftE select { background-color: #fff; color: #000; padding: 4px; width: 385px; }
+#mactionsE,#mactions { width: 540px; }
 #mactionsE div.jqte,#mactions div.jqte { height: 395px; cursor: text; }
 #mactionsE .jqte_editor,#mactionsE .jqte_source,#mactions .jqte_editor,#mactions .jqte_source { height: 346px; font-size: 12px; }
 
-/* Create Service Entries */
-#CreateServiceEntryLeft { float: right; width: 730px; height: 525px; margin-right: 10px; padding-top: 10px; }
-#CreateServiceEntryRight { float: left; width: 415px; height: 525px; }
-#CreateServiceEntryLeftMH div.jqte { height: 105px; cursor: text; border: 1px solid #423939; }
-#CreateServiceEntryLeftMH .jqte_editor,#CreateServiceEntryLeftMH .jqte_source { height: 56px; font-size: 12px; }
-#CreateServiceEntryLeftMC div.jqte { height: 670px; cursor: text; border: 1px solid #423939; }
-#CreateServiceEntryLeftMC .jqte_editor,#CreateServiceEntryLeftMC .jqte_source { height: 621px; font-size: 12px; }
-#CreateServiceEntryLeftMF,#CreateServiceEntryLeftMH { display: none; }
-#CreateServiceEntryLeftMF div.jqte { height: 155px; cursor: text; border: 1px solid #423939; }
-#CreateServiceEntryLeftMF .jqte_editor,#CreateServiceEntryLeftMF .jqte_source { height: 106px; font-size: 12px; }
+/* Create Service Entries #CreateServiceEntry  */
+#CreateServiceEntry #CreateServiceEntryLeft { position: absolute; right: 15px; width: 730px; height: 525px; margin-right: 10px; padding-top: 10px; }
+#CreateServiceEntry #CreateServiceEntryRight { float: left; width: 415px; height: 525px; }
+#CreateServiceEntry #CreateServiceEntryLeftMH div.jqte { height: 95px; cursor: text; font-weight: normal; }
+#CreateServiceEntry #CreateServiceEntryLeftMH .jqte_editor,#CreateServiceEntry #CreateServiceEntryLeftMH .jqte_source { height: 46px; font-size: 12px; }
 
-#CreateServiceEntryT,#CreateServiceEntryC,#CreateServiceEntryA { margin-left: 15px; font-size: 12px; }
-#CreateServiceEntryU input,#CreateServiceEntryD input,#CreateServiceEntryS input,#CreateServiceEntryM input { border: 1px solid #423939; background-color: #fff; color: #000; padding: 5px; padding-left: 7px; width: 373px;  margin-left: 15px; font-size: 12px; }
-#CreateServiceEntryT input { border: 1px solid #423939; background-color: #fff; color: #000; padding: 5px; padding-left: 7px; width: 373px;  font-size: 12px; }
-#CreateServiceEntryC select,#CreateServiceEntryT select { border: 1px solid #423939; background-color: #fff; color: #fff; padding: 4px; width: 387px; color: #000; }
-#CreateServiceEntryA select { border: 1px solid #423939; background-color: #fff; color: #fff; padding: 4px; width: 387px; color: #000; }
-#CreateServiceEntryT #CSEDsc,#CreateServiceEntryC #CSEDsc,#CreateServiceEntryA #CSEDsc { margin-bottom: 3px; margin-top: 6px; font-size: 12px; font-weight: bold; }
-#CreateServiceEntryU #CSEDsc,#CreateServiceEntryS #CSEDsc,#CreateServiceEntryD #CSEDsc { margin-bottom: 3px; margin-top: 6px; font-size: 12px; font-weight: bold; margin-left: 15px; }
-#CreateServiceEntryU { margin-top: 13px; }
-#CSEDsc2 { margin-top: 20px; margin-left: 15px; margin-bottom: 10px; font-size: 12px; font-weight: bold; z-index: 5; }
-#CSEDsc3 { font-size: 12px; font-weight: bold; margin-left: 15px; margin-bottom: 3px; margin-top: 5px; color: #000; }
-#InANt { position: absolute; top: 368px; left: 7px; font-size: 12px; font-weight: bold; }
-#InCCt { position: absolute; top: 399px; left: 7px; font-size: 12px; font-weight: bold; }
-#InSubt { position: absolute; top: 430px; left: 6px; font-size: 12px; font-weight: bold; }
-#InAN,#InCC { margin-bottom: 3px; }
-#CSEDsc2 input { position: absolute; left: -5px; margin-top: -1px; width: 10px; }
-#CSEDsc3 input { position: absolute; left: -5px; margin-top: -1px; width: 10px; }
-#CSEDsc3 span {  }
-#CSEDscOverLay { position: absolute; width: 444px; height: 305px; top: 355px; left: 0; z-index: 5; background-color: #fff; opacity: 0.5; filter: Aplha(Opacity=50);}
+#CreateServiceEntry #CreateServiceEntryLeftMC div.jqte { height: 665px; cursor: text; }
+#CreateServiceEntry #CreateServiceEntryLeftMC .jqte_editor,#CreateServiceEntry #CreateServiceEntryLeftMC .jqte_source { height: 616px; font-size: 12px; }
+#CreateServiceEntry #CreateServiceEntryLeftMF,#CreateServiceEntry #CreateServiceEntryLeftMH { display: none; }
+#CreateServiceEntry #CreateServiceEntryLeftMF div.jqte { height: 142px; cursor: text; }
+#CreateServiceEntry #CreateServiceEntryLeftMF .jqte_editor,#CreateServiceEntry #CreateServiceEntryLeftMF .jqte_source { height: 93px; font-size: 12px; }
+#CreateServiceEntry #CreateServiceEntryLeftMH, #CreateServiceEntry #CreateServiceEntryLeftMC { margin-bottom: 5px; }
+
+#CreateServiceEntry #CreateServiceEntryT,#CreateServiceEntry #CreateServiceEntryC, #CreateServiceEntry #CreateServiceEntryA { margin-left: 15px; font-size: 12px; }
+#CreateServiceEntry #CreateServiceEntryU input,#CreateServiceEntry #CreateServiceEntryD input,#CreateServiceEntry #CreateServiceEntryS input,#CreateServiceEntry #CreateServiceEntryM input { background-color: #fff; color: #000; padding: 5px; padding-left: 7px; width: 373px;  margin-left: 15px; font-size: 12px; }
+#CreateServiceEntry #CreateServiceEntryT input { border: 1px solid #423939; background-color: #fff; color: #000; padding: 5px; padding-left: 7px; width: 373px;  font-size: 12px; }
+#CreateServiceEntry #CreateServiceEntryC select,#CreateServiceEntry #CreateServiceEntryT select, #CreateServiceEntry #CreateServiceEntryA select { background-color: #fff; color: #fff; padding: 4px; width: 391px; color: #000; }
+#CreateServiceEntry #CreateServiceEntryT #CSEDsc,#CreateServiceEntry #CreateServiceEntryC #CSEDsc,#CreateServiceEntry #CreateServiceEntryA #CSEDsc { margin-bottom: 3px; margin-top: 6px; font-size: 12px; font-weight: bold; }
+#CreateServiceEntry #CreateServiceEntryU #CSEDsc,#CreateServiceEntry #CreateServiceEntryS #CSEDsc,#CreateServiceEntry #CreateServiceEntryD #CSEDsc { margin-bottom: 3px; margin-top: 6px; font-size: 12px; font-weight: bold; margin-left: 15px; }
+#CreateServiceEntry #CreateServiceEntryU { margin-top: 13px; }
+#CreateServiceEntry #CSEDsc2 { margin-top: 20px; margin-left: 15px; margin-bottom: 10px; font-size: 12px; font-weight: bold; z-index: 5; }
+#CreateServiceEntry #CSEDsc3 { font-size: 12px; font-weight: bold; margin-left: 15px; margin-bottom: 3px; margin-top: 5px; color: #000; }
+#CreateServiceEntry #InANt { position: absolute; top: 393px; left: 7px; font-size: 12px; font-weight: bold; }
+#CreateServiceEntry #InCCt { position: absolute; top: 427px; left: 7px; font-size: 12px; font-weight: bold; }
+#CreateServiceEntry #InSubt { position: absolute; top: 463px; left: 6px; font-size: 12px; font-weight: bold; }
+#CreateServiceEntry #InAN,#InCC { margin-bottom: 3px; }
+#CreateServiceEntry #CSEDsc2 input { position: absolute; left: -5px; margin-top: -1px; width: 10px; }
+#CreateServiceEntry #CSEDsc3 input { position: absolute; left: -5px; margin-top: -1px; width: 10px; }
+#CreateServiceEntry #CSEDsc3 span {  }
+#CreateServiceEntry #CSEDscOverLay { position: absolute; width: 444px; height: 325px; top: 375px; left: 0; z-index: 5; background-color: #fff; opacity: 0.5; filter: Aplha(Opacity=50);}
 
 /* Managed Service End */
 /* Custom */
@@ -974,37 +1170,36 @@ ul.simple-pagination { list-style: none; }
 .simple-pagination { display: block; overflow: hidden; padding: 0 5px 5px 0; }
 .simple-pagination ul { list-style: none; padding: 0; display: block; }
 .simple-pagination li { list-style: none; padding: 0; margin: 0; float: left; }
-.compact-theme a, .compact-theme span { text-decoration: none; float: left; color: #000; font-size:12px; line-height:24px; font-weight: normal; text-align: center; border: 1px solid #423939; min-width: 14px; padding: 0 7px; background: #fff; margin-left: 1px; margin-right: 1px; }
-.compact-theme span:focus, .compact-theme span:hover { -webkit-box-shadow: 0px 0px 2px 0px #423939; -moz-box-shadow: 0px 0px 2px 0px #423939; box-shadow: 0px 0px 2px 0px #423939 }
-.compact-theme a:focus, .compact-theme a:hover { -webkit-box-shadow: 0px 0px 2px 0px #423939; -moz-box-shadow: 0px 0px 2px 0px #423939; box-shadow: 0px 0px 2px 0px #423939 }
-.compact-theme .next { border-right: 1px solid #423939; }
-.compact-theme .current { background: #fff; cursor: default; -webkit-box-shadow: 0px 0px 2px 0px #423939; -moz-box-shadow: 0px 0px 2px 0px #423939; box-shadow: 0px 0px 2px 0px #423939 }
+.compact-theme a, .compact-theme span { text-decoration: none; float: left; color: #000; font-size:12px; line-height:24px; font-weight: normal; text-align: center; border: 3px solid #f0f0f0; min-width: 14px; padding: 0 7px; background: #fff; margin-left: 1px; margin-right: 1px; }
+.compact-theme span:focus, .compact-theme span:hover { border: 3px solid #423939; }
+.compact-theme a:focus, .compact-theme a:hover { border: 3px solid #423939; }
+.compact-theme .next { border-right: 3px solid #f0f0f0; }
+.compact-theme .current { background: #fff; cursor: default; border: 3px solid #423939;}
 .compact-theme .ellipse { background: #fff; padding: 0 10px; cursor: default; }
 /* Pagination End */
 /* Monitoring Start */
 
-div#div-monitoring {
+div#div-monitoring, section#section-configuration {
     position: absolute;
     overflow-y: auto;
     bottom: 0;
-    top: 0;
+    top: 0px;
     left: 10px;
     right: 10px;
 }
 
 div#div-monitoring-entry {
     margin: 2px;
-    padding: 5px;
-    border: 1px solid #423939;
-    width: 616px;
+    width: 445px;
     float: left; 
-    height: 95px;
+    height: 135px;
 }
 
 div#div-monitoring-entry img.img-h {
-    width: 50px;
-    margin: 22px 7px 6px 3px;
-    
+    width: 30px;
+    float: left;
+    margin-left: 5px;
+    margin-top: 5px;
 }
 
 div#div-monitoring-entry span.head-h {
@@ -1013,10 +1208,13 @@ div#div-monitoring-entry span.head-h {
 }
 
 div#div-monitoring-entry span.content-h {
-    float: right;
-    width: 338px;
+    width: 440px;
     height: 95px;
     overflow-y: auto;
+    float: left;
+    display: block;
+    margin-left: -40px;
+    margin-top: 15px;
 }
 
 div#div-monitoring-entry span.content-h img {
@@ -1028,24 +1226,45 @@ div#div-monitoring-entry span.content-h img {
 /* Monitoring End */
 /* Service Menü Start  */
 
-#ServiceDetail #ServiceTabs1, #ServiceDetail #ServiceTabs2, #ServiceDetail #ServiceTabs3 { height: 650px; }
-#ServiceDetail #CreateServiceEntryLeft { width: 700px; }
-#ServiceDetail #CSEDscOverLay { top: 354px; }
-#ServiceDetail #InANt { top: 365px; }
-#ServiceDetail #InCCt { top: 396px; }
-#ServiceDetail #InSubt { top: 427px; }
-#ServiceDetail #CreateServiceEntryLeftMC div.jqte { height: 640px; }
-#ServiceDetail #CreateServiceEntryLeftMC .jqte_editor,#CreateServiceEntryLeftMC .jqte_source { height: 591px; }
-#ServiceDetail #CreateServiceEntryLeftMC b, #ServiceDetail #CreateServiceEntryLeftMC { font-size: 12px; }
-#ServiceDetail #CreateServiceEntryLeftMF div.jqte { height: 125px; cursor: text; border: 1px solid #423939; }
-#ServiceDetail #CreateServiceEntryLeftMF .jqte_editor,#CreateServiceEntryLeftMF .jqte_source { height: 76px; font-size: 12px; }
-#ServiceDetail #CreateServiceEntryLeftMH .jqte_editor,#CreateServiceEntryLeftMH .jqte_source { height: 56px; font-size: 12px; }
-#ServiceDetail #ServiceHistory { border: 1px solid #423939; position: absolute; }
+#ServiceDetail .ui-widget-content { border: none; }
+#ServiceDetail .ui-widget-header { border: none; background: none; }
+#ServiceDetail #CreateServiceEntryLeft { position: absolute; right: 10px; width: 730px; height: 525px; margin-right: 10px; padding-top: 10px; }
+#ServiceDetail #CreateServiceEntryRight { position: absolute; left: 15px; width: 415px; height: 525px; }
+#ServiceDetail #CreateServiceEntryLeftMH div.jqte { height: 95px; cursor: text; font-weight: normal; }
+#ServiceDetail #CreateServiceEntryLeftMH .jqte_editor,#ServiceDetail #CreateServiceEntryLeftMH .jqte_source { height: 46px; font-size: 12px; }
+
+#ServiceDetail #CreateServiceEntryLeftMC div.jqte { height: 630px; cursor: text; }
+#ServiceDetail #CreateServiceEntryLeftMC .jqte_editor,#ServiceDetail #CreateServiceEntryLeftMC .jqte_source { height: 581px; font-size: 12px; }
+#ServiceDetail #CreateServiceEntryLeftMF,#ServiceDetail #CreateServiceEntryLeftMH { display: none; }
+#ServiceDetail #CreateServiceEntryLeftMF div.jqte { height: 142px; cursor: text; }
+#ServiceDetail #CreateServiceEntryLeftMF .jqte_editor,#ServiceDetail #CreateServiceEntryLeftMF .jqte_source { height: 93px; font-size: 12px; }
+#ServiceDetail #CreateServiceEntryLeftMH, #ServiceDetail #CreateServiceEntryLeftMC { margin-bottom: 5px; }
+
+#ServiceDetail #CreateServiceEntryT,#ServiceDetail #CreateServiceEntryC, #ServiceDetail #CreateServiceEntryA { margin-left: 15px; font-size: 12px; }
+#ServiceDetail #CreateServiceEntryU input,#ServiceDetail #CreateServiceEntryD input,#ServiceDetail #CreateServiceEntryS input,#ServiceDetail #CreateServiceEntryM input { background-color: #fff; color: #000; padding: 5px; padding-left: 7px; width: 373px;  margin-left: 15px; font-size: 12px; }
+#ServiceDetail #CreateServiceEntryT input { border: 1px solid #423939; background-color: #fff; color: #000; padding: 5px; padding-left: 7px; width: 373px;  font-size: 12px; }
+#ServiceDetail #CreateServiceEntryC select,#ServiceDetail #CreateServiceEntryT select, #ServiceDetail #CreateServiceEntryA select { background-color: #fff; color: #fff; padding: 4px; width: 391px; color: #000; }
+#ServiceDetail #CreateServiceEntryT #CSEDsc,#ServiceDetail #CreateServiceEntryC #CSEDsc,#ServiceDetail #CreateServiceEntryA #CSEDsc { margin-bottom: 3px; margin-top: 6px; font-size: 12px; font-weight: bold; }
+#ServiceDetail #CreateServiceEntryU #CSEDsc,#ServiceDetail #CreateServiceEntryS #CSEDsc,#ServiceDetail #CreateServiceEntryD #CSEDsc { margin-bottom: 3px; margin-top: 6px; font-size: 12px; font-weight: bold; margin-left: 15px; }
+#ServiceDetail #CreateServiceEntryU { margin-top: 13px; }
+#ServiceDetail #CSEDsc2 { margin-top: 20px; margin-left: 15px; margin-bottom: 10px; font-size: 12px; font-weight: bold; z-index: 5; }
+#ServiceDetail #CSEDsc3 { font-size: 12px; font-weight: bold; margin-left: 15px; margin-bottom: 3px; margin-top: 5px; color: #000; }
+#ServiceDetail #InANt { position: absolute; top: 331px; left: -5px; font-size: 12px; font-weight: bold; }
+#ServiceDetail #InCCt { position: absolute; top: 366px; left: -5px; font-size: 12px; font-weight: bold; }
+#ServiceDetail #InSubt { position: absolute; top: 400px; left: -5px; font-size: 12px; font-weight: bold; }
+#ServiceDetail #InAN,#InCC { margin-bottom: 3px; }
+#ServiceDetail #CSEDsc2 input { position: absolute; left: -17px; margin-top: -1px; width: 10px; }
+#ServiceDetail #CSEDsc3 input { position: absolute; left: -17px; margin-top: -1px; width: 10px; }
+#ServiceDetail #CSEDsc3 span {  }
+#ServiceDetail #CSEDscOverLay { position: absolute; width: 435px; height: 325px; top: 315px; left: -15px; z-index: 5; background-color: #fff; opacity: 0.5; filter: Aplha(Opacity=50);}
+/*#ServiceDetail input[name=escalate] { position: absolute; }*/
+
+#ServiceDetail #ServiceHistory { right: 10px; height: 300px; top: 380px; left: 10px; overflow-y: auto; border: 3px solid #f0f0f0; position: absolute; }
+#ServiceDetail #ServiceHistory:hover { border: 3px solid #423939; }
 #ServiceDetail #ServiceInfo { position: absolute; width: 500px; height: 200px; top: 60px; left: 10px; }
 #ServiceDetail #ServiceReCheck { position: absolute; width: 500px; height: 80px; top: 270px; left: 10px; }
 #ServiceDetail #ServiceDowntime { position: absolute; width: 657px; height: 200px; top: 170px; right: 10px; }
 #ServiceDetail #ServiceAvailability { position: absolute; width: 657px; height: 100px; top: 60px; right: 10px; }
-#ServiceDetail #ServiceHistory { right: 10px; height: 330px; top: 380px; left: 10px; overflow-y: auto; }
 
 #ServiceDetail #ServiceInfo img {position: absolute;margin-top: 18px;width: 75px;height: 75px;margin-left: 30px;}
 #ServiceDetail div#ServiceInfoHt, #ServiceDetail div#ServiceInfoHn, #ServiceDetail div#ServiceInfoSn, #ServiceDetail div#ServiceInfoCo {position: absolute;margin-left: 140px;font-size: 12px;}
@@ -1082,7 +1301,7 @@ div#div-monitoring-entry span.content-h img {
 }
 
 #ServiceDetail #ServiceHistory table tr {
-    border-bottom: 1px solid #423939;
+    border-bottom: 1px solid #f0f0f0;
 }
 
 #ServiceDetail #ServiceHistory table tr:last-child {
@@ -1149,7 +1368,7 @@ div#div-monitoring-entry span.content-h img {
 
 #ServiceDetail div#ServiceDowntimeE {
     position: absolute;
-    margin-top: 110px;
+    margin-top: 115px;
     margin-left: 30px; 
     font-size: 12px;
 }
@@ -1160,7 +1379,7 @@ div#div-monitoring-entry span.content-h img {
     left: 35px;
     height: 15px;
     font-size: 12px;
-    margin-top: -5px;
+    margin-top: -8px;
 }
 
 #ServiceDetail div#ServiceDowntimeE button {
@@ -1172,18 +1391,18 @@ div#div-monitoring-entry span.content-h img {
 
 #ServiceDetail textarea#ServiceDowntimeT {
     position: absolute;
-    width: 225px;
-    height: 80px;
+    width: 240px;
+    height: 89px;
     left: 350px;
-    top: 74px;
+    top: 71px;
     resize: none;
     font-size: 12px;
 }
 
 #ServiceDetail #AckMessage {
     position: absolute;
-    left: 158px;
-    top: 10px;
+    left: 140px;
+    top: 7px;
     right: 10px;
     padding: 5px;
     font-size: 12px;
@@ -1200,8 +1419,432 @@ div#div-monitoring-entry span.content-h img {
     margin-left: 5px;
 }
 
-#CreateServiceEntryDSselect,#CreateServiceEntryDAselect { border: 1px solid #423939; background-color: #fff; color: #fff; padding: 4px; width: 287px; color: #000; margin: 2px; position: absolute; margin-top: 25px; font-size: 12px; }
+#CreateServiceEntryDSselect,#CreateServiceEntryDAselect { background-color: #fff; color: #fff; padding: 4px; width: 287px; color: #000; margin: 2px; position: absolute; margin-top: 25px; font-size: 12px; }
 #CreateServiceEntryDSselect { margin-left: 30px;}
 #CreateServiceEntryDAselect { margin-left: 330px; }
 
 /* Service Menü End  */
+/* Managed Service Select Start */
+
+#ManagedServiceActionsSelect { border: 1px solid #423939; background-color: #fff; color: #000; padding: 4px; width: 387px; cursor: pointer; font-size: 12px;}
+#ManagedServiceActionsSelectDiv { position: absolute; right: 410px; z-index: 55; top: 124px; }
+
+/* Managed Service Select End */
+/* Monitoring List Start */
+
+div#content-list .ui-input-hofo-grey-header {
+    font-size: 12px;
+    border: 3px solid #423939;
+    display: block;
+    padding: 7px;
+
+    margin-left: 40px;
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+
+div#content-list {
+    margin-top: 5px;
+    margin-bottom: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+div#content-list div:last-child {
+    padding: 7px;
+}
+
+div#content-list img.img-h {
+    width: 30px;
+    float: left;
+    margin-left: 5px;
+    margin-top: 5px;
+}
+
+div.content-list-entry {
+    position: relative;
+    border: 3px solid #f0f0f0;
+    margin-top: 3px;
+    display: block;
+    cursor: pointer;
+    background-color: #fff;
+    font-size: 14px;
+    padding: 5px;
+    word-wrap: break-word; 
+    -ms-word-break: break-all;
+    word-break: break-all;
+}
+
+div.content-list-entry:hover {
+    border: 3px solid #423939;
+}
+
+div.content-list-entry span:first-child {
+    margin: 7px;
+    float: left;
+}
+
+div.content-list-entry span:first-child + span {
+    float: left;
+}
+
+div.content-list-entry span:first-child + span + span {
+    float: right;
+}
+
+div.content-list-entry span:last-child {
+    display: block;
+    margin-left: 35px;
+    margin-top: 5px;
+    margin-right: 5px;
+    font-size: 12px;
+}
+
+div.content-list-entry span.ui-taov-tile img {
+    position: absolute;
+    margin-top: -3px;
+    margin-left: 5px;
+}
+
+@media screen and (max-width: 1000px) {
+    /*table#list-table td:first-child + td + td {
+    }*/
+}
+
+/* Monitoring List End */
+/* Navigation Start */
+
+span.ui-nav-tile {  
+    width: 225px;
+    padding: 7px;
+    text-align: left;
+    font-size: 16px;
+    display: block;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+span.ui-nav-tile img {
+    width: 30px;
+    margin-right: 10px;
+    margin-bottom: -8px;
+}
+
+.ui-nav-normal {
+    background-color: #fff;
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+    border-left: 1px solid #fff;
+    opacity: 0.75;       /* modern browser */  
+    -moz-opacity: 0.75;  /* older Mozilla browser */  
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=75)"; /* IE8 in Standard Compliant Mode */  
+    filter:alpha(opacity=75); /* IE5.x -7.0 */  
+}
+
+.ui-nav-normal div {
+    color: #000;
+    opacity: 1.00;       /* modern browser */  
+    -moz-opacity: 1.00;  /* older Mozilla browser */  
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)"; /* IE8 in Standard Compliant Mode */  
+    filter:alpha(opacity=100); /* IE5.x -7.0 */  
+}
+
+.ui-nav-focus {
+    background-color: #fff;
+    color: #423939;
+    border-left: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+    opacity: 1.00;       /* modern browser */  
+    -moz-opacity: 1.00;  /* older Mozilla browser */  
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)"; /* IE8 in Standard Compliant Mode */  
+    filter:alpha(opacity=100); /* IE5.x -7.0 */ 
+}
+
+.ui-nav-hover:hover {
+    background-color: #fff;
+    color: #423939;
+    border-left: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+    opacity: 1.00;       /* modern browser */  
+    -moz-opacity: 1.00;  /* older Mozilla browser */  
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)"; /* IE8 in Standard Compliant Mode */  
+    filter:alpha(opacity=100); /* IE5.x -7.0 */  
+}
+
+/* Navigation End */
+/* Service State Start */
+
+div#service-state {
+    display: block;
+    #border: 7px solid #d0d0d0;
+    width: 520px;
+    height: 325px;
+    background-color: #fff;
+    float: left;
+}
+
+div#service-state .ui-icon {
+    background-image: url(../images/ui-icons_000000_256x240.png);
+}
+
+/* Service State End */
+/* Current Problems Start */
+
+div#current-problems .ui-icon {
+    background-image: url(../images/ui-icons_000000_256x240.png);
+}
+
+div#current-problems {
+    position: absolute;
+    display: block;
+    top: 472px;
+    left: 10px;
+    width: 520px;
+    bottom: 0px;
+    background-color: #fff;
+    min-height: 152px;
+    #border: 7px solid #d0d0d0;
+}
+
+#current-problems-header {
+    font-size: 12px;
+    color: #000;
+    background-color: #fff;
+    border: 3px solid #423939;
+    display: block;
+    padding: 7px;
+    height: 18px;
+}
+
+div#current-problems-content {
+    position: absolute;
+    padding: 3px;
+    margin-top: 5px;   
+    display: block;
+    right: 3px;
+    left: 3px;
+    top: 35px;
+    bottom: 3px;
+    overflow-y: auto;
+    min-height: 100px;
+    word-wrap: break-word; 
+    -ms-word-break: break-all;
+    word-break: break-all;
+}
+
+div#current-problems-content-entry {
+    margin-bottom: 3px;
+    font-size: 14px;
+    display: block;
+    cursor: pointer;
+    background-color: #fff;
+    padding: 7px;
+    border: 3px solid #f0f0f0;
+}
+
+div#current-problems-content-entry:hover {
+    border: 3px solid #423939;
+}
+
+div#current-problems-content-entry table tr:first-child td:first-child {
+    padding: 5px;
+}
+
+/* Current Problems End */
+/* Last Comments Start */
+
+div#last-comments {
+    position: absolute;
+    display: block;
+    #border: 7px solid #d0d0d0;
+    top: 125px;
+    bottom: 0px;
+    left: 553px;
+    right: 10px;
+    background-color: #fff;
+    min-height: 499px;
+}
+
+#last-comments-header {
+    font-size: 12px;
+    color: #000;
+    background-color: #fff;
+    display: block;
+    padding: 7px;
+    height: 18px;
+    border: 3px solid #423939;
+}
+
+div#last-comments-content {
+    position: absolute;
+    padding: 3px;
+    margin-top: 5px;   
+    display: block;
+    right: 3px;
+    left: 3px;
+    top: 35px;
+    bottom: 2px;
+    overflow-y: auto;
+    min-height: 100px;
+    word-wrap: break-word; 
+    -ms-word-break: break-all;
+    word-break: break-all;
+}
+
+div#last-comments .ui-icon {
+    background-image: url(../images/ui-icons_000000_256x240.png);
+}
+
+div#last-comments-content-entry {
+    margin-bottom: 3px;
+    font-size: 14px;
+    display: block;
+    background-color: #fff;
+    padding: 7px;
+    border: 3px solid #f0f0f0;
+}
+
+div#last-comments-content-entry:hover {
+    border: 3px solid #423939;
+}
+
+div#last-comments-content-entry table {
+    position: relative;
+    border: 1px solid #000;
+    display: block;
+    table-layout: fixed;
+}
+
+div#last-comments-content-entry-top, div#last-comments-content-entry-title {
+    position: relative;
+    display: block;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+div#last-comments-content-entry-top span:first-child, div#last-comments-content-entry-title span:first-child {
+    position: relative;
+    display: block;
+    float: left;
+}
+
+div#last-comments-content-entry-top span:last-child, div#last-comments-content-entry-title span:last-child {
+    position: relative;
+    display: block;
+    float: right;
+}
+
+div#last-comments-content-entry-text {
+    position: relative;
+    display: block;
+    margin-bottom: 5px;
+    margin-top: 15px;
+    width: 100%;
+    margin-left: 5px;
+}
+
+/* Last Comments End */
+/* Suche start */
+
+input#search-field {
+    border: 3px solid #d0d0d0;
+    background-color: #fff;
+    padding: 7px;
+    width: 210px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+div#search-tool-tip {
+    display: none;
+    position: absolute;
+    left: 10px;
+    top: 44px;
+    height: 100px;
+    width: 214px;
+    background-color: #fff;
+    border-left: 3px solid #d0d0d0;
+    border-top: 3px solid #d0d0d0;
+    border-right: 3px solid #d0d0d0;
+    z-index: 60;
+    padding: 5px;
+    font-size: 14px;
+    color: #423939;
+}
+
+div#search-tool-tip span {
+    #border: 1px solid #000;
+}
+
+div#search-tool-tip-header {
+    width: 210px;
+    height: 20px;
+    padding: 2px;
+    background-color: #423939;
+    color: #fff;
+    
+}
+
+div#search-tool-tip-header .ui-icon {
+    background-image: url(../images/ui-icons_ffffff_256x240.png);
+}
+
+div#search-tool-tip-header span:first-child {
+    float: left;
+    position: relative;
+}
+
+div#search-tool-tip-header span:last-child {
+    float: right;
+    position: relative;
+}
+
+div#search-tool-tip table {
+    margin-top: 5px;
+    float: left;
+    table-layout: fixed;
+    border-spacing: 0;
+    border-collapse: collapse; 
+}
+
+div#search-tool-tip table td {
+    width: 100px;
+}
+
+/* Suche end */
+/* Service Tab Start */
+
+span#service-tab {
+    font-size: 14px;
+    margin: 3px;
+    width: 210px;
+    height: 55px;
+    float: left;
+    padding: 5px;
+    overflow: hidden;
+    word-wrap: break-word; 
+    -ms-word-break: break-all;
+    word-break: break-all;
+}
+
+span#service-tab:hover {
+    background-color: #e0e0e0;
+    border: 1px solid #e0e0e0;
+    color: #000;
+    cursor: pointer;
+}
+
+/* Service Tab End */
+
+div#ConfigurationTabs .ui-widget-header {
+    border: none;
+    background: none;
+}
+
+#ConfigurationTabs .ui-tabs-panel {
+    margin-top: 15px;
+}
+
+section#section-configuration .ui-widget-content {
+    border: none;
+}

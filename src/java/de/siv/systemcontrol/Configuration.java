@@ -25,7 +25,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author sbaresel
  */
-public class Monitoring extends HttpServlet {
+public class Configuration extends HttpServlet {
     Properties props = null;
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response, String Uid)
@@ -43,20 +43,20 @@ public class Monitoring extends HttpServlet {
                 response.setContentType("text/html; charset=utf-8");
                 out.println(Html.openHtmlAndHead(null));
                 out.println(Html.includeMeta(null));
-                out.println("    <title>Monitoring - kVASy&reg; System Control</title>");
-                out.println(Html.includeJs("Monitoring"));
-                out.println(Html.includeCss("Monitoring"));
+                out.println("    <title>Konfiguration - kVASy&reg; System Control</title>");
+                out.println(Html.includeJs("Configuration"));
+                out.println(Html.includeCss("Configuration"));
                 out.println(""
                         + "<script>\n"
                         + "$(function() {\n"
-                        + "    $('#monitoring').addClass('ui-nav-focus');\n"
+                        + "    $('#config').addClass('ui-nav-focus');\n"
                         + "    jQuery.support.cors = true;\n"
                         + "    $('#big-taov').hide();\n"
                         + "    GetUserConfig();\n"
                         + "    $('input').addClass('ui-input-hofo');\n"
                         + "    $('span#ui-tile').addClass('ui-input-hofo');\n"
+                        + "    Configuration('" + Base64Coder.encodeString(Uid) + "');\n"
                         + "    SummaryView();\n"
-                        + "    //SidebarBottom();\n"
                         + "");
                         
                 if (Executions.UserMailEmpty(Uid)) {
@@ -79,33 +79,14 @@ public class Monitoring extends HttpServlet {
                 
                 out.println(Html.printSectionMenu(Uid,"Monitoring"));
         
-                if(Executions.UserIsPermitted(Uid,"monitoring")) {
+                if(Executions.UserIsPermitted(Uid,"config")) {
                 
-                        String val = request.getParameter("v");
-                    
-                        if(val != null) {
-                    
-                            if( val.equals(Base64Coder.encodeString("FullView")) ) {
-                                out.println("<script type='text/javascript'>$(function() { ShowMonitoringFull(); });</script>");
-                            } else if( request.getParameter("v").equals(Base64Coder.encodeString("SearchHosts")) ) {
-                                out.println("<script type='text/javascript'>$(function() { SearchHosts(); });</script>");
-                            } else if( request.getParameter("v").equals(Base64Coder.encodeString("SearchServices")) ) {
-                                out.println("<script type='text/javascript'>$(function() { SearchServices(); });</script>");
-                            } else if( request.getParameter("v").equals(Base64Coder.encodeString("ServiceStatus")) ) {
-                                out.println("<script type='text/javascript'>$(function() { ServiceStatus(); });</script>");
-                            } else if( request.getParameter("v").equals(Base64Coder.encodeString("CurProbs")) ) {
-                                out.println("<script type='text/javascript'>$(function() { CurProbs(); });</script>");
-                            } else if( request.getParameter("v").equals(Base64Coder.encodeString("DbStatus")) ) {
-                                out.println("<script type='text/javascript'>$(function() { DbStatus(); });</script>");
-                            }
-                                
-                        } else {
-                    
-                            out.println("<script type='text/javascript'>$(function() { ShowMonitoringFull(); });</script>");
-                    
-                        }
-                        out.println("<div id='div-monitoring'></div>");
+                    out.println("<section id='section-configuration'></section>");
 
+                } else {
+                    
+                    out.println(Html.printAccessDenied(null));
+                    
                 }
                 
                 out.println(Html.printSectionBottom(null));

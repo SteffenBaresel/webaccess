@@ -195,5 +195,13 @@
         <servlet-name>MonitoringBasics</servlet-name>
         <url-pattern>/script/MonitoringBasics.js</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>Configuration</servlet-name>
+        <servlet-class>de.siv.systemcontrol.Configuration</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Configuration</servlet-name>
+        <url-pattern>/Configuration</url-pattern>
+    </servlet-mapping>
     
 </web-app>

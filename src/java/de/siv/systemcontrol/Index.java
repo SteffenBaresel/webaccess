@@ -42,9 +42,9 @@ public class Index extends HttpServlet {
                 out.println(""
                         + "<script>\n"
                         + "$(function() {\n"
+                        + "    $('#dashboard').addClass('ui-nav-focus');\n"
                         + "    jQuery.support.cors = true;\n"
                         + "    GetUserConfig();\n"
-                        + "    $('div#menu-locator').html('Startseite');\n"
                         + "    $('input').addClass('ui-input-hofo');\n"
                         + "    $('span#ui-tile').addClass('ui-input-hofo');\n"
                         + "    SummaryView();\n"
@@ -60,40 +60,18 @@ public class Index extends HttpServlet {
                         + "</script>\n"
                         + "");
                 out.println(Html.closeHeadOpenBody(null));
+                
+                /* Navigation */
+                
+                out.println(Html.printSectionMenu(Uid,"NavigationOpen"));
+                
+                out.println(Html.printSectionMenu(Uid,"NavigationClose"));
+                
+                /* Navigation */
+                
                 out.println(Html.printSectionMenu(Uid,"Index"));
         
-                if(Executions.UserIsPermitted(Uid,"config")) {
-                
-                    out.println(""
-                            + "    <span id='ui-tile' class='ui-tile-130px' onclick=\"Configuration('" + Base64Coder.encodeString(Uid) + "')\" title='Konfiguration'>\n"
-                            + "        <img class='ui-tile-cimg' src='public/images/configure-128.png' alt='Konfiguraion' width='96' height='96'>\n"
-                            + "    </span>\n");
-                
-                }
-                
-                if(Executions.UserIsPermitted(Uid,"monitoring")) {
-                
-                    out.println(""
-                            + "    <span id='ui-tile' class='ui-tile-300px' title='Monitoring' onclick=\"OpenWindow('Monitoring','_self');\">\n"
-                            + "        <img class='ui-tile-cimg' src='public/images/server-128.png' alt='Monitoring' width='96' height='96'>\n"
-                            + "        <span class='ui-tile-header'>Monitoring</span><br></br>\n"
-                            + "        <span class='ui-tile-content'>Eine &Uuml;bersicht &uuml;ber alle eingerichteten Host und Services.</span>\n"
-                            + "    </span>\n");
-                
-                }                        
-                       
-                if(Executions.UserIsPermitted(Uid,"managed_services")) {
-                
-                    out.println(""
-                            + "    <span id='ui-tile' class='ui-tile-300px' title='Managed Services' onclick=\"OpenWindow('ManagedServices','_self');\">\n"
-                            + "        <img class='ui-tile-cimg' src='public/images/group-128.png' alt='Managed Services' width='96' height='96'>\n"
-                            + "        <span class='ui-tile-header'>Managed Services</span><br></br>\n"
-                            + "        <span class='ui-tile-content'>Servicearbeiten, Kundeninformationen und Vertragstypen.</span>\n"
-                            + "    </span>\n");
-                
-                }
-                
-                out.println("<div id='DashboardLinks'></div>");
+        /*        out.println("<div id='DashboardLinks'></div>");
                         
                 if(Executions.UserIsPermitted(Uid,"addlink")) {
                 
@@ -102,7 +80,32 @@ public class Index extends HttpServlet {
                             + "        <img src='public/images/AddNext.png' alt='AddNext' title='F&uuml;ge weiteren Men&uuml;punkt hinzu!'>\n"
                             + "    </span>\n");
                 
-                }
+                }*/
+                
+                out.println("            <div id='service-state'>\n"
+                    + "    <div id='HeaderServicePie'><span style=\"float: left;\">Service Status &Uuml;bersicht</span><span style=\"float: left; margin-top: -1px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></div>\n"
+                    + "                <table id='TPie' cellpadding='0' cellspacing='0' border='0'>\n"
+                    + "                    <tr>\n"
+                    + "                        <td>\n"
+                    + "                            <div id='ServicePie'></div>\n"
+                    + "                        </td>\n"
+                    + "                        <td>\n"
+                    + "                            <div id='ServicePer'></div>\n"
+                    + "                        </td>\n"
+                    + "                    </tr>\n"
+                    + "                </table>\n"
+                    + "                <br>\n"
+                    + "            </div>\n");
+                
+                out.println("            <div id='current-problems'>\n"
+                    + "    <div id='current-problems-header'><span style=\"float: left;\">Offene Probleme</span><span style=\"float: left; margin-top: -1px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></div>\n"
+                    + "    <div id='current-problems-content'></div>\n"
+                    + "            </div>\n");
+                
+                out.println("            <div id='last-comments'>\n"
+                    + "    <div id='last-comments-header'><span style=\"float: left;\">Letzte Kommentare</span><span style=\"float: left; margin-top: -1px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></div>\n"
+                    + "    <div id='last-comments-content'></div>\n"
+                    + "            </div>\n");
                 
                 out.println(Html.printSectionBottom(null));
                 out.println(Html.printSidebar(null));

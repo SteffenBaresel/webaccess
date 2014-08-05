@@ -467,7 +467,7 @@ button.ui-button::-moz-focus-inner {
 	position: absolute;
 	top: 0;
 	left: 0;
-	padding: .2em;
+	#padding: .2em;
 	outline: 0;
 }
 .ui-dialog .ui-dialog-titlebar {
@@ -500,7 +500,7 @@ button.ui-button::-moz-focus-inner {
 }
 .ui-dialog .ui-dialog-buttonpane {
 	text-align: left;
-	border-width: 1px 0 0 0;
+	border-width: 0;
 	background-image: none;
 	margin-top: .5em;
 	padding: .3em 1em .5em .4em;
@@ -741,7 +741,7 @@ button.ui-button::-moz-focus-inner {
 	position: relative;
 	top: 0;
 	margin: 1px .2em 0 0;
-	border-bottom-width: 0;
+	border-bottom-width: 3px;
 	padding: 0;
 	white-space: nowrap;
 }
@@ -751,8 +751,8 @@ button.ui-button::-moz-focus-inner {
 	text-decoration: none;
 }
 .ui-tabs .ui-tabs-nav li.ui-tabs-active {
-	margin-bottom: -1px;
-	padding-bottom: 1px;
+	margin-bottom: 0px;
+	padding-bottom: 0px;
 }
 .ui-tabs .ui-tabs-nav li.ui-tabs-active .ui-tabs-anchor,
 .ui-tabs .ui-tabs-nav li.ui-state-disabled .ui-tabs-anchor,
@@ -764,7 +764,6 @@ button.ui-button::-moz-focus-inner {
 }
 .ui-tabs .ui-tabs-panel {
 	display: block;
-	border-width: 0;
 	padding: 1em 1.4em;
 	background: none;
 }
@@ -797,18 +796,22 @@ body .ui-tooltip {
 	font-size: 1em;
 }
 .ui-widget-content {
-	border: 1px solid #423939;
-	background: #ffffff url(../images/ui-bg_flat_100_ffffff_40x100.png) 50% 50% repeat-x;
+	border: 8px solid #d0d0d0;
+	background: #ffffff;
 	color: #000000;
 }
 .ui-widget-content a {
 	color: #000000;
 }
 .ui-widget-header {
-	border: 1px solid #423939;
-	background: #423939 url(../images/ui-bg_flat_100_423939_40x100.png) 50% 50% repeat-x;
-	color: #ffffff;
-	font-weight: bold;
+	border-bottom: 3px solid #423939;
+        border-top: 3px solid #423939;
+	background: #423939;
+	color: #fff;
+	font-weight: normal;
+        font-size: 12px;
+        padding: 7px;
+        height: 18px;
 }
 .ui-widget-header a {
 	color: #ffffff;
@@ -819,8 +822,8 @@ body .ui-tooltip {
 .ui-state-default,
 .ui-widget-content .ui-state-default,
 .ui-widget-header .ui-state-default {
-	border: 1px solid #423939;
-	background: #ffffff url(../images/ui-bg_flat_100_ffffff_40x100.png) 50% 50% repeat-x;
+	border: 3px solid #f0f0f0;
+	background: #fff;
 	font-weight: normal;
 	color: #000000;
 }
@@ -836,10 +839,10 @@ body .ui-tooltip {
 .ui-state-focus,
 .ui-widget-content .ui-state-focus,
 .ui-widget-header .ui-state-focus {
-	border: 1px solid #423939;
-	background: #ffffff url(../images/ui-bg_flat_100_ffffff_40x100.png) 50% 50% repeat-x;
+	border: 3px solid #423939;
+	background: #fff;
 	font-weight: normal;
-	color: #454545;
+	color: #423939;
 }
 .ui-state-hover a,
 .ui-state-hover a:hover,
@@ -849,21 +852,21 @@ body .ui-tooltip {
 .ui-state-focus a:hover,
 .ui-state-focus a:link,
 .ui-state-focus a:visited {
-	color: #454545;
+	color: #423939;
 	text-decoration: none;
 }
 .ui-state-active,
 .ui-widget-content .ui-state-active,
 .ui-widget-header .ui-state-active {
-	border: 1px solid #423939;
-	background: #ffffff url(../images/ui-bg_flat_100_ffffff_40x100.png) 50% 50% repeat-x;
+	border: 3px solid #423939;
+	background-color: #fff;
 	font-weight: normal;
-	color: #454545;
+	color: #423939;
 }
 .ui-state-active a,
 .ui-state-active a:link,
 .ui-state-active a:visited {
-	color: #454545;
+	color: #000;
 	text-decoration: none;
 }
 
@@ -872,7 +875,7 @@ body .ui-tooltip {
 .ui-state-highlight,
 .ui-widget-content .ui-state-highlight,
 .ui-widget-header .ui-state-highlight {
-	border: 1px solid #fff;
+	border: 3px solid #d0d0d0;
 	background: #ffffff url(../images/ui-bg_flat_100_ffffff_40x100.png) 50% 50% repeat-x;
 	color: #000000;
 }
@@ -884,7 +887,7 @@ body .ui-tooltip {
 .ui-state-error,
 .ui-widget-content .ui-state-error,
 .ui-widget-header .ui-state-error {
-	border: 1px solid #E5442D;
+	border: 3px solid #E5442D;
 	background: #E5442D url(../images/ui-bg_flat_100_E5442D_40x100.png) 50% 50% repeat-x;
 	color: #ffffff;
 }
@@ -1164,9 +1167,9 @@ body .ui-tooltip {
 
 /* Overlays */
 .ui-widget-overlay {
-	background: #666666 url(../images/ui-bg_flat_100_666666_40x100.png) 50% 50% repeat-x;
-	opacity: .4;
-	filter: Alpha(Opacity=40);
+	background: #423939;
+	opacity: 0.6;
+	filter: Alpha(Opacity=60);
 }
 .ui-widget-shadow {
 	margin: -5px 0 0 -5px;

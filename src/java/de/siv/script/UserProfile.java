@@ -43,45 +43,45 @@ public class UserProfile extends HttpServlet {
 "    <div id=\"UserProfileUid\"><span>UID:</span><input type=text id=\"UsPuid\" value=\"' + UserID + '\" disabled/></div>" +
 "    <div id=\"UserProfileName\"><span>Name:</span><input type=text id=\"UsPname\" value=\"' + FullName + '\" disabled/></div>" +
 "    <div id=\"UserProfileMail\"><span>E-Mail:</span><input type=text id=\"UsPmail\" value=\"' + UserMail + '\" onclick=\"ClearValue(\\'UsPmail\\');\"/></div>" +
-"    <div id=\"UserProfileGroup\"><span>Gruppen Mitglied:</span><div id=\"UserProfileGroupCnt\"></div></div>" +
-"    <div id=\"UserProfilePerm\"><span>Erteilte Berechtigungen:</span><div id=\"UserProfilePermCnt\"></div></div>" +
+"    <div id=\"UserProfileGroup\" class=\"ui-input-hofo\"><span>Gruppen Mitglied:</span><div id=\"UserProfileGroupCnt\"></div></div>" +
+"    <div id=\"UserProfilePerm\" class=\"ui-input-hofo\"><span>Erteilte Berechtigungen:</span><div id=\"UserProfilePermCnt\"></div></div>" +
 "    </div>');\n" +
 "\n" +
 "     UserGroups.forEach (function(e) {\n" +
-"         $('#UserProfileGroupCnt').append(' - ' + $.base64.decode( e ) + '<br>');\n" +
+"         $('#UserProfileGroupCnt').append(' - ' + base64_decode( e ) + '<br>');\n" +
 "     });\n" +
 "" +
 "     UserPerm.forEach (function(e) {\n" +
-"         $('#UserProfilePermCnt').append(' - ' + $.base64.decode( e ) + '<br>');\n" +
+"         $('#UserProfilePermCnt').append(' - ' + base64_decode( e ) + '<br>');\n" +
 "     });\n" +
 "\n" +
 "" +
-"     $('#UserProfileImg').hover( function() {" +
-"         $('#UserProfileImgHover').show();" +
-"     },function() {" +
-"         $('#UserProfileImgHover').hide();" +
-"     });" +
-"     $('#UserProfileImgHover').hover( function() {" +
-"         $('#UserProfileImgHover').show();" +
-"     },function() {" +
-"         $('#UserProfileImgHover').hide();" +
-"     });" +
+"     $('#UserProfileImg').hover( function() {\n" +
+"         $('#UserProfileImgHover').show();\n" +
+"     },function() {\n" +
+"         $('#UserProfileImgHover').hide();\n" +
+"     });\n" +
+"     $('#UserProfileImgHover').hover( function() {\n" +
+"         $('#UserProfileImgHover').show();\n" +
+"     },function() {\n" +
+"         $('#UserProfileImgHover').hide();\n" +
+"     });\n" +
 "\n" +                
-"     if ( UsrPctrLength != '0' ) {" +
-"         $('#UserProfileConfig2').attr('src',UsrPctrPath);" +
-"     }" +
+"     if ( UsrPctrLength != '0' ) {\n" +
+"         $('#UserProfileConfig2').attr('src',UsrPctrPath);\n" +
+"     }\n" +
 "    $('input').addClass('ui-input-hofo');\n" +
 "    $('#UserProfileDialog').dialog({\n" +
 "        autoOpen: true,\n" +
-"        height: 600,\n" +
-"        width: 600,\n" +
+"        height: 610,\n" +
+"        width: 605,\n" +
 "        draggable: false,\n" +
 "        resizable: false,\n" +
 "        modal: true,\n" +
 "        buttons: { \n" +
-"            BEARBEITEN: function() { \n" +
+"            SPEICHERN: function() { \n" +
 "                $.ajax({\n" +
-"                    url: '/gateway/exec/UpdateUserMail?mail=' + $.base64.encode( $('#UsPmail').val() ),\n" +
+"                    url: '/gateway/exec/UpdateUserMail?mail=' + base64_encode( $('#UsPmail').val() ),\n" +
 "                    crossDomain: true,\n" +
 "                    success: function(json) {\n" +
 "                        if (json.UPDATED == \"1\") {\n" +
@@ -111,7 +111,7 @@ public class UserProfile extends HttpServlet {
 "            BEENDEN: function() {\n" +
 "                $(this).dialog('close');\n" +
 "		 $('#UserProfileDialog').remove();\n" +
-"                location.reload();\n" +
+"                //location.reload();\n" +
 "            }\n");
             
             }
@@ -129,6 +129,86 @@ public class UserProfile extends HttpServlet {
                     + "}\n");
             
         }
+            
+            // Sidebar Search
+            
+            if(Executions.UserIsPermitted(Uid,"sidebarsearch")) {
+                
+                out.println("\n"
+                    + "function showTooltip() {\n"
+                    + "    if ($('#search-tool-tip').is(':hidden')) {\n"
+                    + "        $('#search-tool-tip').fadeIn(100);\n"
+                    + "    }\n"
+                    + "}");
+                
+                out.println("\n"
+                    + "function closeTooltip(id) {\n"
+                    + "    $('#' + id).fadeOut(100);\n"
+                    + "}");
+                
+                out.println("\n"
+                    + "function setValue(id,text) {\n"
+                    + "    $('#' + id).val(text);\n"
+                    + "}");
+                
+                out.println("\n"
+                    + "function submitOnEnter(inputElement, event) {\n"
+                    + "    if (event.keyCode == 13) {\n"
+                    + "        inputElement.form.submit();\n"
+                    + "    }\n"
+                    + "}");
+                
+                out.println("\n"
+                    + "$(function() {\n"
+                    + "    $('#search-field').autocomplete({\n"
+                    + "        source: function(request, response) {\n"
+                    + "            var ival = $('#search-field').val();\n"
+                    + "            var type = ival.substring(0, ival.indexOf(':'));\n"
+                    + "            var sstr = $.trim(ival.substring(ival.indexOf(':')+1));\n"
+                    + "            if (type == 'Host' || type == 'host' || type == 'H' || type == 'h') {\n"
+                    + "                $('form#search-form').attr('action', '/webaccess/Monitoring');\n"
+                    + "                $('form#search-form input[name=v]').attr('value','U2VhcmNoSG9zdHM=');\n"
+                    + "                $.ajax({\n"
+                    + "                    url: '/gateway/search/Autocomplete',\n"
+                    + "                    data: {\n"
+                    + "                        t: base64_encode('Host'),\n"
+                    + "                        v: base64_encode(sstr)\n"
+                    + "                    },\n"
+                    + "                    success: function( json ) {\n"
+                    + "                        response( $.map( json.AC, function( item ) {\n"
+                    + "                            return {\n"
+                    + "                                label: base64_decode( item.HOST_NAME ),\n"
+                    + "                                value: 'Host: ' + base64_decode( item.HOST_NAME )\n"
+                    + "                            }\n"
+                    + "                        }));\n"
+                    + "                    }\n"
+                    + "                });\n"
+                    + "            } else if (type == 'Service' || type == 'service' || type == 'S' || type == 's') {\n"
+                    + "                $('form#search-form').attr('action', '/webaccess/Monitoring');\n"
+                    + "                $('form#search-form input[name=v]').attr('value','U2VhcmNoU2VydmljZXM=');\n"
+                    + "                $.ajax({\n"
+                    + "                    url: '/gateway/search/Autocomplete',\n"
+                    + "                    data: {\n"
+                    + "                        t: base64_encode('Service'),\n"
+                    + "                        v: base64_encode(sstr)\n"
+                    + "                    },\n"
+                    + "                    success: function( json ) {\n"
+                    + "                        response( $.map( json.AC, function( item ) {\n"
+                    + "                            return {\n"
+                    + "                                label: base64_decode( item.SERVICE_NAME ) + '@' + base64_decode( item.HOST_NAME ),\n"
+                    + "                                value: 'Service: ' + base64_decode( item.SERVICE_NAME )\n"
+                    + "                            }\n"
+                    + "                        }));\n"
+                    + "                    }\n"
+                    + "                });\n"
+                    + "            } else {\n"
+                    + "                //alert('Suche in allen Kategorien: ' + sstr);\n"
+                    + "            }\n"
+                    + "        },\n"
+                    + "        minLength: 1\n"
+                    + "    });\n"
+                    + "});");
+            }
         
     }
     

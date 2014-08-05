@@ -35,6 +35,46 @@ function OpenWindow(target,mode) {
     window.open(target,mode);
 }
 
+/*window.onload = function(event) {
+    ScreenAlert();
+};*/
+
+/*window.onresize = function(event) {
+    ScreenAlert();
+};*/
+
+function ScreenAlert() {
+    var width = window.innerWidth ||
+                document.documentElement.clientWidth ||
+                document.body.clientWidth;
+    var height = window.innerHeight ||
+                 document.documentElement.clientHeight ||
+                 document.body.clientHeight;
+    if ( (width < 1210) || (height < 870) ) {
+        $('#ScreenAlertBG').show();
+        $('#ScreenAlertText').show();
+    } else {
+        $('#ScreenAlertBG').hide();
+        $('#ScreenAlertText').hide();
+    }
+}
+
+function PrepareHtmlPasteJqte(id) {
+    $('#' + id + ' div.jqte_editor').bind('paste', function(e) {
+        e.preventDefault();
+        var text = (e.originalEvent || e).clipboardData.getData('text/plain') || prompt('Paste something..');
+        $('#' + id + ' div.jqte_editor').html(text);
+    });
+}
+
+function PrepareHtmlPasteDiv(id) {
+    $('#' + id + '').bind('paste', function(e) {
+        e.preventDefault();
+        var text = (e.originalEvent || e).clipboardData.getData('text/plain') || prompt('Paste something..');
+        $('#' + id + '').html(text);
+    });
+}
+
 /* Executions */
 
 function GetUserConfig() {
@@ -48,20 +88,20 @@ function GetUserConfig() {
             $.each(json, function() {
                 Backend = this.LOCAL_BACKEND;
                 $.each(this.DASHBOARD, function() {
-                    $('#DashboardLinks').append('<span id="ui-tile" class="ui-tile-300px" title="' + $.base64.decode( this.TITLE ) + '"><img class="ui-tile-cimg" src="public/images/login-128.png" alt="' + $.base64.decode( this.DESC ) + '" width="96" height="96"><span class="ui-tile-header">' + $.base64.decode( this.TITLE) + '</span><br></br><span class="ui-tile-content">' + $.base64.decode( this.DESC ) + '</span></span>');
+                    $('#DashboardLinks').append('<span id="ui-tile" class="ui-tile-300px" title="' + base64_decode( this.TITLE ) + '"><img class="ui-tile-cimg" src="public/images/login-128.png" alt="' + base64_decode( this.DESC ) + '" width="96" height="96"><span class="ui-tile-header">' + base64_decode( this.TITLE) + '</span><br></br><span class="ui-tile-content">' + base64_decode( this.DESC ) + '</span></span>');
                 });
                 $.each(this.USER_CONFIG, function() {
                     if (this.KEY == "DeleteDomainSuffix") {
                         DeleteDomainSuffix = this.ACTION;
                     }
                 });
-                $('span.login_username').html($.base64.decode( this.NAME ));
-                UUID = $.base64.decode( this.UUID );
-                UserID = $.base64.decode( this.UID );
-                FullName = $.base64.decode( this.NAME );
-                UserMail = $.base64.decode( this.MAIL );
-                UsrPctrPath = $.base64.decode( this.PCTR );
-                UsrPctrLength = $.base64.decode( this.PCTRL );
+                $('span.login_username').html(base64_decode( this.NAME ));
+                UUID = base64_decode( this.UUID );
+                UserID = base64_decode( this.UID );
+                FullName = base64_decode( this.NAME );
+                UserMail = base64_decode( this.MAIL );
+                UsrPctrPath = base64_decode( this.PCTR );
+                UsrPctrLength = base64_decode( this.PCTRL );
                 if ( UsrPctrLength != "0" ) {
                     $('#UserProfileConfig').attr('src',UsrPctrPath);
                     $('#UserPictureP').attr('src',UsrPctrPath);
@@ -119,6 +159,10 @@ function DialogSuccess(id,message) {
 
 function EscapeChar(s) {
     return s.replace(/\"/g,'\\\"');
+}
+
+function UrlDescape(s) {
+    return s.replace(/%3A/g,':').replace(/%3D/g,'=').replace(/\+/g,' ').replace(/%20/g,' ').replace(/%22/g,'"').replace(/%25/g,'%').replace(/%3C/g,'<').replace(/%3E/g,'>').replace(/%5B/g,'[').replace(/%5C/g,'\\').replace(/%5D/g,']').replace(/%5E/g,'^').replace(/%60/g,'`').replace(/%7B/g,'{').replace(/%7C/g,'|').replace(/%7D/g,'}').replace(/%7E/g,'~').replace(/%7F/g,'').replace(/%28/g,'(').replace(/%29/g,')').replace(/%2B/g,'+');
 }
 
 /**
@@ -293,3 +337,81 @@ dateFormat.i18n = {
 Date.prototype.format = function (mask, utc) {
 	return dateFormat(this, mask, utc);
 };
+
+function base64_encode(data) {
+    var b64 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+    var o1, o2, o3, h1, h2, h3, h4, bits, i = 0,
+        ac = 0,
+        enc = '',
+        tmp_arr = [];
+
+    if (!data) {
+        return data;
+    }
+
+    data = unescape(encodeURIComponent(data))
+
+    do {
+        // pack three octets into four hexets
+        o1 = data.charCodeAt(i++);
+        o2 = data.charCodeAt(i++);
+        o3 = data.charCodeAt(i++);
+
+        bits = o1 << 16 | o2 << 8 | o3;
+
+        h1 = bits >> 18 & 0x3f;
+        h2 = bits >> 12 & 0x3f;
+        h3 = bits >> 6 & 0x3f;
+        h4 = bits & 0x3f;
+
+        // use hexets to index into b64, and append result to encoded string
+        tmp_arr[ac++] = b64.charAt(h1) + b64.charAt(h2) + b64.charAt(h3) + b64.charAt(h4);
+    } while (i < data.length);
+
+    enc = tmp_arr.join('');
+
+    var r = data.length % 3;
+
+    return (r ? enc.slice(0, r - 3) : enc) + '==='.slice(r || 3);
+}
+
+function base64_decode(data) {
+    var b64 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+    var o1, o2, o3, h1, h2, h3, h4, bits, i = 0,
+        ac = 0,
+        dec = '',
+        tmp_arr = [];
+
+    if (!data) {
+        return data;
+    }
+
+    data += '';
+
+    do {
+        // unpack four hexets into three octets using index points in b64
+        h1 = b64.indexOf(data.charAt(i++));
+        h2 = b64.indexOf(data.charAt(i++));
+        h3 = b64.indexOf(data.charAt(i++));
+        h4 = b64.indexOf(data.charAt(i++));
+
+        bits = h1 << 18 | h2 << 12 | h3 << 6 | h4;
+
+        o1 = bits >> 16 & 0xff;
+        o2 = bits >> 8 & 0xff;
+        o3 = bits & 0xff;
+
+        if (h3 == 64) {
+            tmp_arr[ac++] = String.fromCharCode(o1);
+        } else if (h4 == 64) {
+            tmp_arr[ac++] = String.fromCharCode(o1, o2);
+        } else {
+            tmp_arr[ac++] = String.fromCharCode(o1, o2, o3);
+        }
+    } while (i < data.length);
+
+    dec = tmp_arr.join('');
+
+    //return decodeURIComponent(escape(dec.replace(/\0+$/, '')));
+    return dec;
+}

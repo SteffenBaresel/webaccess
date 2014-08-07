@@ -80,28 +80,56 @@ public class ManagedServices extends HttpServlet {
         
                 if(Executions.UserIsPermitted(Uid,"managed_services")) {
                 
-                    out.println("        <div id='ManagedServiceMenus'>");
+                    String val = request.getParameter("v");
                     
-                    if(Executions.UserIsPermitted(Uid,"managed_services_wili")) {
+                    //out.println("        <div id='ManagedServiceMenus'>");
+                    
+                    /*if(Executions.UserIsPermitted(Uid,"managed_services_wili")) {
                         out.println("<script type='text/javascript'>$(function() { WhoIsLoggedIn(); });</script>");
                         //out.println("<div id='WhosLoggedInH'><span style=\"float: left;\" id='WLI_Head'>Wer ist noch angemeldet</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></div>");
                         out.println("<div id='WhosLoggedIn'><span id='WLI_Cont'></span></div>");
-                    }
+                    }*/
                     
-                    out.println("        </div>");
+                    //out.println("        </div>");
                     
                     if(Executions.UserIsPermitted(Uid,"managed_services_csr")) {
-                        out.println("<script type='text/javascript'>$(function() { GetServiceEntry('0','75','1'); });</script>");
-                        //out.println("<div id='ManagedServiceActionsSelectDiv'><select id='ManagedServiceActionsSelect' onchange=\"GetCustomerServiceEntries('ManagedServiceActionsSelect','0','75','1');CustomerInfoServiceEntries('ManagedServiceActionsSelect');\"><option value='0000' selected>Kunden w&auml;hlen</option></select></div>");
+                    
+                        if(val != null) {
+                    
+                            if( val.equals(Base64Coder.encodeString("SearchCustomer")) ) {
+                                out.println("<script type='text/javascript'>$(function() { GetSearchServiceEntry('0','75','1'); });</script>");
+                            }
+                                
+                        } else {
+                        
+                            out.println("<script type='text/javascript'>$(function() { GetServiceEntry('0','75','1'); });</script>");
+                            //out.println("<div id='ManagedServiceActionsSelectDiv'><select id='ManagedServiceActionsSelect' onchange=\"GetCustomerServiceEntries('ManagedServiceActionsSelect','0','75','1');CustomerInfoServiceEntries('ManagedServiceActionsSelect');\"><option value='0000' selected>Kunden w&auml;hlen</option></select></div>");
+                        
+                        }
+                        
                         out.println("<div id='ManagedServiceActionsPage'></div><div id='ManagedServiceActions'></div>");
+                        
                     }
                     
                     out.println("        <div id='ManagedServiceInfo'>");
                     
                     if(Executions.UserIsPermitted(Uid,"managed_services_ki")) {
-                        out.println("<script type='text/javascript'>$(function() { CustomerInfo(); });</script>");
-                        //out.println("<div id='ManagedServiceInfosH'><span style=\"float: left;\" id='MSI_Head'>Kundeninformationen</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></div>");
+                        
+                        if(val != null) {
+                    
+                            if( val.equals(Base64Coder.encodeString("SearchCustomer")) ) {
+                                out.println("<script type='text/javascript'>$(function() { SearchCustomerInfo(); });</script>");
+                            }
+                                
+                        } else {
+                        
+                            out.println("<script type='text/javascript'>$(function() { CustomerInfo(); });</script>");
+                            //out.println("<div id='ManagedServiceInfosH'><span style=\"float: left;\" id='MSI_Head'>Kundeninformationen</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></div>");
+                        
+                        }
+                        
                         out.println("<div id='ManagedServiceInfos'><div id='MSI_Cont'></div></div><div id='MSIDialog'></div>");
+                        
                     }
                     
                     out.println("        </div>");

@@ -123,11 +123,11 @@ function DialogMailComplete(id,title,message) {
     $(id).html('<div id="SuccessDialog" title="' + title + '"><p><span class="ui-icon ui-icon-circle-check" style="float: left; margin: 0 7px 50px 0;"></span>' + message + '</p></div>');
     $('#SuccessDialog').dialog({
         autoOpen: true,
-        height: 200,
+        height: 250,
         width: 600,
         draggable: false,
         resizable: false,
-        modal: false,
+        modal: true,
         buttons: { 
             OK: function() {
                 $(this).dialog('close');
@@ -143,11 +143,11 @@ function DialogSuccess(id,message) {
     $(id).append('<div id="SuccessDialog" title="Aktion Erfolgreich durchgef&uuml;hrt."><p><span class="ui-icon ui-icon-circle-check" style="float: left; margin: 0 7px 50px 0;"></span>' + message + '</p></div>');
     $('#SuccessDialog').dialog({
         autoOpen: true,
-        height: 200,
+        height: 250,
         width: 600,
         draggable: false,
         resizable: false,
-        modal: false,
+        modal: true,
         buttons: { 
             OK: function() {
                 $(this).dialog('close');
@@ -162,7 +162,11 @@ function EscapeChar(s) {
 }
 
 function UrlDescape(s) {
-    return s.replace(/%3A/g,':').replace(/%3D/g,'=').replace(/\+/g,' ').replace(/%20/g,' ').replace(/%22/g,'"').replace(/%25/g,'%').replace(/%3C/g,'<').replace(/%3E/g,'>').replace(/%5B/g,'[').replace(/%5C/g,'\\').replace(/%5D/g,']').replace(/%5E/g,'^').replace(/%60/g,'`').replace(/%7B/g,'{').replace(/%7C/g,'|').replace(/%7D/g,'}').replace(/%7E/g,'~').replace(/%7F/g,'').replace(/%28/g,'(').replace(/%29/g,')').replace(/%2B/g,'+');
+    return s.replace(/%3A/g,':').replace(/%3D/g,'=').replace(/\+/g,' ').replace(/%20/g,' ').replace(/%22/g,'"').replace(/%23/g,'#').replace(/%25/g,'%').replace(/%3C/g,'<').replace(/%3E/g,'>').replace(/%5B/g,'[').replace(/%5C/g,'\\').replace(/%5D/g,']').replace(/%5E/g,'^').replace(/%60/g,'`').replace(/%7B/g,'{').replace(/%7C/g,'|').replace(/%7D/g,'}').replace(/%7E/g,'~').replace(/%7F/g,'').replace(/%28/g,'(').replace(/%29/g,')').replace(/%2B/g,'+');
+}
+
+function TextDescape(s) {
+    return s.replace(/&uuml;/g,'ue').replace(/&Uuml;/g,'Ue').replace(/&ouml;/g,'oe').replace(/&Ouml;/g,'Oe').replace(/&auml;/g,'ae').replace(/&Auml;/g,'Ae').replace(/&szlig;/g,'ss').replace(/&quot;/g,'"');
 }
 
 /**

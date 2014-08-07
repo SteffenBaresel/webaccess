@@ -133,7 +133,7 @@ public class ManagedServiceBasics extends HttpServlet {
                 "                    crossDomain: true,\n" +
                 "                    success: function(json) {\n" +
                 "                        if (json.EXEC == '1') {\n" +
-                "                            DialogMailComplete(\"#MSDialogSuccess\",\"Kunde erfolgreich erstellt.\",\"Kunde wurde erfolgreich erstellt.\");\n" +
+                "                            DialogMailComplete(\"#MSDialogSuccess\",\"Kunde erfolgreich erstellt.\",\"Kunde wurde erfolgreich erstellt.<br></br><span class='ui-icon ui-icon-info' style='float: left; margin-right: 5px; margin-left: -23px;'></span><font size=3 color=red><b>Bitte pr&uuml;fen Sie die Berechtigungen (Kunde zu Rolle) unter Konfiguration!</b></font>\");\n" +
                 "                        } else {\n" +
                 "                            DialogMailComplete(\"#MSDialogSuccess\",\"+++ Kunde konnte nicht erstellt werden. +++\",\"<font color='#ff7777'>Kunde konnte nicht erstellt werden.</font>\");\n" +
                 "                        }\n" +
@@ -276,8 +276,8 @@ public class ManagedServiceBasics extends HttpServlet {
                 "                    url: '/gateway/exec/UpdateCustomer?cuid=' + base64_encode( $('#cnameEselect').val() ) + '&cname=' + base64_encode( $('#cnameEselect option:selected').text() ) + '&cnumber=' + base64_encode( $('#cnumberE').val() ) + '&cmail=' + base64_encode( $('#cmailE').val() ) + '&cesmail=' + base64_encode( $('#cesmailE').val() ) + '&caddress=' + caddressE + '&ccomm=' + ccommE + '&ct1=' + base64_encode( $('#ContractType1').val() ) + '&ct1an=' + base64_encode( $('#ContractType1AN').val() ) + '&ct1pv=' + base64_encode( $('#ContractType1PV').val() ) + '&ct1pi=' + base64_encode( $('#ContractType1PI').val() ),\n" +
                 "                    crossDomain: true,\n" +
                 "                    success: function(json) {\n" +
-                "                        if (json.EXEC == '1') {\n" +
-                "                            DialogMailComplete(\"#MSDialogSuccess\",\"Kunde erfolgreich bearbeitet.\",\"Kunde wurde erfolgreich bearbeitet.\");\n" +
+                "                        if (json.EXEC == '2') {\n" +
+                "                            DialogMailComplete(\"#MSDialogSuccess\",\"Kunde erfolgreich bearbeitet.\",\"Kunde wurde erfolgreich bearbeitet.<br></br><span class='ui-icon ui-icon-info' style='float: left; margin-right: 5px; margin-left: -23px;'></span><font size=3 color=red><b>Bitte pr&uuml;fen Sie die Berechtigungen (Vertrag zu Rolle) unter Konfiguration!</b></font>\");\n" +
                 "                        } else {\n" +
                 "                            DialogMailComplete(\"#MSDialogSuccess\",\"+++ Kunde konnte nicht bearbeitet werden. +++\",\"<font color='#ff7777'>Kunde konnte nicht bearbeitet werden.</font>\");\n" +
                 "                        }\n" +
@@ -859,6 +859,14 @@ public class ManagedServiceBasics extends HttpServlet {
             
         }
         
+        out.println("\n"
+            + "var ivalS = UrlDescape( urlPara('search-field') );\n"
+            + "var typeS = ivalS.substring(0, ivalS.indexOf(':'));\n"
+            + "var sstrS = $.trim(ivalS.substring(ivalS.indexOf(':')+1));\n"
+            + "var statS = UrlDescape( urlPara('s') );\n"
+            + "var sstrSC = $.trim(sstrS.substring(sstrS.indexOf('#')));\n"
+            + "\n");
+        
         if(Executions.UserIsPermitted(Uid,"managed_services_csr")) {
             
             out.println("" +
@@ -896,6 +904,54 @@ public class ManagedServiceBasics extends HttpServlet {
                 "                i++;\n" +
                 "            });\n" +
                 "            setTimeout('GetServiceEntry(\\\'0\\\',\\\'75\\\',\\\'1\\\');',300000);\n" +
+                "        },\n" +
+                "        dataType: 'json',\n" +
+                "        cache: false\n" +
+                "    });\n" +
+                "}" +
+            "");
+            
+            out.println("" +
+                "function GetSearchServiceEntry(offset,limit,pnumber) {" +
+                "    $('form#search-form input[name=search-field]').attr('value',ivalS);\n" +
+                //"    alert(sstrSC);" +
+                "    $.ajax({\n" +
+                "        url: '/gateway/search/SearchCustomerServiceEntries',\n" +
+                "        data: {\n" +
+                "            v: base64_encode(sstrSC),\n" +
+                "            offset: offset,\n" +
+                "            limit: limit\n" +
+                "        },\n" +
+                "        crossDomain: true,\n" +
+                "        success: function(json) {\n" +
+                "            var i = 0;\n" +
+                "            $('#ManagedServiceActionsPage').html('<div id=\"ManagedServiceActionsPageSelected\"></div>')\n" +
+                "            var count = base64_decode( json.COUNT );\n" +
+                "            PagingServiceEntry(count,limit,pnumber);\n" +
+                "            $('#ManagedServiceActions').html('<div id=\"ManagedServiceActionsC\"></div>');\n" +
+                "            if(json.ROWS.length == 0) { $('#ManagedServiceActionsC').html('<span class=\"NoEntry\">Keine Eintr&auml;ge vorhanden.</span>'); }\n" +
+                "            $.each(json.ROWS, function() {\n" +
+                "                var now = new Date(base64_decode( this.TS ) * 1000);\n" +
+                "                var esk = base64_decode( this.ESK );\n" +
+                "                var eskt;\n" +
+                "                if (esk == '1') {\n" +
+                "                    eskt = '<span id=\"EskDscE\">Dieser Eintrag wurde in der Stufe 1 eskaliert.</span>';\n" +
+                "                } else if (esk == '2') {\n" +
+                "                    eskt = '<span id=\"EskDscE\">Dieser Eintrag wurde in der Stufe 2 eskaliert.</span>';\n" +
+                "                } else if (esk == '3') {\n" +
+                "                    eskt = '<span id=\"EskDscE\">Dieser Eintrag wurde in der Stufe 3 eskaliert.</span>';\n" +
+                "                } else {\n" +
+                "                    eskt = '<span id=\"EskDscD\">Dieser Eintrag wurde nicht eskaliert.</span>';\n" +
+                "                }\n" +
+                "                $('#ManagedServiceActionsC').append('<div id=\"ManagedServiceActionsE\" class=\"ui-input-hofo\"><table><tr><td><img id=\"img' + i + '\" src=\"public/images/DefaultProfile.png\" /></td><td><div id=\"ManagedServiceActionsH\">' + base64_decode( this.NAME ) + ' f&uuml;r ' + base64_decode( this.CUNM ) + '</div>" +
+                "<div id=\"ManagedServiceActionsD\"><span id=\"EskDscD\">am ' + now.format(\"yyyy-mm-dd HH:MM:ss\") + ' | </span>' + eskt + '</div>" +
+                "<div id=\"ManagedServiceActionsT\">' + base64_decode( this.TEXT ) + '</div>" +
+                "<div id=\"ManagedServiceActionsF\"><span id=\"EskDscD\">Auftragsnummer: ' + base64_decode( this.AN ) + ' | Vertragstyp: ' + base64_decode( this.CONM ) + '</span></div>" +
+                "</td></tr></table></div>');\n" +
+                "                if(this.PCTRL != '0') { $('img#img' + i).attr('src','/gateway/exec/UserPicture?user=' + base64_decode( this.UID ) + ''); }\n" +
+                "                i++;\n" +
+                "            });\n" +
+                "            setTimeout('GetSearchServiceEntry(\\\'0\\\',\\\'75\\\',\\\'1\\\');',300000);\n" +
                 "        },\n" +
                 "        dataType: 'json',\n" +
                 "        cache: false\n" +
@@ -1006,8 +1062,8 @@ public class ManagedServiceBasics extends HttpServlet {
                     "    $('#MSIDialog').html('<div id=\"ShowCustomer\" title=\"Kundeninformation.\">" +
                     "<div id=\"CreateCustomerLeft\">" +
                     "<table>" +
-                    "<tr><td><span style=\"float: left\">Kundenname</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></td></tr><tr><td><input class=\"ui-input-hofo\" type=\"text\" id=\"cnameE\" disabled/></td></tr><tr><td><span style=\"float: left\">Kundennummer</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></td></tr><tr><td><input class=\"ui-input-hofo\" type=\"text\" id=\"cnumberE\" disabled/></td></tr>" +
-                    "<tr><td><span style=\"float: left\">Kontakt E-Mail Adressen (mail1,mai2,mailn)</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></td></tr><tr><td><input class=\"ui-input-hofo\" type=\"text\" id=\"cmailE\" disabled/></td></tr><tr><td><span style=\"float: left\">Eskalationsmailadressen (mail1,mail2,mailn)</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></td></tr><tr><td><input class=\"ui-input-hofo\" type=\"text\" id=\"cesmailE\" disabled/></td></tr>" +
+                    "<tr><td><span style=\"float: left\">Kundenname</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></td></tr><tr><td><input class=\"ui-input-hofo\" type=\"text\" id=\"cnameE\" disabled placeholder=\"Musterstadtwerk\"/></td></tr><tr><td><span style=\"float: left\">Kundennummer</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></td></tr><tr><td><input class=\"ui-input-hofo\" type=\"text\" id=\"cnumberE\" disabled placeholder=\"123456\"/></td></tr>" +
+                    "<tr><td><span style=\"float: left\">Kontakt E-Mail Adressen (mail1,mai2,mailn)</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></td></tr><tr><td><input class=\"ui-input-hofo\" type=\"text\" id=\"cmailE\" disabled placeholder=\"admin@musterstadtwerk.de\"/></td></tr><tr><td><span style=\"float: left\">Eskalationsmailadressen (mail1,mail2,mailn)</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></td></tr><tr><td><input class=\"ui-input-hofo\" type=\"text\" id=\"cesmailE\" disabled placeholder=\"escalation-manager@musterstadtwerk.de\"/></td></tr>" +
                     "<tr><td><span style=\"float: left\">Kontakt Adresse</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></td></tr><tr><td><div class=\"ui-input-hofo\" id=\"caddressE\"></div></td></tr>" +
                     "</table>" +
                     "</div>" +
@@ -1066,6 +1122,28 @@ public class ManagedServiceBasics extends HttpServlet {
                     "function CustomerInfo() {\n" +
                     "    $.ajax({\n" +
                     "        url: '/gateway/exec/GetCustomer',\n" +
+                    "        crossDomain: true,\n" +
+                    "        success: function(json) {\n" +
+                    "            $('#MSI_Cont').html('');\n" +
+                    "            $.each(json.CUSTOMER, function() {\n" +
+                    "                $('#MSI_Cont').append('<div class=\"ui-input-hofo\" id=\"CustomerInfoEntry\" onclick=\"ShowCustomer(\\\'' + base64_decode( this.CUID ) + '\\\');\"><span id=\"CustomerInfoEntryHeader\">' + base64_decode( this.CUNM ) + '</span><br><span id=\"CustomerInfoEntryContent\">Kundennummer: ' + base64_decode( this.CUNR ) + '</span></div>');\n" +
+                    "            });\n" +
+                    "        },\n" +
+                    "        dataType: 'json',\n" +
+                    "        cache: false\n" +
+                    "    });\n" +
+                    "}\n" +
+                    "");
+            
+            out.println("" +
+                    "function SearchCustomerInfo() {\n" +
+                    "    $('form#search-form input[name=search-field]').attr('value',ivalS);\n" +
+                    //"    alert(sstrSC);" +
+                    "    $.ajax({\n" +
+                    "        url: '/gateway/search/SearchCustomer',\n" +
+                    "        data: {\n" +
+                    "            v: base64_encode(sstrSC)\n" +
+                    "        },\n" +
                     "        crossDomain: true,\n" +
                     "        success: function(json) {\n" +
                     "            $('#MSI_Cont').html('');\n" +

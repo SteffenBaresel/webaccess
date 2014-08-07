@@ -1019,8 +1019,10 @@ div#UserMenu span {
 
 /* Managed Service actions (mid column) */
 #ManagedServiceActionsPageSelected { padding: 3px; }
-#ManagedServiceActions { position: absolute; top: 155px; bottom: 0px; left: 255px; right: 420px; overflow-y: auto; }
-#ManagedServiceActionsPage { height: 33px; position: absolute; top: 105px; left: 255px; right: 410px; text-align: center; }
+/*#ManagedServiceActions { position: absolute; top: 155px; bottom: 0px; left: 255px; right: 420px; overflow-y: auto; }*/
+#ManagedServiceActions { position: absolute; top: 155px; bottom: 0px; left: 10px; right: 420px; overflow-y: auto; }
+/*#ManagedServiceActionsPage { height: 33px; position: absolute; top: 105px; left: 255px; right: 410px; text-align: center; }*/
+#ManagedServiceActionsPage { height: 33px; position: absolute; top: 105px; left: 10px; right: 410px; text-align: center; }
 #ManagedServiceActionsE { padding: 5px; margin-left: 2px; margin-right: 2px; margin-top: 2px; margin-bottom: 2px; }
 #ManagedServiceActionsE:first-child {  }
 #ManagedServiceActionsE:last-child {  }
@@ -1847,4 +1849,27 @@ div#ConfigurationTabs .ui-widget-header {
 
 section#section-configuration .ui-widget-content {
     border: none;
+}
+
+/*
+ * Search Hover Menu
+ */
+
+#ui-id-1 {
+    border: 3px solid #fff;
+    margin-top: -3px;
+}
+
+#ui-id-1 a.ui-corner-all {
+    border: 3px solid #fff;
+    padding: 3px;
+    margin: 0;
+}
+
+#ui-id-1 a.ui-corner-all:hover, #ui-id-1 a.ui-corner-all:focus, #ui-id-1 a.ui-corner-all:active {
+    border: 3px solid #423939;
+    color: #423939;
+    padding: 3px;
+    margin: 0;
+    cursor: pointer;
 }

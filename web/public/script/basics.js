@@ -62,16 +62,30 @@ function ScreenAlert() {
 function PrepareHtmlPasteJqte(id) {
     $('#' + id + ' div.jqte_editor').bind('paste', function(e) {
         e.preventDefault();
-        var text = (e.originalEvent || e).clipboardData.getData('text/plain') || prompt('Paste something..');
-        $('#' + id + ' div.jqte_editor').html(text);
+        var before = $('#' + id + ' div.jqte_editor').html();
+        var pos = $('#' + id + ' div.jqte_editor').caret();
+        var text;
+        var clp = (e.originalEvent || e).clipboardData;
+        if (clp === undefined || clp === null) { text = window.clipboardData.getData("text") || ""; } else { text = clp.getData('text/plain') || ""; }
+        var len = text.length;
+        var output = before.substring(0,pos) + text + before.substring(pos);
+        $('#' + id + ' div.jqte_editor').html(output);
+        $('#' + id + ' div.jqte_editor').caret((pos+len));
     });
 }
 
 function PrepareHtmlPasteDiv(id) {
     $('#' + id + '').bind('paste', function(e) {
         e.preventDefault();
-        var text = (e.originalEvent || e).clipboardData.getData('text/plain') || prompt('Paste something..');
-        $('#' + id + '').html(text);
+        var before = $('#' + id + '').html();
+        var pos = $('#' + id + '').caret();
+        var text;
+        var clp = (e.originalEvent || e).clipboardData;
+        if (clp === undefined || clp === null) { text = window.clipboardData.getData("text") || ""; } else { text = clp.getData('text/plain') || ""; }
+        var len = text.length;
+        var output = before.substring(0,pos) + text + before.substring(pos);
+        $('#' + id + '').html(output);
+        $('#' + id + '').caret((pos+len));
     });
 }
 

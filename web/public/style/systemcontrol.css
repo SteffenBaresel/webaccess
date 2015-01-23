@@ -7,8 +7,22 @@
 */
 
 @font-face { font-family: SansProLight; src: url(SourceSansPro-Regular.ttf) format("truetype"); }
-body { background-color: #ffffff; font-family: SansProLight, Arial; cursor: default; min-width: 1405px; min-height: 800px; }
+body { background-color: #ffffff; font-family: SansProLight, Arial; cursor: default; min-width: 1405px; min-height: 800px; font-size: 12px;}
 span.NoEntry { font-size: 12px; color: 000; margin-left: 4px; }
+
+body {
+    -webkit-text-size-adjust: none; 
+    -webkit-animation-delay: 0.1s;
+    -webkit-animation-name: fontfix;
+    -webkit-animation-duration: 0.1s;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-timing-function: linear;
+}
+
+@-webkit-keyframes fontfix {
+    from { opacity: 1; }
+    to   { opacity: 1; }
+}
 
 /* Page Structure Start */
 
@@ -354,7 +368,7 @@ div#login-error, div#login-success {
 }
 
 .ui-input-corner-all-error {
-    border: 1px solid #E5442D;
+    border: 3px solid #E5442D;
 }
 
 .ui-input-hofo {
@@ -572,28 +586,28 @@ div#UserMenu span {
 
 #UserMgmntUserList,#UserMgmntGroupList,#UserMgmntPrivList,#UserMgmntRoleList { margin-top: -297px; margin-left: 300px; width: 792px; height: 295px; border: 3px solid #f0f0f0; overflow-y: scroll; background-color: #423939; }
 #UserMgmntUserList:hover,#UserMgmntGroupList:hover,#UserMgmntPrivList:hover,#UserMgmntRoleList:hover { border: 3px solid #423939; }
-#UserMgmntUserMenu,#UserMgmntGroupMenu,#UserMgmntPrivMenu,#UserMgmntRoleMenu { width: 285px; height: 295px; }
+#UserMgmntUserMenu,#UserMgmntGroupMenu,#UserMgmntPrivMenu,#UserMgmntRoleMenu, #MailingMonitoringGroupMenu, #MailingMonitoringTimeMenu { width: 285px; height: 295px; }
 #UserMgmntGrRoList, #UserMgmntHoCuList, #UserMgmntCuRoList, #UserMgmntCoRoList, #UserMgmntHoCoList, #UserMgmntHoRoList { width: 1102px; height: 175px; border: 1px solid #423939; overflow-y: scroll; }
 #UserMgmntUsGrList { width: 1102px; height: 235px; border: 1px solid #423939; overflow-y: scroll; }
 #UserMgmntRoPrList { width: 1102px; height: 340px; border: 1px solid #423939; overflow-y: scroll; }
-#UserMgmntUserMenu table,#UserMgmntGroupMenu table,#UserMgmntRoleMenu table,#UserMgmntPrivMenu table { width: 285px; table-layout: fixed; border-spacing: 0; border-collapse: collapse; font-size: 12px; font-weight: bold; cursor: default; }
-#UserMgmntUserMenu table td,#UserMgmntGroupMenu table td,#UserMgmntRoleMenu table td,#UserMgmntPrivMenu table td { padding: 2px; }
-#UserMgmntUserMenu table input,#UserMgmntGroupMenu table input,#UserMgmntRoleMenu table input,#UserMgmntPrivMenu table input { width: 270px; background-color: #fff; color: #000; padding: 5px; font-size: 16px; cursor: text; }
-#UserMgmntUserMenu button,#UserMgmntGroupMenu button,#UserMgmntRoleMenu button,#UserMgmntPrivMenu button { margin-left: 10px; margin-top: 10px; }
-#UserMgmntUserList table,#UserMgmntGroupList table,#UserMgmntRoleList table,#UserMgmntPrivList table { width: 774px; table-layout: fixed; border-spacing: 0; border-collapse: collapse; cursor: default; }
-#UserMgmntUserList table td,#UserMgmntGroupList table td,#UserMgmntRoleList table td,#UserMgmntPrivList table td { padding: 5px; text-align: left; }
-#UserMgmntUserList table tr:hover,#UserMgmntGroupList table tr:hover,#UserMgmntRoleList table tr:hover,#UserMgmntPrivList table tr:hover { background-color: #dedede; color: #000; }
-#UserMgmntUserList table tr,#UserMgmntGroupList table tr,#UserMgmntRoleList table tr,#UserMgmntPrivList table tr { font-size: 14px; background-color: #fff; color: #000; }
-#UserMgmntUserList table tr:first-child th,#UserMgmntGroupList table tr:first-child th,#UserMgmntRoleList table tr:first-child th,#UserMgmntPrivList table tr:first-child th { font-size: 12px; padding: 5px; background-color: #423939; }
-#UserMgmntUserList table th:last-child,#UserMgmntGroupList table th:last-child,#UserMgmntRoleList table th:last-child,#UserMgmntPrivList table th:last-child { width: 25px; text-align: center; }
-#UserMgmntUserList table td:last-child,#UserMgmntGroupList table td:last-child,#UserMgmntRoleList table td:last-child,#UserMgmntPrivList table td:last-child { border-left: 1px solid #423939; background-color: #423939; text-align: center; }
-#UserMgmntUserList table td img,#UserMgmntGroupList table td img,#UserMgmntRoleList table td img,#UserMgmntPrivList table td img { margin-bottom: -3px; cursor: pointer; }
-#UserMgmntUserList table td:first-child,#UserMgmntGroupList table td:first-child,#UserMgmntRoleList table td:first-child,#UserMgmntPrivList table td:first-child { border-bottom: 1px solid #423939; }
-#UserMgmntUserList table th:first-child,#UserMgmntGroupList table th:first-child,#UserMgmntRoleList table th:first-child,#UserMgmntPrivList table th:first-child { width: 350px; border-bottom: 1px solid #423939; color: #fff;}
-#UserMgmntUserList table th:first-child + th,#UserMgmntUserList table td:first-child + td { width: 125px; text-align: center; border-bottom: 1px solid #423939; }
-#UserMgmntUserList table th:first-child + th + th,#UserMgmntUserList table td:first-child + td + td { width: 125px; text-align: center; border-bottom: 1px solid #423939; }
-#UserMgmntUserList table th:first-child + th + th + th,#UserMgmntUserList table td:first-child + td + td + td { width: 50px; text-align: center; border-bottom: 1px solid #423939; }
-#UserMgmntUserList table th:first-child + th, #UserMgmntUserList table th:first-child + th + th, #UserMgmntUserList table th:first-child + th + th + th { color: #fff; }
+#UserMgmntUserMenu table,#UserMgmntGroupMenu table,#UserMgmntRoleMenu table,#UserMgmntPrivMenu table, #MailingMonitoringGroupMenu table, #MailingMonitoringTimeMenu table { width: 285px; table-layout: fixed; border-spacing: 0; border-collapse: collapse; font-size: 12px; font-weight: bold; cursor: default; }
+#UserMgmntUserMenu table td,#UserMgmntGroupMenu table td,#UserMgmntRoleMenu table td,#UserMgmntPrivMenu table td, #MailingMonitoringGroupMenu table td, #MailingMonitoringTimeMenu table td { padding: 2px; }
+#UserMgmntUserMenu table input,#UserMgmntGroupMenu table input,#UserMgmntRoleMenu table input,#UserMgmntPrivMenu table input, #MailingMonitoringGroupMenu input, #MailingMonitoringTimeMenu input { width: 270px; background-color: #fff; color: #000; padding: 5px; font-size: 16px; cursor: text; }
+#UserMgmntUserMenu button,#UserMgmntGroupMenu button,#UserMgmntRoleMenu button,#UserMgmntPrivMenu button, #MailingMonitoringGroupMenu button, #MailingMonitoringTimeMenu button { margin-left: 10px; margin-top: 10px; }
+#UserMgmntUserList table,#UserMgmntGroupList table,#UserMgmntRoleList table,#UserMgmntPrivList table, #MailingMonitoringGroupList table, #MailingMonitoringTimeList table { width: 774px; table-layout: fixed; border-spacing: 0; border-collapse: collapse; cursor: default; }
+#UserMgmntUserList table td,#UserMgmntGroupList table td,#UserMgmntRoleList table td,#UserMgmntPrivList table td, #MailingMonitoringGroupList table td, #MailingMonitoringTimeList table td { padding: 5px; text-align: left; }
+#UserMgmntUserList table tr:hover,#UserMgmntGroupList table tr:hover,#UserMgmntRoleList table tr:hover,#UserMgmntPrivList table tr:hover, #MailingMonitoringGroupList table tr:hover, #MailingMonitoringTimeList table tr:hover { background-color: #dedede; color: #000; }
+#UserMgmntUserList table tr,#UserMgmntGroupList table tr,#UserMgmntRoleList table tr,#UserMgmntPrivList table tr, #MailingMonitoringGroupList table tr, #MailingMonitoringTimeList table tr { font-size: 14px; background-color: #fff; color: #000; }
+#UserMgmntUserList table tr:first-child th,#UserMgmntGroupList table tr:first-child th,#UserMgmntRoleList table tr:first-child th,#UserMgmntPrivList table tr:first-child th, #MailingMonitoringGroupList table tr:first-child th, #MailingMonitoringTimeList table tr:first-child th { font-size: 12px; padding: 5px; background-color: #423939; }
+#UserMgmntUserList table th:last-child,#UserMgmntGroupList table th:last-child,#UserMgmntRoleList table th:last-child,#UserMgmntPrivList table th:last-child, #MailingMonitoringGroupList table th:last-child, #MailingMonitoringTimeList table th:last-child { width: 25px; text-align: center; }
+#UserMgmntUserList table td:last-child,#UserMgmntGroupList table td:last-child,#UserMgmntRoleList table td:last-child,#UserMgmntPrivList table td:last-child, #MailingMonitoringGroupList table td:last-child, #MailingMonitoringTimeList table td:last-child { border-left: 1px solid #423939; background-color: #423939; text-align: center; }
+#UserMgmntUserList table td img,#UserMgmntGroupList table td img,#UserMgmntRoleList table td img,#UserMgmntPrivList table td img, #MailingMonitoringGroupList table td img, #MailingMonitoringTimeList table td img { margin-bottom: -3px; cursor: pointer; }
+#UserMgmntUserList table td:first-child,#UserMgmntGroupList table td:first-child,#UserMgmntRoleList table td:first-child,#UserMgmntPrivList table td:first-child, #MailingMonitoringGroupList table td:first-child, #MailingMonitoringTimeList table td:first-child { border-bottom: 1px solid #423939; }
+#UserMgmntUserList table th:first-child,#UserMgmntGroupList table th:first-child,#UserMgmntRoleList table th:first-child,#UserMgmntPrivList table th:first-child, #MailingMonitoringGroupList table th:first-child, #MailingMonitoringTimeList table th:first-child { width: 350px; border-bottom: 1px solid #423939; color: #fff;}
+#UserMgmntUserList table th:first-child + th,#UserMgmntUserList table td:first-child + td, #MailingMonitoringGroupList table td:first-child + td, #MailingMonitoringTimeList table td:first-child + td { width: 125px; text-align: center; border-bottom: 1px solid #423939; }
+#UserMgmntUserList table th:first-child + th + th,#UserMgmntUserList table td:first-child + td + td, #MailingMonitoringGroupList table td:first-child + td + td, #MailingMonitoringTimeList table td:first-child + td + td { width: 125px; text-align: center; border-bottom: 1px solid #423939; }
+#UserMgmntUserList table th:first-child + th + th + th,#UserMgmntUserList table td:first-child + td + td + td, #MailingMonitoringGroupList table td:first-child + td + td + td, #MailingMonitoringTimeList table td:first-child + td + td + td { width: 50px; text-align: center; border-bottom: 1px solid #423939; }
+#UserMgmntUserList table th:first-child + th, #UserMgmntUserList table th:first-child + th + th, #UserMgmntUserList table th:first-child + th + th + th, #MailingMonitoringGroupList table th:first-child + th + th + th, #MailingMonitoringTimeList table th:first-child + th + th + th { color: #fff; }
 #UserMgmntGroupList table th:first-child + th,#UserMgmntRoleList table th:first-child + th,#UserMgmntPrivList table th:first-child + th { width: 350px; border-bottom: 1px solid #423939; color: #fff; }
 #UserMgmntGroupList table td:first-child + td,#UserMgmntRoleList table td:first-child + td,#UserMgmntPrivList table td:first-child + td { width: 350px; border-bottom: 1px solid #423939; }
 
@@ -945,7 +959,7 @@ div#UserMenu span {
 #div-liveticker {
     float: right;
     margin-right: 10px;
-    margin-top: -5px;
+    margin-top: -10px;
 }
 
 #div-liveticker img {
@@ -954,7 +968,7 @@ div#UserMenu span {
 }
 
 .ui-lt-dialog {
-    border: 2px solid orange;
+    border: 8px solid orange;
 }
 
 .ui-lt-dialog .ui-dialog-title {
@@ -962,7 +976,6 @@ div#UserMenu span {
 }
 
 #LivetickerELine {
-    border: 1px solid #423939;
     padding: 5px;
     margin: 3px;
 }
@@ -1152,16 +1165,16 @@ div#UserMenu span {
 #CreateServiceEntry #CreateServiceEntryT #CSEDsc,#CreateServiceEntry #CreateServiceEntryC #CSEDsc,#CreateServiceEntry #CreateServiceEntryA #CSEDsc { margin-bottom: 3px; margin-top: 6px; font-size: 12px; font-weight: bold; }
 #CreateServiceEntry #CreateServiceEntryU #CSEDsc,#CreateServiceEntry #CreateServiceEntryS #CSEDsc,#CreateServiceEntry #CreateServiceEntryD #CSEDsc { margin-bottom: 3px; margin-top: 6px; font-size: 12px; font-weight: bold; margin-left: 15px; }
 #CreateServiceEntry #CreateServiceEntryU { margin-top: 13px; }
-#CreateServiceEntry #CSEDsc2 { margin-top: 20px; margin-left: 15px; margin-bottom: 10px; font-size: 12px; font-weight: bold; z-index: 5; }
+#CreateServiceEntry #CSEDsc2 { margin-top: 20px; margin-left: 15px; margin-bottom: 10px; font-size: 12px; font-weight: bold; z-index: 5; z-index: 55; }
 #CreateServiceEntry #CSEDsc3 { font-size: 12px; font-weight: bold; margin-left: 15px; margin-bottom: 3px; margin-top: 5px; color: #000; }
 #CreateServiceEntry #InANt { position: absolute; top: 393px; left: 7px; font-size: 12px; font-weight: bold; }
 #CreateServiceEntry #InCCt { position: absolute; top: 427px; left: 7px; font-size: 12px; font-weight: bold; }
 #CreateServiceEntry #InSubt { position: absolute; top: 463px; left: 6px; font-size: 12px; font-weight: bold; }
 #CreateServiceEntry #InAN,#InCC { margin-bottom: 3px; }
-#CreateServiceEntry #CSEDsc2 input { position: absolute; left: -5px; margin-top: -1px; width: 10px; }
-#CreateServiceEntry #CSEDsc3 input { position: absolute; left: -5px; margin-top: -1px; width: 10px; }
+#CreateServiceEntry #CSEDsc2 input { position: absolute; left: -5px; margin-top: -1px; width: 10px; z-index: 55; cursor: pointer; }
+#CreateServiceEntry #CSEDsc3 input { position: absolute; left: -5px; margin-top: -1px; width: 10px; cursor: pointer; }
 #CreateServiceEntry #CSEDsc3 span {  }
-#CreateServiceEntry #CSEDscOverLay { position: absolute; width: 444px; height: 325px; top: 375px; left: 0; z-index: 5; background-color: #fff; opacity: 0.5; filter: Aplha(Opacity=50);}
+#CreateServiceEntry #CSEDscOverLay { position: absolute; width: 424px; height: 350px; top: 375px; left: 0; z-index: 5; background-color: #fff; opacity: 0.5; filter: Aplha(Opacity=50);}
 
 /* Managed Service End */
 /* Custom */
@@ -1249,14 +1262,14 @@ div#div-monitoring-entry span.content-h img {
 #ServiceDetail #CreateServiceEntryT #CSEDsc,#ServiceDetail #CreateServiceEntryC #CSEDsc,#ServiceDetail #CreateServiceEntryA #CSEDsc { margin-bottom: 3px; margin-top: 6px; font-size: 12px; font-weight: bold; }
 #ServiceDetail #CreateServiceEntryU #CSEDsc,#ServiceDetail #CreateServiceEntryS #CSEDsc,#ServiceDetail #CreateServiceEntryD #CSEDsc { margin-bottom: 3px; margin-top: 6px; font-size: 12px; font-weight: bold; margin-left: 15px; }
 #ServiceDetail #CreateServiceEntryU { margin-top: 13px; }
-#ServiceDetail #CSEDsc2 { margin-top: 20px; margin-left: 15px; margin-bottom: 10px; font-size: 12px; font-weight: bold; z-index: 5; }
+#ServiceDetail #CSEDsc2 { margin-top: 20px; margin-left: 15px; margin-bottom: 10px; font-size: 12px; font-weight: bold; z-index: 5; z-index: 55; }
 #ServiceDetail #CSEDsc3 { font-size: 12px; font-weight: bold; margin-left: 15px; margin-bottom: 3px; margin-top: 5px; color: #000; }
 #ServiceDetail #InANt { position: absolute; top: 331px; left: -5px; font-size: 12px; font-weight: bold; }
 #ServiceDetail #InCCt { position: absolute; top: 366px; left: -5px; font-size: 12px; font-weight: bold; }
 #ServiceDetail #InSubt { position: absolute; top: 400px; left: -5px; font-size: 12px; font-weight: bold; }
 #ServiceDetail #InAN,#InCC { margin-bottom: 3px; }
-#ServiceDetail #CSEDsc2 input { position: absolute; left: -17px; margin-top: -1px; width: 10px; }
-#ServiceDetail #CSEDsc3 input { position: absolute; left: -17px; margin-top: -1px; width: 10px; }
+#ServiceDetail #CSEDsc2 input { position: absolute; left: -17px; margin-top: -1px; width: 10px; z-index: 55; cursor: pointer; }
+#ServiceDetail #CSEDsc3 input { position: absolute; left: -17px; margin-top: -1px; width: 10px; cursor: pointer; }
 #ServiceDetail #CSEDsc3 span {  }
 #ServiceDetail #CSEDscOverLay { position: absolute; width: 435px; height: 325px; top: 315px; left: -15px; z-index: 5; background-color: #fff; opacity: 0.5; filter: Aplha(Opacity=50);}
 /*#ServiceDetail input[name=escalate] { position: absolute; }*/
@@ -1873,3 +1886,9 @@ section#section-configuration .ui-widget-content {
     margin: 0;
     cursor: pointer;
 }
+
+/* Reporting */
+#ReportingDiv select { background-color: #fff; color: #000; padding: 4px; width: 391px; cursor: pointer; font-size: 12px; }
+#ReportingDiv input { background-color: #fff; color: #000; padding: 5px; padding-left: 7px; width: 373px; font-size: 12px; margin-top: 15px; }
+#ReportingDiv button { background-color: #fff; color: #000; padding: 5px; padding-left: 7px; width: 173px; font-size: 12px; margin-top: 15px; cursor: pointer; }
+#ReportingDiv #ReportingText { padding: 10px; }

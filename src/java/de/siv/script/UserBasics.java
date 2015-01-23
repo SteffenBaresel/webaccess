@@ -42,6 +42,7 @@ public class UserBasics extends HttpServlet {
         Integer CW=0; if(Executions.UserIsPermitted(Uid,"config_web")) { CW=1; }
         Integer CFGM=0; if(Executions.UserIsPermitted(Uid,"config_mail")) { CFGM=1; }
         Integer CFGUM=0; if(Executions.UserIsPermitted(Uid,"config_usermanagement")) { CFGUM=1; }
+        Integer CFGMM=0; if(Executions.UserIsPermitted(Uid,"config_mailing")) { CFGMM=1; }
         
         if(Executions.UserIsPermitted(Uid,"addlink")) {
             out.println("\n" +
@@ -121,6 +122,10 @@ public class UserBasics extends HttpServlet {
             if(CFGM == 1) {
                 out.println("                <li><a href=\"#ConfigurationTabs6\">Mail-Format</a></li>\\n\\");
             }
+            
+            //if(CFGMM == 1) {
+            //    out.println("                <li><a href=\"#ConfigurationTabs9\">Mailing Monitoring</a></li>\\n\\");
+            //}
             
             if(CFGUM == 1) {
                 out.println("                <li><a href=\"#ConfigurationTabs2\">Nutzerverwaltung</a></li>\\n\\");
@@ -222,6 +227,23 @@ public class UserBasics extends HttpServlet {
                         
             }
             
+            /*if(CFGMM == 1) {
+            
+            out.println("            <div id=\"ConfigurationTabs9\">" +
+"                <div id=\"ConfigurationSection\">" +
+"                    <div id=\"ConfigurationSectionTitle\">Mail Gruppen</div>" +
+"                    <div id=\"MailingMonitoringGroupMenu\"><table><tr><td>MgID:</td></tr><tr><td><input type=\"text\" placeholder=\"allservices\" id=\"MMGMid\" /></td></tr><tr><td>Beschreibung:</td></tr><tr><td><input type=\"text\" placeholder=\"Alle Services\" id=\"MMGMnm\" /></td></tr></table><button id=\"MailingMonitoringGroupAdd\" onclick=\"AddEntry(\\'USER\\',\\'MMGMid\\',\\'MMGMnm\\');\">Mailgruppe Anlegen</button></div>" +
+"                    <div id=\"MailingMonitoringGroupList\"><table></table></div>" +
+"                </div>" +
+"                <div id=\"ConfigurationSection\">" +
+"                    <div id=\"ConfigurationSectionTitle\">Zeitplan</div>" +
+"                    <div id=\"MailingMonitoringTimeMenu\"><table><tr><td>TmID:</td></tr><tr><td><input type=\"text\" placeholder=\"twentyfourseven\" id=\"MMTMid\" /></td></tr><tr><td>Beschreibung:</td></tr><tr><td><input type=\"text\" placeholder=\"24x7\" id=\"MMTMnm\" /></td></tr></table><button id=\"MailingMonitoringTimeAdd\" onclick=\"AddEntry(\\'GROUP\\',\\'MMTMid\\',\\'MMTMnm\\');\">Zeitplan Anlegen</button></div>" +
+"                    <div id=\"MailingMonitoringTimeList\"><table></table></div>" +
+"                </div>" +
+"            </div>\\n\\");
+            
+            }*/
+            
             if(CFGM == 1) {
 
             out.println("            <div id=\"ConfigurationTabs6\">" +
@@ -276,6 +298,8 @@ public class UserBasics extends HttpServlet {
 "    $('#MailSGContent').jqte();\n" +
 "    $('#MailHContent').jqte();\n" +
 "    $('#MailFContent').jqte();\n" +
+"    $('#MailingMonitoringGroupAdd').button();\n" +
+"    $('#MailingMonitoringTimeAdd').button();\n" +
 "    $('input[type=text]').addClass('ui-input-hofo');\n" +
 "\n" +
 "\n");
@@ -289,6 +313,13 @@ public class UserBasics extends HttpServlet {
 "            FillUserManagementGrRo();\n" +
 "            FillUserManagementCuRo();\n" +
 "            FillUserManagementCoRo();\n");
+        
+            }
+            
+            if(CFGMM == 1) {
+
+                out.println("" +
+"            FillMonitoringMailing();\n");
         
             }
 
@@ -741,7 +772,7 @@ public class UserBasics extends HttpServlet {
 "}\n");
             
             }
-            
+                        
             
             if(CFGM == 1) {
 
@@ -781,6 +812,29 @@ public class UserBasics extends HttpServlet {
             
             }
 
+            if(CFGMM == 1) {
+            
+            out.println("\n" +
+"function FillMonitoringMailing() {\n" +
+"    $.ajax({\n" +
+"        url: '/gateway/exec/MonitoringMailingOverview',\n" +
+"        crossDomain: true,\n" +
+"        success: function(json) {\n" +
+"            $('#MailingMonitoringGroupList table').html('<tr><th>Nutzername:</th><th>Erstellt:</th><th>Zuletzt angemeldet:</th><th>Aktiv:</th><th></th></tr>');\n" +
+"            $.each(json.GROUPS, function() {\n" +
+"                $('#MailingMonitoringGroupList table').append('<tr><td>' + base64_decode( this.NME ) + '</td><td>' + this.ACK + '</td><td>' + this.DTM + '</td><td>' + this.ALT + '</td><td><img onclick=\"DeleteEntry(\\'USER\\',\\'' + this.MGID + '\\')\" src=\"public/images/minus-circle.png\" title=\"Mailgruppe l&ouml;schen\"/></td></tr>');\n" +
+"            });\n" +
+"            $('#MailingMonitoringTimeList table').html('<tr><th>Name:</th><th>Beschreibung:</th><th></th></tr>');\n" +
+"            $.each(json.SCHEDULES, function() {\n" +
+"                $('#MailingMonitoringTimeList table').append('<tr><td>' + base64_decode( this.TZNA ) + '</td><td>' + base64_decode( this.TZDSC ) + '</td><td><img onclick=\"DeleteEntry(\\'GROUP\\',\\'' + this.TZID + '\\')\" src=\"public/images/minus-circle.png\" title=\"Zeitplan l&ouml;schen\"/></td></tr>');\n" +
+"            });\n" +
+"        },\n" +
+"        dataType: 'json',\n" +
+"        cache: false\n" +
+"    });\n" +
+"}\n");    
+            
+            }
             
             if(MO == 1) {
             

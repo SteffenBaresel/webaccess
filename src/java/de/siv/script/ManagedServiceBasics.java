@@ -93,7 +93,7 @@ public class ManagedServiceBasics extends HttpServlet {
                 "" +
                 "    $('#CreateCustomer').dialog({\n" +
                 "        autoOpen: true,\n" +
-                "        height: 665,\n" +
+                "        height: 690,\n" +
                 "        width: 1210,\n" +
                 "        draggable: false,\n" +
                 "        resizable: false,\n" +
@@ -276,10 +276,10 @@ public class ManagedServiceBasics extends HttpServlet {
                 "                    url: '/gateway/exec/UpdateCustomer?cuid=' + base64_encode( $('#cnameEselect').val() ) + '&cname=' + base64_encode( $('#cnameEselect option:selected').text() ) + '&cnumber=' + base64_encode( $('#cnumberE').val() ) + '&cmail=' + base64_encode( $('#cmailE').val() ) + '&cesmail=' + base64_encode( $('#cesmailE').val() ) + '&caddress=' + caddressE + '&ccomm=' + ccommE + '&ct1=' + base64_encode( $('#ContractType1').val() ) + '&ct1an=' + base64_encode( $('#ContractType1AN').val() ) + '&ct1pv=' + base64_encode( $('#ContractType1PV').val() ) + '&ct1pi=' + base64_encode( $('#ContractType1PI').val() ),\n" +
                 "                    crossDomain: true,\n" +
                 "                    success: function(json) {\n" +
-                "                        if (json.EXEC == '2') {\n" +
-                "                            DialogMailComplete(\"#MSDialogSuccess\",\"Kunde erfolgreich bearbeitet.\",\"Kunde wurde erfolgreich bearbeitet.<br></br><span class='ui-icon ui-icon-info' style='float: left; margin-right: 5px; margin-left: -23px;'></span><font size=3 color=red><b>Bitte pr&uuml;fen Sie die Berechtigungen (Vertrag zu Rolle) unter Konfiguration!</b></font>\");\n" +
-                "                        } else {\n" +
+                "                        if (json.EXEC == '0') {\n" +
                 "                            DialogMailComplete(\"#MSDialogSuccess\",\"+++ Kunde konnte nicht bearbeitet werden. +++\",\"<font color='#ff7777'>Kunde konnte nicht bearbeitet werden.</font>\");\n" +
+                "                        } else {\n" +
+                "                            DialogMailComplete(\"#MSDialogSuccess\",\"Kunde erfolgreich bearbeitet.\",\"<font color=green>Kunde wurde erfolgreich bearbeitet.</font><br></br><span class='ui-icon ui-icon-info' style='float: left; margin-right: 5px; margin-left: -23px;'></span><font size=3 color=black><b>Falls ein neuer Vertrag angelegt wurde, pr&uuml;fen Sie Bitte die <br>Berechtigungen (Vertrag zu Rolle) unter Konfiguration!</b></font>\");\n" +
                 "                        }\n" +
                 "                    },\n" +
                 "                    dataType: 'json',\n" +
@@ -321,7 +321,7 @@ public class ManagedServiceBasics extends HttpServlet {
                 "" +
                 "    $('#DeleteCustomer').dialog({\n" +
                 "        autoOpen: true,\n" +
-                "        height: 220,\n" +
+                "        height: 230,\n" +
                 "        width: 490,\n" +
                 "        draggable: false,\n" +
                 "        resizable: false,\n" +
@@ -549,7 +549,7 @@ public class ManagedServiceBasics extends HttpServlet {
                 "" +
                 "    $('#DeleteContractType').dialog({\n" +
                 "        autoOpen: true,\n" +
-                "        height: 210,\n" +
+                "        height: 220,\n" +
                 "        width: 500,\n" +
                 "        draggable: false,\n" +
                 "        resizable: false,\n" +
@@ -736,7 +736,7 @@ public class ManagedServiceBasics extends HttpServlet {
                 "" +
                 "    $('#CreateServiceEntry').dialog({\n" +
                 "        autoOpen: true,\n" +
-                "        height: 820,\n" +
+                "        height: 850,\n" +
                 "        width: 1200,\n" +
                 "        draggable: false,\n" +
                 "        resizable: false,\n" +

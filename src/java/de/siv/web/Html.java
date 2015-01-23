@@ -56,11 +56,13 @@ public class Html {
             replace+="    <script type='text/javascript' src='script/ManagedServiceBasics.js'></script>\n";
             replace+="    <script type='text/javascript' src='script/MonitoringBasics.js'></script>\n";
             replace+="    <script type='text/javascript' src='script/UserProfile.js'></script>\n";
+            replace+="    <script type='text/javascript' src='script/Reporting.js'></script>\n";
             replace+="    <script type='text/javascript' src='public/script/jquery-te-1.4.0.min.js'></script>\n";
             replace+="    <script type='text/javascript' src='script/TacticalOverview.js'></script>\n";
             replace+="    <script type='text/javascript' src='public/script/charting.js'></script>\n";
             replace+="    <script type='text/javascript' src='public/script/charts.js'></script>\n";
             replace+="    <script type='text/javascript' src='public/script/jquery.simplePagination.js'></script>\n";
+            replace+="    <script type='text/javascript' src='public/script/caret.js'></script>\n";
         
         }
         
@@ -93,6 +95,10 @@ public class Html {
                 if(Executions.UserIsPermitted(uid,"managed_services")) {
                     replace += "    <span id='managedservices' class='ui-nav-tile ui-nav-normal ui-nav-hover' onclick=\"OpenWindow('ManagedServices','_self');\"><div><img src='public/images/group-128.png' />Managed Services</div></span>\n";
                 } 
+                
+                if(Executions.UserIsPermitted(uid,"reporting")) {
+                    replace += "    <span id='reporting' class='ui-nav-tile ui-nav-normal ui-nav-hover' onclick=\"OpenWindow('Reporting','_self');\"><div><img src='public/images/output-128.png' />Reporting</div></span>\n";
+                }
                 
                 replace += "<br>";
                 
@@ -150,7 +156,7 @@ public class Html {
                 
             } else if(mod.equals("NavigationClose")) {
                 replace += "</section></section>";
-            } else if(mod.equals("Index") || mod.equals("ManagedService") || mod.equals("Monitoring")) {
+            } else if(mod.equals("Index") || mod.equals("ManagedService") || mod.equals("Monitoring") || mod.equals("Reporting")) {
                 
                 replace += "<section id='menu'><div id='bg-menu' class='ui-opacity'></div><div id='bg-user-menu' class='ui-opacity-med'></div>";
                 replace += "    <div id='logo-title'>";
@@ -160,7 +166,7 @@ public class Html {
                 replace += "        <img src='public/images/SIV_AG_Logo_RGB_Web.png' title='SIV.AG'/>";
                 replace += "    </div>";
                 replace += "    <div id='logo-subtitle'>";
-                replace += "        Version 3 Build 2014.06";
+                replace += "        Version 3 Build 2015.01";
                 replace += "    </div>";
                 replace += "    <div id='menu-locator'>";
                 replace += "    </div>";
@@ -188,7 +194,7 @@ public class Html {
                 replace += "        <img src='public/images/SIV_AG_Logo_RGB_Web.png' title='SIV.AG'/>";
                 replace += "    </div>";
                 replace += "    <div id='logo-subtitle'>";
-                replace += "        Version 3 Build 2014.02";
+                replace += "        Version 3 Build 2015.01";
                 replace += "    </div>";
                 replace += "    <div id='menu-locator'>";
                 replace += "    </div>";

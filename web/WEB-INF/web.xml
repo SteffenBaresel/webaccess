@@ -158,6 +158,14 @@
         <servlet-name>UserProfile</servlet-name>
         <url-pattern>/script/UserProfile.js</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>ReportingScript</servlet-name>
+        <servlet-class>de.siv.script.Reporting</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ReportingScript</servlet-name>
+        <url-pattern>/script/Reporting.js</url-pattern>
+    </servlet-mapping>
     
     <!--
         Modules
@@ -202,6 +210,14 @@
     <servlet-mapping>
         <servlet-name>Configuration</servlet-name>
         <url-pattern>/Configuration</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>Reporting</servlet-name>
+        <servlet-class>de.siv.systemcontrol.Reporting</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Reporting</servlet-name>
+        <url-pattern>/Reporting</url-pattern>
     </servlet-mapping>
     
 </web-app>

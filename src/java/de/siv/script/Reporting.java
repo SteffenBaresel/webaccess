@@ -49,8 +49,8 @@ public class Reporting extends HttpServlet {
                 "        dataType: 'json',\n" +
                 "        cache: false\n" +
                 "    });\n" +
-                "    $('#ReportingInput1').datetimepicker();\n" +
-                "    $('#ReportingInput2').datetimepicker();\n" +
+                "    $('#ReportingInput1').datepicker();\n" +
+                "    $('#ReportingInput2').datepicker();\n" +
                 "}\n" +
                 "");
             

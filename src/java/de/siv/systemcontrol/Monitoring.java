@@ -108,9 +108,9 @@ public class Monitoring extends HttpServlet {
 
                 }
                 
-                out.println(Html.printSectionBottom(null));
-                out.println(Html.printSidebar(null));
-                out.println(Html.printBottombar(null));
+                out.println(Html.printSectionBottom(Uid));
+                out.println(Html.printSidebar(null,Uid));
+                out.println(Html.printBottombar(null,Uid));
                 out.println(Html.closeBodyCloseHtml(null));
             }
         } catch (FileNotFoundException ex) {

@@ -52,9 +52,15 @@ public class ManagedServices extends HttpServlet {
                         + "    jQuery.support.cors = true;\n"
                         + "    GetUserConfig();\n"
                         + "    $('input').addClass('ui-input-hofo');\n"
-                        + "    $('span#ui-tile').addClass('ui-input-hofo');\n"
-                        + "    SummaryView();\n"
-                        + "    StyleManagedServices();\n"
+                        + "    $('span#ui-tile').addClass('ui-input-hofo');\n");
+                        
+                        if(Executions.UserIsPermitted(Uid,"monitoring")) {
+                        
+                out.println("    SummaryView();\n");
+                                
+                        }
+                        
+                out.println("    StyleManagedServices();\n"
                         + "    SelectCustomer();\n"
                         + "");
                         
@@ -107,11 +113,27 @@ public class ManagedServices extends HttpServlet {
                         
                         }
                         
-                        out.println("<div id='ManagedServiceActionsPage'></div><div id='ManagedServiceActions'></div>");
+                        if(Executions.UserIsPermitted(Uid,"monitoring")) {
+                        
+                            out.println("<div id='ManagedServiceActionsPage'></div><div id='ManagedServiceActions'></div>");
+                        
+                        } else {
+                            
+                            out.println("<div style='positon: absolute; top: 0' id='ManagedServiceActionsPage'></div><div style='positon: absolute; top: 50px; bottom: -50px;' id='ManagedServiceActions'></div>");
+                            
+                        }
                         
                     }
                     
-                    out.println("        <div id='ManagedServiceInfo'>");
+                    if(Executions.UserIsPermitted(Uid,"monitoring")) {
+                    
+                        out.println("        <div id='ManagedServiceInfo'>");
+                    
+                    } else {
+                        
+                        out.println("        <div style='positon: absolute; top: 15px; bottom: -50px;' id='ManagedServiceInfo'>");
+                        
+                    }
                     
                     if(Executions.UserIsPermitted(Uid,"managed_services_ki")) {
                         
@@ -136,9 +158,9 @@ public class ManagedServices extends HttpServlet {
                  
                 }
                 
-                out.println(Html.printSectionBottom(null));
-                out.println(Html.printSidebar(null));
-                out.println(Html.printBottombar(null));
+                out.println(Html.printSectionBottom(Uid));
+                out.println(Html.printSidebar(null,Uid));
+                out.println(Html.printBottombar(null,Uid));
                 out.println(Html.closeBodyCloseHtml(null));
             }
         } catch (FileNotFoundException ex) {

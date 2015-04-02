@@ -43,7 +43,7 @@ public class Reporting extends HttpServlet {
                 response.setContentType("text/html; charset=utf-8");
                 out.println(Html.openHtmlAndHead(null));
                 out.println(Html.includeMeta(null));
-                out.println("    <title>Managed Services - kVASy&reg; System Control</title>");
+                out.println("    <title>Reporting - kVASy&reg; System Control</title>");
                 out.println(Html.includeJs("Reporting"));
                 out.println(Html.includeCss("Reporting"));
                 out.println(""
@@ -53,9 +53,13 @@ public class Reporting extends HttpServlet {
                         + "    jQuery.support.cors = true;\n"
                         + "    GetUserConfig();\n"
                         + "    $('input').addClass('ui-input-hofo');\n"
-                        + "    $('span#ui-tile').addClass('ui-input-hofo');\n"
-                        + "    SummaryView();\n"
-                        + "");
+                        + "    $('span#ui-tile').addClass('ui-input-hofo');\n");
+                
+                        if(Executions.UserIsPermitted(Uid,"monitoring")) {
+                        
+                out.println("    SummaryView();\n");
+                                
+                        }
                         
                 if (Executions.UserMailEmpty(Uid)) {
                             out.println("    alert('Eine Mailadresse für Nutzer \"" + Uid + "\" ist noch nicht hinterlegt. Sie werden automatisch weitergeleitet.');\n"
@@ -92,9 +96,9 @@ public class Reporting extends HttpServlet {
                 
                 /* Footer */
                 
-                out.println(Html.printSectionBottom(null));
-                out.println(Html.printSidebar(null));
-                out.println(Html.printBottombar(null));
+                out.println(Html.printSectionBottom(Uid));
+                out.println(Html.printSidebar(null,Uid));
+                out.println(Html.printBottombar(null,Uid));
                 out.println(Html.closeBodyCloseHtml(null));
             }
         } catch (FileNotFoundException ex) {

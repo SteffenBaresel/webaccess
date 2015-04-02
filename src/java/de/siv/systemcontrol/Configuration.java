@@ -56,8 +56,13 @@ public class Configuration extends HttpServlet {
                         + "    $('input').addClass('ui-input-hofo');\n"
                         + "    $('span#ui-tile').addClass('ui-input-hofo');\n"
                         + "    Configuration('" + Base64Coder.encodeString(Uid) + "');\n"
-                        + "    SummaryView();\n"
                         + "");
+                
+                if(Executions.UserIsPermitted(Uid,"monitoring")) {
+                        
+                out.println("    SummaryView();\n");
+                                
+                        }
                         
                 if (Executions.UserMailEmpty(Uid)) {
                             out.println("    alert('Eine Mailadresse für Nutzer \"" + Uid + "\" ist noch nicht hinterlegt. Sie werden automatisch weitergeleitet.');\n"
@@ -81,7 +86,15 @@ public class Configuration extends HttpServlet {
         
                 if(Executions.UserIsPermitted(Uid,"config")) {
                 
-                    out.println("<section id='section-configuration'></section>");
+                    if(Executions.UserIsPermitted(Uid,"monitoring")) {
+                    
+                        out.println("<section id='section-configuration'></section>");
+                        
+                    } else {
+                        
+                        out.println("<section style='positon: absolute; bottom: -50px' id='section-configuration'></section>");
+                        
+                    }
 
                 } else {
                     
@@ -89,9 +102,9 @@ public class Configuration extends HttpServlet {
                     
                 }
                 
-                out.println(Html.printSectionBottom(null));
-                out.println(Html.printSidebar(null));
-                out.println(Html.printBottombar(null));
+                out.println(Html.printSectionBottom(Uid));
+                out.println(Html.printSidebar(null,Uid));
+                out.println(Html.printBottombar(null,Uid));
                 out.println(Html.closeBodyCloseHtml(null));
             }
         } catch (FileNotFoundException ex) {

@@ -69,6 +69,7 @@ public class ManagedServiceBasics extends HttpServlet {
                 "<tr><td><span style=\"float: left\">Kundenname</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></td></tr><tr><td><input class=\"ui-input-hofo\" type=\"text\" placeholder=\"Musterstadtwerk\" id=\"cname\"/></td></tr><tr><td><span style=\"float: left\">Kundennummer</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></td></tr><tr><td><input class=\"ui-input-hofo\" type=\"text\" placeholder=\"123456\" id=\"cnumber\" /></td></tr>" +
                 "<tr><td><span style=\"float: left\">Kontakt E-Mail Adressen (mail1,mai2,mailn)</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></td></tr><tr><td><input class=\"ui-input-hofo\" type=\"text\" placeholder=\"admin@musterstadtwerk.de\" id=\"cmail\" /></td></tr><tr><td><span style=\"float: left\">Eskalationsmailadressen (mail1,mail2,mailn)</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></td></tr><tr><td><input class=\"ui-input-hofo\" type=\"text\" placeholder=\"escalation-manager@musterstadtwerk.de\" id=\"cesmail\" /></td></tr>" +
                 "<tr><td><span style=\"float: left\">Kontakt Adresse</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></td></tr><tr><td><div class=\"ui-input-hofo\" contenteditable=\"true\" id=\"caddress\"></div></td></tr>" +
+                "<tr><td><span style=\"float: left\">Bemerkungen die im Report angezeigt werden sollen</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></td></tr><tr><td><textarea class=\"ui-input-hofo\" id=\"caddressA\"></textarea></td></tr>" +
                 "</table>" +
                 "</div>" +
                 "<div id=\"CreateCustomerMiddle\">" +
@@ -128,8 +129,9 @@ public class ManagedServiceBasics extends HttpServlet {
                 "            SPEICHERN: function() {\n" +
                 "                var ccomm = base64_encode( $('#ccomm div.jqte_editor').html() ).replace(/\\+/g,'78');\n" +
                 "                var caddress = base64_encode( $('#caddress').html() ).replace(/\\+/g,'78');\n" +
+                "                var repcom = base64_encode( $('#caddressA').val() ).replace(/\\+/g,'78');\n" +
                 "                $.ajax({\n" +
-                "                    url: '/gateway/exec/CreateCustomer?cname=' + base64_encode( $('#cname').val() ) + '&cnumber=' + base64_encode( $('#cnumber').val() ) + '&cmail=' + base64_encode( $('#cmail').val() ) + '&cesmail=' + base64_encode( $('#cesmail').val() ) + '&caddress=' + caddress + '&ccomm=' + ccomm + '&ct1=' + base64_encode( $('#ContractType1').val() ) + '&ct1an=' + base64_encode( $('#ContractType1AN').val() ) + '&ct1pv=' + base64_encode( $('#ContractType1PV').val() ) + '&ct1pi=' + base64_encode( $('#ContractType1PI').val() ) + '&ct2=' + base64_encode( $('#ContractType2').val() ) + '&ct2an=' + base64_encode( $('#ContractType2AN').val() ) + '&ct2pv=' + base64_encode( $('#ContractType2PV').val() ) + '&ct2pi=' + base64_encode( $('#ContractType2PI').val() ) + '&ct3=' + base64_encode( $('#ContractType3').val() ) + '&ct3an=' + base64_encode( $('#ContractType3AN').val() ) + '&ct3pv=' + base64_encode( $('#ContractType3PV').val() ) + '&ct3pi=' + base64_encode( $('#ContractType3PI').val() ) + '&ct4=' + base64_encode( $('#ContractType4').val() ) + '&ct4an=' + base64_encode( $('#ContractType4AN').val() ) + '&ct4pv=' + base64_encode( $('#ContractType4PV').val() ) + '&ct4pi=' + base64_encode( $('#ContractType4PI').val() ) + '&ct5=' + base64_encode( $('#ContractType5').val() ) + '&ct5an=' + base64_encode( $('#ContractType5AN').val() ) + '&ct5pv=' + base64_encode( $('#ContractType5PV').val() ) + '&ct5pi=' + base64_encode( $('#ContractType5PI').val() ) + '&ct6=' + base64_encode( $('#ContractType6').val() ) + '&ct6an=' + base64_encode( $('#ContractType6AN').val() ) + '&ct6pv=' + base64_encode( $('#ContractType6PV').val() ) + '&ct6pi=' + base64_encode( $('#ContractType6PI').val() ),\n" +
+                "                    url: '/gateway/exec/CreateCustomer?cname=' + base64_encode( $('#cname').val() ) + '&cnumber=' + base64_encode( $('#cnumber').val() ) + '&cmail=' + base64_encode( $('#cmail').val() ) + '&cesmail=' + base64_encode( $('#cesmail').val() ) + '&caddress=' + caddress + '&ccomm=' + ccomm + '&ct1=' + base64_encode( $('#ContractType1').val() ) + '&ct1an=' + base64_encode( $('#ContractType1AN').val() ) + '&ct1pv=' + base64_encode( $('#ContractType1PV').val() ) + '&ct1pi=' + base64_encode( $('#ContractType1PI').val() ) + '&ct2=' + base64_encode( $('#ContractType2').val() ) + '&ct2an=' + base64_encode( $('#ContractType2AN').val() ) + '&ct2pv=' + base64_encode( $('#ContractType2PV').val() ) + '&ct2pi=' + base64_encode( $('#ContractType2PI').val() ) + '&ct3=' + base64_encode( $('#ContractType3').val() ) + '&ct3an=' + base64_encode( $('#ContractType3AN').val() ) + '&ct3pv=' + base64_encode( $('#ContractType3PV').val() ) + '&ct3pi=' + base64_encode( $('#ContractType3PI').val() ) + '&ct4=' + base64_encode( $('#ContractType4').val() ) + '&ct4an=' + base64_encode( $('#ContractType4AN').val() ) + '&ct4pv=' + base64_encode( $('#ContractType4PV').val() ) + '&ct4pi=' + base64_encode( $('#ContractType4PI').val() ) + '&ct5=' + base64_encode( $('#ContractType5').val() ) + '&ct5an=' + base64_encode( $('#ContractType5AN').val() ) + '&ct5pv=' + base64_encode( $('#ContractType5PV').val() ) + '&ct5pi=' + base64_encode( $('#ContractType5PI').val() ) + '&ct6=' + base64_encode( $('#ContractType6').val() ) + '&ct6an=' + base64_encode( $('#ContractType6AN').val() ) + '&ct6pv=' + base64_encode( $('#ContractType6PV').val() ) + '&ct6pi=' + base64_encode( $('#ContractType6PI').val() ) + '&repcom=' + repcom,\n" +
                 "                    crossDomain: true,\n" +
                 "                    success: function(json) {\n" +
                 "                        if (json.EXEC == '1') {\n" +
@@ -172,6 +174,7 @@ public class ManagedServiceBasics extends HttpServlet {
                 "                $('#cesmailE').val(base64_decode( this.CUESKMAIL ));\n" +
                 "                $('#caddressE').html(base64_decode( this.CUADDR ));\n" +
                 "                $('#ccommE div.jqte_editor').html(base64_decode( this.CUCOMM ));\n" +
+                "                $('#caddressW').val(base64_decode( this.REPTEXT ));\n" +
                 "            });\n" +
                 "            $('#ContractsDivInner').html('');\n" +
                 "            $.each(json.CONTRACTS, function() {\n" +
@@ -212,6 +215,7 @@ public class ManagedServiceBasics extends HttpServlet {
                 "<tr><td><span style=\"float: left\">Kundenname</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></td></tr><tr><td><div id=\"cnameE\"><select class=\"ui-input-hofo\" id=\"cnameEselect\" onchange=\"GetSingleCustomer(\\\'cnameEselect\\\');\"><option selected value=\"0000\">Kunde w&auml;hlen</option></select></div></td></tr><tr><td><span style=\"float: left\">Kundennummer</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></td></tr><tr><td><input class=\"ui-input-hofo\" type=\"text\" id=\"cnumberE\" placeholder=\"123456\"/></td></tr>" +
                 "<tr><td><span style=\"float: left\">Kontakt E-Mail Adressen (mail1,mai2,mailn)</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></td></tr><tr><td><input class=\"ui-input-hofo\" type=\"text\" id=\"cmailE\" placeholder=\"admin@musterstadtwerk.de\"/></td></tr><tr><td><span style=\"float: left\">Eskalationsmailadressen (mail1,mail2,mailn)</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></td></tr><tr><td><input class=\"ui-input-hofo\" type=\"text\" id=\"cesmailE\" placeholder=\"escalation-manager@musterstadtwerk.de\"/></td></tr>" +
                 "<tr><td><span style=\"float: left\">Kontakt Adresse</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></td></tr><tr><td><div class=\"ui-input-hofo\" contenteditable=\"true\" id=\"caddressE\"></div></td></tr>" +
+                "<tr><td><span style=\"float: left\">Bemerkungen die im Report angezeigt werden sollen</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></td></tr><tr><td><textarea class=\"ui-input-hofo\" id=\"caddressW\"></textarea></td></tr>" +
                 "</table>" +
                 "</div>" +
                 "<div id=\"CreateCustomerMiddle\">" +
@@ -272,8 +276,9 @@ public class ManagedServiceBasics extends HttpServlet {
                 "            SPEICHERN: function() {\n" +
                 "                var ccommE = base64_encode( $('#ccommE div.jqte_editor').html() ).replace(/\\+/g,'78');\n" +
                 "                var caddressE = base64_encode( $('#caddressE').html() ).replace(/\\+/g,'78');\n" +
+                "                var repcom = base64_encode( $('#caddressW').val() ).replace(/\\+/g,'78');\n" +
                 "                $.ajax({\n" +
-                "                    url: '/gateway/exec/UpdateCustomer?cuid=' + base64_encode( $('#cnameEselect').val() ) + '&cname=' + base64_encode( $('#cnameEselect option:selected').text() ) + '&cnumber=' + base64_encode( $('#cnumberE').val() ) + '&cmail=' + base64_encode( $('#cmailE').val() ) + '&cesmail=' + base64_encode( $('#cesmailE').val() ) + '&caddress=' + caddressE + '&ccomm=' + ccommE + '&ct1=' + base64_encode( $('#ContractType1').val() ) + '&ct1an=' + base64_encode( $('#ContractType1AN').val() ) + '&ct1pv=' + base64_encode( $('#ContractType1PV').val() ) + '&ct1pi=' + base64_encode( $('#ContractType1PI').val() ),\n" +
+                "                    url: '/gateway/exec/UpdateCustomer?cuid=' + base64_encode( $('#cnameEselect').val() ) + '&cname=' + base64_encode( $('#cnameEselect option:selected').text() ) + '&cnumber=' + base64_encode( $('#cnumberE').val() ) + '&cmail=' + base64_encode( $('#cmailE').val() ) + '&cesmail=' + base64_encode( $('#cesmailE').val() ) + '&caddress=' + caddressE + '&ccomm=' + ccommE + '&ct1=' + base64_encode( $('#ContractType1').val() ) + '&ct1an=' + base64_encode( $('#ContractType1AN').val() ) + '&ct1pv=' + base64_encode( $('#ContractType1PV').val() ) + '&ct1pi=' + base64_encode( $('#ContractType1PI').val() ) + '&repcom=' + repcom,\n" +
                 "                    crossDomain: true,\n" +
                 "                    success: function(json) {\n" +
                 "                        if (json.EXEC == '0') {\n" +
@@ -387,6 +392,8 @@ public class ManagedServiceBasics extends HttpServlet {
                 "<tr><td><input class=\"ui-input-hofo\" type=\"text\" placeholder=\"IH\" id=\"cotrsn\"/></td><td><input class=\"ui-input-hofo\" type=\"text\" placeholder=\"Inhouse\" id=\"cotrln\"/></td></tr>" +
                 "<tr><td colspan=2><span style=\"float: left\">Welche Pflegeaufgaben sind diesem Vertragstyp zugeordnet</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></td></tr>" +
                 "<tr><td><div class=\"ui-input-hofo\" id=\"mactions\"><div id=\"mactionsc\"></div></div></td></tr>" +
+                "<tr><td colspan=2><br><span style=\"float: left\">Bemerkungen die in einem Report angezeigt werden sollen</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></td></tr>" +
+                "<tr><td><div id=\"mactionsC\"><textarea id=\"mactionsCc\" class=\"ui-input-hofo\"></textarea></div></td></tr>" +                    
                 "</table>" +
                 "</div>" +
                 "</div>');\n" +
@@ -406,8 +413,9 @@ public class ManagedServiceBasics extends HttpServlet {
                 "        buttons: { \n" +
                 "            SPEICHERN: function() {\n" +
                 "                var mactions = base64_encode( $('#mactions div.jqte_editor').html() ).replace(/\\+/g,'78');\n" +
+                "                var cotrcom = base64_encode( $('#mactionsCc').val() ).replace(/\\+/g,'78');\n" + 
                 "                $.ajax({\n" +
-                "                    url: '/gateway/exec/CreateContractType?cotrsn=' + base64_encode( $('#cotrsn').val() ) + '&cotrln=' + base64_encode( $('#cotrln').val() ) + '&mactions=' + mactions,\n" +
+                "                    url: '/gateway/exec/CreateContractType?cotrsn=' + base64_encode( $('#cotrsn').val() ) + '&cotrln=' + base64_encode( $('#cotrln').val() ) + '&mactions=' + mactions + '&cotrcom=' + cotrcom,\n" +
                 "                    crossDomain: true,\n" +
                 "                    success: function(json) {\n" +
                 "                        if (json.EXEC == '1') {\n" +
@@ -446,6 +454,7 @@ public class ManagedServiceBasics extends HttpServlet {
                 "            $.each(json.CONTRACT, function() {\n" +
                 "                $('#cotrlnE').html(base64_decode( this.COTRLN ));\n" +
                 "                $('#mactionsE div.jqte_editor').html(base64_decode( this.MACTIONS ));\n" +
+                "                $('#mactionsWc').val(base64_decode( this.REPTEXT ));\n" +
                 "            });\n" +
                 "        },\n" +
                 "        dataType: 'json',\n" +
@@ -467,6 +476,8 @@ public class ManagedServiceBasics extends HttpServlet {
                 "<tr><td><div id=\"cotrsnE\"><select class=\"ui-input-hofo\" id=\"cotrsnEselect\" onchange=\"GetSingleContractType(\\\'cotrsnEselect\\\');\"><option selected value=\"0000\">Vertragstyp w&auml;hlen</option></select></div></td><td><div class=\"ui-input-hofo\" contenteditable=\"true\" id=\"cotrlnE\">&nbsp;</div></td></tr>" +
                 "<tr><td colspan=2><br><span style=\"float: left\">Welche Pflegeaufgaben sind diesem Vertragstyp zugeordnet</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></td></tr>" +
                 "<tr><td><div class=\"ui-input-hofo\" id=\"mactionsE\"><div id=\"mactionsEc\"></div></div></td></tr>" +
+                "<tr><td colspan=2><br><span style=\"float: left\">Bemerkungen die in einem Report angezeigt werden sollen</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></td></tr>" +
+                "<tr><td><div id=\"mactionsW\"><textarea id=\"mactionsWc\" class=\"ui-input-hofo\"></textarea></div></td></tr>" +
                 "</table>" +
                 "</div>" +
                 "</div>');\n" +
@@ -498,9 +509,10 @@ public class ManagedServiceBasics extends HttpServlet {
                 "        buttons: { \n" +
                 "            SPEICHERN: function() {\n" +
                 "                var mactions = base64_encode( $('#mactionsE div.jqte_editor').html() ).replace(/\\+/g,'78');\n" +
-                "                var cotrln = base64_encode( $('#cotrlnE').html() ).replace(/\\+/g,'78');\n" +                
+                "                var cotrln = base64_encode( $('#cotrlnE').html() ).replace(/\\+/g,'78');\n" +       
+                "                var cotrcom = base64_encode( $('#mactionsWc').val() ).replace(/\\+/g,'78');\n" +   
                 "                $.ajax({\n" +
-                "                    url: '/gateway/exec/UpdateContractType?cttyid=' + base64_encode( $('#cotrsnEselect').val() ) + '&cotrsn=' + base64_encode( $('#cotrsnEselect').text() ) + '&cotrln=' + cotrln + '&mactions=' + mactions,\n" +
+                "                    url: '/gateway/exec/UpdateContractType?cttyid=' + base64_encode( $('#cotrsnEselect').val() ) + '&cotrsn=' + base64_encode( $('#cotrsnEselect').text() ) + '&cotrln=' + cotrln + '&mactions=' + mactions + '&cotrcom=' + cotrcom,\n" +
                 "                    crossDomain: true,\n" +
                 "                    success: function(json) {\n" +
                 "                        if (json.EXEC == '1') {\n" +
@@ -1062,9 +1074,10 @@ public class ManagedServiceBasics extends HttpServlet {
                     "    $('#MSIDialog').html('<div id=\"ShowCustomer\" title=\"Kundeninformation.\">" +
                     "<div id=\"CreateCustomerLeft\">" +
                     "<table>" +
-                    "<tr><td><span style=\"float: left\">Kundenname</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></td></tr><tr><td><input class=\"ui-input-hofo\" type=\"text\" id=\"cnameE\" disabled placeholder=\"Musterstadtwerk\"/></td></tr><tr><td><span style=\"float: left\">Kundennummer</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></td></tr><tr><td><input class=\"ui-input-hofo\" type=\"text\" id=\"cnumberE\" disabled placeholder=\"123456\"/></td></tr>" +
+                    "<tr><td><span style=\"float: left\">Kundenname</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></td></tr><tr><td><div class=\"ui-input-hofo\" id=\"cnameE\" placeholder=\"Musterstadtwerk\"></div></td></tr><tr><td><span style=\"float: left\">Kundennummer</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></td></tr><tr><td><input class=\"ui-input-hofo\" type=\"text\" id=\"cnumberE\" disabled placeholder=\"123456\"/></td></tr>" +
                     "<tr><td><span style=\"float: left\">Kontakt E-Mail Adressen (mail1,mai2,mailn)</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></td></tr><tr><td><input class=\"ui-input-hofo\" type=\"text\" id=\"cmailE\" disabled placeholder=\"admin@musterstadtwerk.de\"/></td></tr><tr><td><span style=\"float: left\">Eskalationsmailadressen (mail1,mail2,mailn)</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></td></tr><tr><td><input class=\"ui-input-hofo\" type=\"text\" id=\"cesmailE\" disabled placeholder=\"escalation-manager@musterstadtwerk.de\"/></td></tr>" +
-                    "<tr><td><span style=\"float: left\">Kontakt Adresse</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></td></tr><tr><td><div class=\"ui-input-hofo\" id=\"caddressE\"></div></td></tr>" +
+                    "<tr><td><span style=\"float: left\">Kontakt Adresse</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></td></tr><tr><td><div class=\"ui-input-hofo\" id=\"caddressE\" disabled></div></td></tr>" +
+                    "<tr><td><span style=\"float: left\">Bemerkungen die im Report angezeigt werden sollen</span><span style=\"float: left; margin-top: 0px;\" class=\"ui-icon ui-icon-triangle-1-s\"></span></td></tr><tr><td><textarea class=\"ui-input-hofo\" id=\"caddressK\" disabled></textarea></td></tr>" +
                     "</table>" +
                     "</div>" +
                     "<div id=\"CreateCustomerMiddle\">" +
@@ -1092,12 +1105,13 @@ public class ManagedServiceBasics extends HttpServlet {
                     "                crossDomain: true,\n" +
                     "                success: function(json) {\n" +
                     "                    $.each(json.CUSTOMER, function() {\n" +
-                    "                        $('#cnameE').val(base64_decode( this.CUNM ));\n" +
+                    "                        $('#cnameE').html(base64_decode( this.CUNM ));\n" +
                     "                        $('#cnumberE').val(base64_decode( this.CUNR ));\n" +
                     "                        $('#cmailE').val(base64_decode( this.CUMAIL ));\n" +
                     "                        $('#cesmailE').val(base64_decode( this.CUESKMAIL ));\n" +
                     "                        $('#caddressE').html(base64_decode( this.CUADDR ));\n" +
                     "                        $('#ccommE').html(base64_decode( this.CUCOMM ));\n" +
+                    "                        $('#caddressK').val(base64_decode( this.REPTEXT ));\n" +
                     "                    });\n" +
                     "                    $('#ContractsDivInner').html('');\n" +
                     "                    $.each(json.CONTRACTS, function() {\n" +

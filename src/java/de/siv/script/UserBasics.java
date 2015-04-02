@@ -43,6 +43,8 @@ public class UserBasics extends HttpServlet {
         Integer CFGM=0; if(Executions.UserIsPermitted(Uid,"config_mail")) { CFGM=1; }
         Integer CFGUM=0; if(Executions.UserIsPermitted(Uid,"config_usermanagement")) { CFGUM=1; }
         Integer CFGMM=0; if(Executions.UserIsPermitted(Uid,"config_mailing")) { CFGMM=1; }
+        Integer MSVAB=0; if(Executions.UserIsPermitted(Uid,"managed_services_vab")) { MSVAB=1; }
+        Integer MSREP=0; if(Executions.UserIsPermitted(Uid,"reporting")) { MSREP=1; }
         
         if(Executions.UserIsPermitted(Uid,"addlink")) {
             out.println("\n" +
@@ -127,6 +129,10 @@ public class UserBasics extends HttpServlet {
             //    out.println("                <li><a href=\"#ConfigurationTabs9\">Mailing Monitoring</a></li>\\n\\");
             //}
             
+            if(MSREP == 1 && MSVAB == 1) {
+                out.println("                <li><a href=\"#ConfigurationTabs10\">Reports</a></li>\\n\\");
+            }
+            
             if(CFGUM == 1) {
                 out.println("                <li><a href=\"#ConfigurationTabs2\">Nutzerverwaltung</a></li>\\n\\");
                 out.println("                <li><a href=\"#ConfigurationTabs3\">Rechteverwaltung</a></li>\\n\\");
@@ -169,6 +175,21 @@ public class UserBasics extends HttpServlet {
 "                </div>" +
 "            </div>\\n\\");
             
+            }
+
+            if(MSREP == 1 && MSVAB == 1) {
+                
+                out.println("            <div id=\"ConfigurationTabs10\">" +
+"                <div id=\"ConfigurationSection\">" +
+"                    <div id=\"ConfigurationSectionTitle\">Bemerkungen</div>" +
+"                    <div id=\"LastPage\"><textarea id=\"LastPageContent\"></textarea><br><button onclick=\"UpdateConfigReporting(\\'LastPageContent\\',\\'LastPageComment\\');\">Festlegen</button></div>" +
+"                </div>" +
+"                <div id=\"ConfigurationSection\">" +
+"                    <div id=\"ConfigurationSectionTitle\">Ansprechpartner</div>" +
+"                    <div id=\"LastPageContacts\"><textarea id=\"LastPageContactsContent\"></textarea><br><button onclick=\"UpdateConfigReporting(\\'LastPageContactsContent\\',\\'LastPageContactsComment\\');\">Festlegen</button></div>" +
+"                </div>" +
+"            </div>\\n\\");
+                
             }
             
             if(CFGUM == 1) {
@@ -300,6 +321,8 @@ public class UserBasics extends HttpServlet {
 "    $('#MailFContent').jqte();\n" +
 "    $('#MailingMonitoringGroupAdd').button();\n" +
 "    $('#MailingMonitoringTimeAdd').button();\n" +
+"    $('#LastPage button').button();\n" +
+"    $('#LastPageContacts button').button();\n" +
 "    $('input[type=text]').addClass('ui-input-hofo');\n" +
 "\n" +
 "\n");
@@ -316,12 +339,20 @@ public class UserBasics extends HttpServlet {
         
             }
             
-            if(CFGMM == 1) {
+            if(MSREP == 1 && MSVAB == 1) {
+                
+                out.println("" +
+"            GetLastPageComment();\n" +
+"            GetLastPageContactsComment();\n");
+                
+            }
+            
+            /*if(CFGMM == 1) {
 
                 out.println("" +
 "            FillMonitoringMailing();\n");
         
-            }
+            }*/
 
             if(MO == 1) {
 
@@ -799,9 +830,9 @@ public class UserBasics extends HttpServlet {
 "        crossDomain: true,\n" +
 "        success: function(json) {\n" +
 "            if (json.ADD == \"1\") {\n" +
-"                DialogMailComplete(\"#DialogSuccess\",\"Mail Konfiguration hinzugef&uuml;gt\",\"Mail Konfiguration wurde erfolgreich hinzugef&uuml;gt.\");\n" +
+"                DialogMailComplete(\"#Dialog\",\"Mail Konfiguration hinzugef&uuml;gt\",\"Mail Konfiguration wurde erfolgreich hinzugef&uuml;gt.\");\n" +
 "            } else {\n" +
-"                DialogMailComplete(\"#DialogSuccess\",\"+++ Fehler beim hinzuf&uuml;gen der Mail Konfiguration +++\",\"<font color=red>Die Mail Konfiguration konnte NICHT hinzugef&uuml;gt werden.</font>\");\n" +
+"                DialogMailComplete(\"#Dialog\",\"+++ Fehler beim hinzuf&uuml;gen der Mail Konfiguration +++\",\"<font color=red>Die Mail Konfiguration konnte NICHT hinzugef&uuml;gt werden.</font>\");\n" +
 "            }\n" +
 "        },\n" +
 "        dataType: 'json',\n" +
@@ -812,27 +843,52 @@ public class UserBasics extends HttpServlet {
             
             }
 
-            if(CFGMM == 1) {
+            if(MSREP == 1 && MSVAB == 1) {
             
             out.println("\n" +
-"function FillMonitoringMailing() {\n" +
+"function GetLastPageComment() {\n" +
 "    $.ajax({\n" +
-"        url: '/gateway/exec/MonitoringMailingOverview',\n" +
+"        url: '/gateway/reporting/GetLastPageComment',\n" +
 "        crossDomain: true,\n" +
 "        success: function(json) {\n" +
-"            $('#MailingMonitoringGroupList table').html('<tr><th>Nutzername:</th><th>Erstellt:</th><th>Zuletzt angemeldet:</th><th>Aktiv:</th><th></th></tr>');\n" +
-"            $.each(json.GROUPS, function() {\n" +
-"                $('#MailingMonitoringGroupList table').append('<tr><td>' + base64_decode( this.NME ) + '</td><td>' + this.ACK + '</td><td>' + this.DTM + '</td><td>' + this.ALT + '</td><td><img onclick=\"DeleteEntry(\\'USER\\',\\'' + this.MGID + '\\')\" src=\"public/images/minus-circle.png\" title=\"Mailgruppe l&ouml;schen\"/></td></tr>');\n" +
-"            });\n" +
-"            $('#MailingMonitoringTimeList table').html('<tr><th>Name:</th><th>Beschreibung:</th><th></th></tr>');\n" +
-"            $.each(json.SCHEDULES, function() {\n" +
-"                $('#MailingMonitoringTimeList table').append('<tr><td>' + base64_decode( this.TZNA ) + '</td><td>' + base64_decode( this.TZDSC ) + '</td><td><img onclick=\"DeleteEntry(\\'GROUP\\',\\'' + this.TZID + '\\')\" src=\"public/images/minus-circle.png\" title=\"Zeitplan l&ouml;schen\"/></td></tr>');\n" +
-"            });\n" +
+"            $('#LastPageContent').val(base64_decode(json.COMMENT));\n" +
 "        },\n" +
 "        dataType: 'json',\n" +
 "        cache: false\n" +
 "    });\n" +
 "}\n");    
+            
+            out.println("\n" +
+"function UpdateConfigReporting(id,key) {\n" +
+"    var val = base64_encode( $('#' + id + '').val() ).replace(/\\+/g,'78');\n" +
+"    $.ajax({\n" +
+"        url: '/gateway/reporting/UpdateConfigReporting?key=' + base64_encode( key ) + '&val=' + val,\n" +
+"        crossDomain: true,\n" +
+"        success: function(json) {\n" +
+"            if (json.ADD == \"1\") {\n" +
+"                DialogMailComplete(\"#Dialog\",\"Reporting Konfiguration hinzugef&uuml;gt\",\"Reporting Konfiguration wurde erfolgreich aktualisiert.\");\n" +
+"            } else {\n" +
+"                DialogMailComplete(\"#Dialog\",\"+++ Fehler beim hinzuf&uuml;gen der Reporting Konfiguration +++\",\"<font color=red>Die Reporting Konfiguration konnte NICHT aktualisiert werden.</font>\");\n" +
+"            }\n" +
+"        },\n" +
+"        dataType: 'json',\n" +
+"        cache: false\n" +
+"    });\n" +
+"}\n" +
+                "\n");    
+            
+            out.println("\n" +
+"function GetLastPageContactsComment() {\n" +
+"    $.ajax({\n" +
+"        url: '/gateway/reporting/GetLastPageContactsComment',\n" +
+"        crossDomain: true,\n" +
+"        success: function(json) {\n" +
+"            $('#LastPageContactsContent').val(base64_decode(json.COMMENT));\n" +
+"        },\n" +
+"        dataType: 'json',\n" +
+"        cache: false\n" +
+"    });\n" +
+"}\n");  
             
             }
             

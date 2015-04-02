@@ -78,7 +78,15 @@ public class Html {
     }
     
     static public String printSectionMenu(String uid,String mod) throws FileNotFoundException, IOException, NamingException, SQLException {
-        String replace = "<div id=\"search-tool-tip\"><div id=\"search-tool-tip-header\"><span>Wonach wollen Sie suchen?</span><span title='Tooltip Schlie&szlig;en' onclick=\"closeTooltip('search-tool-tip');\" style='cursor: pointer; margin-top: 1px;' class='ui-icon ui-icon-close'></span></div><div id=\"search-tool-tip-content\"><table><tr><td><input type=\"radio\" name=\"search\" value=\"Hosts\" onclick=\"setValue('search-field','Host: ');\">Hosts</td><td><input type=\"radio\" name=\"search\" value=\"Services\" onclick=\"setValue('search-field','Service: ');\">Services</td></tr><tr><td><input type=\"radio\" name=\"search\" value=\"Kunden\" onclick=\"setValue('search-field','Kunde: ');\">Kunden</td><td><!--input type=\"radio\" name=\"search\" value=\"Vertrag\" onclick=\"setValue('search-field','Vertrag: ');\">Vertrag--></td></tr><tr><!--td><input type=\"radio\" name=\"search\" value=\"LDAP\" onclick=\"setValue('search-field','LDAP: ');\">LDAP</td><td><input type=\"radio\" name=\"search\" value=\"Vertrag\" onclick=\"setValue('search-field','Vertrag: ');\">Vertrag--></td></tr></table></div></div>";
+        String replace = "<div id=\"search-tool-tip\"><div id=\"search-tool-tip-header\"><span>Wonach wollen Sie suchen?</span><span title='Tooltip Schlie&szlig;en' onclick=\"closeTooltip('search-tool-tip');\" style='cursor: pointer; margin-top: 1px;' class='ui-icon ui-icon-close'></span></div><div id=\"search-tool-tip-content\"><table>";
+        if(Executions.UserIsPermitted(uid,"monitoring")) {
+            replace+= "<tr><td><input type=\"radio\" name=\"search\" value=\"Hosts\" onclick=\"setValue('search-field','Host: ');\">Hosts</td><td><input type=\"radio\" name=\"search\" value=\"Services\" onclick=\"setValue('search-field','Service: ');\">Services</td></tr>";
+        }
+        if(Executions.UserIsPermitted(uid,"managed_services")) {
+            replace+= "<tr><td><input type=\"radio\" name=\"search\" value=\"Kunden\" onclick=\"setValue('search-field','Kunde: ');\">Kunden</td><td><!--input type=\"radio\" name=\"search\" value=\"Vertrag\" onclick=\"setValue('search-field','Vertrag: ');\">Vertrag--></td></tr><tr><!--td><input type=\"radio\" name=\"search\" value=\"LDAP\" onclick=\"setValue('search-field','LDAP: ');\">LDAP</td><td><input type=\"radio\" name=\"search\" value=\"Vertrag\" onclick=\"setValue('search-field','Vertrag: ');\">Vertrag--></td></tr>";
+        }
+        
+        replace+= "</table></div></div>";
         
             if(mod.equals("NavigationOpen")) {
                 replace += "<section id='left-pane'><section id='navigation-top'><br>";
@@ -145,11 +153,11 @@ public class Html {
                 replace += "</section><section id='navigation-bottom'>";
                 
                 if(Executions.UserIsPermitted(uid,"profile")) {
-                    replace += "    <span id='profile' class='ui-nav-tile ui-nav-normal ui-nav-hover' onclick=\"UserProfile('" + Base64Coder.encodeString(uid) + "');\"><div><img src='public/images/magazine-128.png' />Profileinstellungen</div></span></span>";
+                    replace += "    <span id='profile' class='ui-nav-tile ui-nav-normal ui-nav-hover' onclick=\"UserProfile('" + Base64Coder.encodeString(uid) + "');\"><div><img src='public/images/magazine-128.png' />Profil</div></span></span>";
                 }
                 
                 if(Executions.UserIsPermitted(uid,"config")) {                
-                    replace += "    <span id='config' class='ui-nav-tile ui-nav-normal ui-nav-hover' onclick=\"OpenWindow('Configuration','_self');\"><div><img src='public/images/configure-128.png' />Konfiguration</div></span>\n";
+                    replace += "    <span id='config' class='ui-nav-tile ui-nav-normal ui-nav-hover' onclick=\"OpenWindow('Configuration','_self');\"><div><img src='public/images/configure-128.png' />Einstellungen</div></span>\n";
                 }
                 
                 replace += "<br>\n";
@@ -160,41 +168,46 @@ public class Html {
                 
                 replace += "<section id='menu'><div id='bg-menu' class='ui-opacity'></div><div id='bg-user-menu' class='ui-opacity-med'></div>";
                 replace += "    <div id='logo-title'>";
-                replace += "        <font class='logo-red'>kVASy&reg;</font><font class='logo-blue'>System Control</font>";
+                replace += "        <font class='logo-red'>C&C</font><font class='logo-blue'>- Reports</font>";
                 replace += "    </div>";
                 replace += "    <div id='logo-img'>";
                 replace += "        <img src='public/images/SIV_AG_Logo_RGB_Web.png' title='SIV.AG'/>";
                 replace += "    </div>";
                 replace += "    <div id='logo-subtitle'>";
-                replace += "        Version 3 Build 2015.01";
+                replace += "        Version 1 Build 2015.03";
                 replace += "    </div>";
                 replace += "    <div id='menu-locator'>";
                 replace += "    </div>";
                 replace += "</section>";
                 
-                replace += "<section id='monitoring-menu'><div id='monitoring-view'></div></section>";
+                if(Executions.UserIsPermitted(uid,"monitoring")) {
+                    replace += "<section id='monitoring-menu'><div id='monitoring-view'></div></section>";
+                }
+                
                 replace += "<section id='user-menu'><div id='UserMenu' class='ui-user-menu'><span class='login_username' style='float: left'></span>";
                 
                 replace += "<a href='logout'><span title='Logout' style='float: left; margin-top: 1px;' class='ui-icon ui-icon-power'></span></a></div></section><section id='user-picture'><img id='UserProfileConfig' src='public/images/DefaultProfile.png' /></section>";
                 
                 replace += "<section id='content-index'>";
 
-                if(Executions.UserIsPermitted(uid,"liveticker")) {
-                    replace += "<section id='big-taov'></section>";
-                    replace += "<div id='DialogSuccess'></div>";
+                if(Executions.UserIsPermitted(uid,"monitoring")) {
+                    if(Executions.UserIsPermitted(uid,"liveticker")) {
+                        replace += "<section id='big-taov'></section>";
+                        replace += "<div id='DialogSuccess'></div>";
+                    }
                 }
                     
             } else if (mod.equals("Login")) { 
                 replace += "<section id='login-top'></section><section id='login-bottom'></section>";
                 replace += "<section id='menu'><div id='bg-menu' class='ui-opacity'></div><div id='bg-user-menu' class='ui-opacity-med'></div>";
                 replace += "    <div id='logo-title'>";
-                replace += "        <font class='logo-red'>kVASy&reg;</font><font class='logo-blue'>System Control</font>";
+                replace += "        <font class='logo-red'>C&C</font><font class='logo-blue'>- Reports</font>";
                 replace += "    </div>";
                 replace += "    <div id='logo-img'>";
                 replace += "        <img src='public/images/SIV_AG_Logo_RGB_Web.png' title='SIV.AG'/>";
                 replace += "    </div>";
                 replace += "    <div id='logo-subtitle'>";
-                replace += "        Version 3 Build 2015.01";
+                replace += "        Version 1 Build 2015.03";
                 replace += "    </div>";
                 replace += "    <div id='menu-locator'>";
                 replace += "    </div>";
@@ -209,13 +222,17 @@ public class Html {
         return replace;
     }
     
-    static public String printSectionBottom(String uid) {
-        String replace = ""
-                + "</section>"
-                + "<div id='Dialog'></div><div id='LiveDialog'></div>"
-                + "<section id='bottom'>"
-                + "</section>"
-                + "";
+    static public String printSectionBottom(String uid) throws FileNotFoundException, IOException, NamingException, SQLException {
+        String replace = "";
+        replace+="</section>";
+        replace+="<div id='Dialog'></div><div id='LiveDialog'></div>";
+        
+        if(Executions.UserIsPermitted(uid,"monitoring")) {
+            replace+="<section id='bottom'>";
+            replace+="</section>";
+        }
+        
+        replace+="";
         return replace;
     }
     
@@ -243,9 +260,15 @@ public class Html {
         return replace;
     }
     
-    static public String printSidebar(String mod) {
+    static public String printSidebar(String mod, String uid) throws FileNotFoundException, IOException, NamingException, SQLException  {
         String replace = "        <div id='SidebarSmall'>\n";
-        replace+="            <div id='LivetickerSidebar'></div>\n";
+        
+        if(Executions.UserIsPermitted(uid,"monitoring")) {
+            if(Executions.UserIsPermitted(uid,"liveticker")) {
+                replace+="            <div id='LivetickerSidebar'></div>\n";
+            }
+        }
+        
         replace+="        </div>\n";
         replace+="        <div id='Sidebar'>\n";
         replace+="            <div id='SidebarContent'>\n";
@@ -258,12 +281,16 @@ public class Html {
         return replace;
     }
     
-    static public String printBottombar(String mod) {
-        String replace = "        <div id='SidebarBottomSmall'>\n";
-        replace+="            <div id='SlimTaov'></div>\n";
-        replace+="        </div>\n";
-        replace+="        <div id='SidebarBottom'>\n";
+    static public String printBottombar(String mod, String uid) throws FileNotFoundException, IOException, NamingException, SQLException {
+        String replace = "";
         
+        if(Executions.UserIsPermitted(uid,"monitoring")) {
+            replace+="        <div id='SidebarBottomSmall'>\n";
+            replace+="            <div id='SlimTaov'></div>\n";
+            replace+="        </div>\n";
+            replace+="        <div id='SidebarBottom'>\n";
+        }
+                
         replace+="        </div>\n";
         return replace;
     }

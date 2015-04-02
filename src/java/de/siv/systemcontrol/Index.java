@@ -27,6 +27,8 @@ public class Index extends HttpServlet {
             throws ServletException, IOException {
         try {
             if (Executions.UserExist(Uid)) {
+                if (Executions.UserIsPermitted(Uid,"monitoring")) {
+                
                 Executions.UpdateLastLogin(Uid);
                 Executions.UpdateUserIsLoggedIn(Uid);
                 PrintWriter out = response.getWriter();
@@ -107,10 +109,14 @@ public class Index extends HttpServlet {
                     + "    <div id='last-comments-content'></div>\n"
                     + "            </div>\n");
                 
-                out.println(Html.printSectionBottom(null));
-                out.println(Html.printSidebar(null));
-                out.println(Html.printBottombar(null));
+                out.println(Html.printSectionBottom(Uid));
+                out.println(Html.printSidebar(null,Uid));
+                out.println(Html.printBottombar(null,Uid));
                 out.println(Html.closeBodyCloseHtml(null));
+                
+                } else {
+                    response.sendRedirect("ManagedServices");
+                }
             } else {
                 Logger.getLogger(Index.class.getName()).log(Level.SEVERE, null, "");
                 response.sendRedirect("loginError?e=2");

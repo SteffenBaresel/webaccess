@@ -43,7 +43,7 @@ public class Reporting extends HttpServlet {
                 response.setContentType("text/html; charset=utf-8");
                 out.println(Html.openHtmlAndHead(null));
                 out.println(Html.includeMeta(null));
-                out.println("    <title>Reporting - kVASy&reg; System Control</title>");
+                out.println("    <title>Reporting - SuS-Reports</title>");
                 out.println(Html.includeJs("Reporting"));
                 out.println(Html.includeCss("Reporting"));
                 out.println(""
@@ -90,8 +90,17 @@ public class Reporting extends HttpServlet {
                     out.println("    <select id='ReportingSelect' class='ui-input-hofo'><option value='0000' selected>Bitte Kunden w&auml;hlen!</option></select><br>");
                     out.println("    <input id='ReportingInput1' class='ui-input-hofo' type='text' placeholder='Von ...' /><br>");
                     out.println("    <input id='ReportingInput2' class='ui-input-hofo' type='text' placeholder='Bis ...' /><br>");
-                    out.println("    <button id='ReportingButton1' class='ui-input-hofo' onclick='OpenReport();'>Bericht Erstellen ...</button>");
+                    out.println("    <button id='ReportingButton1' class='ui-input-hofo' onclick='OpenReport();'>Bericht erstellen ...</button>");
+                    out.println("    <button id='ReportingButton2' class='ui-input-hofo' onclick='ScheduleReport();'>Bericht einplanen ...</button>");
                     out.println("</div>");
+                    
+                    out.println("<script type='text/javascript'>$(function() { GetCron(); });</script>");
+                    out.println("<div id='CronDiv'>");
+                    out.println("    <div id='ReportingText'><span style='float: left; margin-top: 0px;'>Job Scheduler</span><span class='ui-icon ui-icon-triangle-1-s' style='float: left; margin-top: 0px;'></span></div><br>");
+                    out.println("    <textarea id='CronArea' class='ui-input-hofo'></textarea><br>");
+                    out.println("    <button id='CronButton1' class='ui-input-hofo' onclick='UpdateCron();'>Konfiguration speichern ...</button>");
+                    out.println("</div>");
+                    out.println("    <div id='CronList'></div>");
                 }
                 
                 /* Footer */

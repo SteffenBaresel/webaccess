@@ -674,17 +674,19 @@ public class ManagedServiceBasics extends HttpServlet {
                 "        $('#CSEDscOverLay').css('display','none');\n" +
                 "        $('#CreateServiceEntryLeftMF').css('display','block');" +
                 "        $('#CreateServiceEntryLeftMH').css('display','block');" +
-                "        $('#CreateServiceEntryLeftMC div.jqte').css('height','396px');" +
-                "        $('#CreateServiceEntryLeftMC .jqte_editor').css('height','347px');" +
-                "        $('#CreateServiceEntryLeftMC .jqte_source').css('height','347px');" +
+                //"        $('#CreateServiceEntryLeftMC div.jqte').css('height','396px');" +
+                //"        $('#CreateServiceEntryLeftMC .jqte_editor').css('height','347px');" +
+                //"        $('#CreateServiceEntryLeftMC .jqte_source').css('height','347px');" +
+                "        $('#CreateServiceEntryLeftMC textarea').css('height','396px');" +
                 "        $('#CSEDsc2').css('color','green');\n" +
                 "    } else {\n" +
                 "        $('#CSEDscOverLay').css('display','block');\n" +
                 "        $('#CreateServiceEntryLeftMF').css('display','none');" +
                 "        $('#CreateServiceEntryLeftMH').css('display','none');" +
-                "        $('#CreateServiceEntryLeftMC div.jqte').css('height','665px');" +
-                "        $('#CreateServiceEntryLeftMC .jqte_editor').css('height','616px');" +
-                "        $('#CreateServiceEntryLeftMC .jqte_source').css('height','616px');" +
+                //"        $('#CreateServiceEntryLeftMC div.jqte').css('height','665px');" +
+                //"        $('#CreateServiceEntryLeftMC .jqte_editor').css('height','616px');" +
+                //"        $('#CreateServiceEntryLeftMC .jqte_source').css('height','616px');" +
+                "        $('#CreateServiceEntryLeftMC textarea').css('height','665px');" +
                 "        $('#CSEDsc2').css('color','#000');\n" +
                 "    }" +
                 "}\n" +
@@ -737,13 +739,13 @@ public class ManagedServiceBasics extends HttpServlet {
                 "</div></div>" +
                 "<div id=\"CreateServiceEntryLeft\">" +
                 "<div class=\"ui-input-hofo\" id=\"CreateServiceEntryLeftMH\"><div id=\"CreateServiceEntryLeftMHc\"></div></div>" +
-                "<div class=\"ui-input-hofo\" id=\"CreateServiceEntryLeftMC\"><div id=\"CreateServiceEntryLeftMCc\"></div></div>" +
+                "<div id=\"CreateServiceEntryLeftMC\"><textarea class=\"ui-input-hofo\" id=\"CreateServiceEntryLeftMCc\"></textarea></div>" +
                 "<div class=\"ui-input-hofo\" id=\"CreateServiceEntryLeftMF\"><div id=\"CreateServiceEntryLeftMFc\"></div></div>" +
                 "</div>" +
                 "</div>');\n" +
                 "" +
                 "    $('#CreateServiceEntryLeftMHc').jqte();\n" +
-                "    $('#CreateServiceEntryLeftMCc').jqte();\n" +
+                //"    $('#CreateServiceEntryLeftMCc').jqte();\n" +
                 "    $('#CreateServiceEntryLeftMFc').jqte();\n" +
                 "" +
                 "    $('#CreateServiceEntry').dialog({\n" +
@@ -789,7 +791,7 @@ public class ManagedServiceBasics extends HttpServlet {
                 "                dataType: 'json',\n" +
                 "                cache: false\n" +
                 "            });\n" +
-                "            PrepareHtmlPasteJqte('CreateServiceEntryLeftMC');" +
+                //"            PrepareHtmlPasteJqte('CreateServiceEntryLeftMC');" +
                 "            PrepareHtmlPasteJqte('CreateServiceEntryLeftMH');" +
                 "            PrepareHtmlPasteJqte('CreateServiceEntryLeftMF');" +
                 "        },\n" +
@@ -800,8 +802,10 @@ public class ManagedServiceBasics extends HttpServlet {
                 "                var err=0;\n" +
                 "                var msid=0;\n" +
                 "                var exec=0;\n" +
-                "                var content = base64_encode( $('#CreateServiceEntryLeftMC div.jqte_editor').html() ).replace(/\\+/g,'78');\n" +
-                "                var text = base64_encode( $('#CreateServiceEntryLeftMH div.jqte_editor').html() + '<br>' + $('#CreateServiceEntryLeftMC div.jqte_editor').html() + '<br>' + $('#CreateServiceEntryLeftMF div.jqte_editor').html() ).replace(/\\+/g,'78');\n" +
+                //"                var content = base64_encode( $('#CreateServiceEntryLeftMC div.jqte_editor').html().replace('<br><br>', '<br>') ).replace(/\\+/g,'78');\n" +
+                "                var content = base64_encode( $('#CreateServiceEntryLeftMC textarea').val() ).replace(/\\+/g,'78');\n" +
+                //"                var text = base64_encode( $('#CreateServiceEntryLeftMH div.jqte_editor').html() + '<br>' + $('#CreateServiceEntryLeftMC div.jqte_editor').html().replace('<br><br>', '<br>') + '<br>' + $('#CreateServiceEntryLeftMF div.jqte_editor').html() ).replace(/\\+/g,'78');\n" +
+                "                var text = base64_encode( $('#CreateServiceEntryLeftMH div.jqte_editor').html() + '<br>' + $('#CreateServiceEntryLeftMC textarea').val() + '<br>' + $('#CreateServiceEntryLeftMF div.jqte_editor').html() ).replace(/\\+/g,'78');\n" +
                 "                $('input:radio[name=\"escalate\"]').each( function() {\n" +
                 "                    if ($(this).is(':checked')) {\n" +
                 "                        var c = $(this).val();\n" +
@@ -939,7 +943,7 @@ public class ManagedServiceBasics extends HttpServlet {
                 "            var i = 0;\n" +
                 "            $('#ManagedServiceActionsPage').html('<div id=\"ManagedServiceActionsPageSelected\"></div>')\n" +
                 "            var count = base64_decode( json.COUNT );\n" +
-                "            PagingServiceEntry(count,limit,pnumber);\n" +
+                "            PagingServiceEntrySearch(count,limit,pnumber);\n" +
                 "            $('#ManagedServiceActions').html('<div id=\"ManagedServiceActionsC\"></div>');\n" +
                 "            if(json.ROWS.length == 0) { $('#ManagedServiceActionsC').html('<span class=\"NoEntry\">Keine Eintr&auml;ge vorhanden.</span>'); }\n" +
                 "            $.each(json.ROWS, function() {\n" +
@@ -1060,6 +1064,23 @@ public class ManagedServiceBasics extends HttpServlet {
                 "        onPageClick: function(pageNumber) {\n" +
                 "            var offset = (pageNumber-1)*limit;\n" +
                 "            GetCustomerServiceEntries(id,offset,limit,pageNumber);\n" +
+                "        }" +
+                "    });" +
+                "}\n" +
+                "");
+            
+            out.println("" +
+                "function PagingServiceEntrySearch(count,limit,pnumber) {\n" +
+                "    $('#ManagedServiceActionsPageSelected').pagination({\n" +
+                "        items: count,\n" +
+                "        itemsOnPage: limit,\n" +
+                "        cssStyle: 'compact-theme',\n" +
+                "        currentPage: pnumber,\n" +
+                "        prevText: 'Zur&uuml;ck',\n" +
+                "        nextText: 'Weiter',\n" +
+                "        onPageClick: function(pageNumber) {\n" +
+                "            var offset = (pageNumber-1)*limit;\n" +
+                "            GetSearchServiceEntry(offset,limit,pageNumber);\n" +
                 "        }" +
                 "    });" +
                 "}\n" +

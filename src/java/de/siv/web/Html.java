@@ -92,7 +92,8 @@ public class Html {
                 replace += "<section id='left-pane'><section id='navigation-top'><br>";
                 
                 if(Executions.UserIsPermitted(uid,"sidebarsearch")) {
-                    replace += "<form method='GET' id='search-form'><input type='hidden' name='v'/><input type='text' name='search-field' id='search-field' onkeypress='submitOnEnter(this, event);' onclick='showTooltip();' autofocus='autofocus' autocomplete='off' placeholder='Suchen' /></form>";
+                    //replace += "<form method='GET' id='search-form'><input type='hidden' name='v'/><input type='text' name='search-field' id='search-field' onkeypress='submitOnEnter(this, event);' onclick='showTooltip();' autofocus='autofocus' autocomplete='off' placeholder='Suchen' /></form>";
+                    replace += "<form method='GET' id='search-form'><input type='hidden' name='v'/><input type='text' name='search-field' id='search-field' onkeypress='submitOnEnter(this, event);' autofocus='autofocus' autocomplete='off' placeholder='Suchen' /></form>";
                 }
                     
                 if(Executions.UserIsPermitted(uid,"monitoring")) {
@@ -168,7 +169,7 @@ public class Html {
                 
                 replace += "<section id='menu'><div id='bg-menu' class='ui-opacity'></div><div id='bg-user-menu' class='ui-opacity-med'></div>";
                 replace += "    <div id='logo-title'>";
-                replace += "        <font class='logo-red'>C&C</font><font class='logo-blue'>- Reports</font>";
+                replace += "        <font class='logo-red'>SuS</font><font class='logo-blue'>- Reports</font>";
                 replace += "    </div>";
                 replace += "    <div id='logo-img'>";
                 replace += "        <img src='public/images/SIV_AG_Logo_RGB_Web.png' title='SIV.AG'/>";
@@ -201,7 +202,7 @@ public class Html {
                 replace += "<section id='login-top'></section><section id='login-bottom'></section>";
                 replace += "<section id='menu'><div id='bg-menu' class='ui-opacity'></div><div id='bg-user-menu' class='ui-opacity-med'></div>";
                 replace += "    <div id='logo-title'>";
-                replace += "        <font class='logo-red'>C&C</font><font class='logo-blue'>- Reports</font>";
+                replace += "        <font class='logo-red'>SuS</font><font class='logo-blue'>- Reports</font>";
                 replace += "    </div>";
                 replace += "    <div id='logo-img'>";
                 replace += "        <img src='public/images/SIV_AG_Logo_RGB_Web.png' title='SIV.AG'/>";

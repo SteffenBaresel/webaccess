@@ -34,7 +34,7 @@ public class LoginError extends HttpServlet {
         response.setContentType("text/html; charset=utf-8");
         out.println(Html.openHtmlAndHead(null));
         out.println(Html.includeMeta(null));
-        out.println("    <title>Error Login - kVASy&reg; System Control</title>");
+        out.println("    <title>Error Login - SuS-Reports</title>");
         out.println(Html.includeJs("Login"));
         out.println(Html.includeCss("Login"));
         out.println(""

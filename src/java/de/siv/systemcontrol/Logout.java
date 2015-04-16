@@ -40,7 +40,7 @@ public class Logout extends HttpServlet {
             out.println(Html.openHtmlAndHead(null));
             out.println(Html.includeMeta(null));
             out.println("    <meta http-equiv='Refresh' content='3; URL=./' />");
-            out.println("    <title>Logout - kVASy&reg; System Control</title>");
+            out.println("    <title>Logout - SuS-Reports</title>");
             out.println(Html.includeJs("Login"));
             out.println(Html.includeCss("Login"));
             out.println(""

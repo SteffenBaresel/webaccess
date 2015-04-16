@@ -38,7 +38,7 @@ public class Index extends HttpServlet {
                 response.setContentType("text/html; charset=utf-8");
                 out.println(Html.openHtmlAndHead(null));
                 out.println(Html.includeMeta(null));
-                out.println("    <title>Startseite - kVASy&reg; System Control</title>");
+                out.println("    <title>Startseite - SuS-Reports</title>");
                 out.println(Html.includeJs("Index"));
                 out.println(Html.includeCss("Index"));
                 out.println(""

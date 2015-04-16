@@ -162,6 +162,33 @@ public class UserProfile extends HttpServlet {
                     + "$(function() {\n"
                     + "    $('#search-field').autocomplete({\n"
                     + "        source: function(request, response) {\n"
+                    + "            var sstr = $('#search-field').val();\n"
+                    + "            $('form#search-form').attr('action', '/webaccess/ManagedServices');\n"
+                    + "            $('form#search-form input[name=v]').attr('value','U2VhcmNoQ3VzdG9tZXI=');\n"
+                    + "            $.ajax({\n"
+                    + "                url: '/gateway/search/Autocomplete',\n"
+                    + "                data: {\n"
+                    + "                    t: base64_encode('Customer'),\n"
+                    + "                    v: base64_encode(sstr)\n"
+                    + "                },\n"
+                    + "                success: function( json ) {\n"
+                    + "                    response( $.map( json.AC, function( item ) {\n"
+                    + "                        return {\n"
+                    + "                            label: TextDescape( base64_decode( item.CUNM ) ),\n"
+                    + "                            value: TextDescape( base64_decode( item.CUNM ) ) + ' #' + base64_decode( item.CUID ) + '' \n"
+                    + "                        }\n"
+                    + "                    }));\n"
+                    + "                }\n"
+                    + "            });\n"
+                    + "        },\n"
+                    + "        minLength: 1\n"
+                    + "    });\n"
+                    + "});");
+                
+                /*out.println("\n"
+                    + "$(function() {\n"
+                    + "    $('#search-field').autocomplete({\n"
+                    + "        source: function(request, response) {\n"
                     + "            var ival = $('#search-field').val();\n"
                     + "            var type = ival.substring(0, ival.indexOf(':'));\n"
                     + "            var sstr = $.trim(ival.substring(ival.indexOf(':')+1));\n"
@@ -227,7 +254,8 @@ public class UserProfile extends HttpServlet {
                     + "        },\n"
                     + "        minLength: 1\n"
                     + "    });\n"
-                    + "});");
+                    + "});");*/
+                
             }
         
     }
